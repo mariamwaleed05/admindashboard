@@ -1,10 +1,10 @@
 .burger-btn {
   position: fixed;
-  top: 0.6rem;
+  top: 1.5rem;
   left: 1rem;
   z-index: 50;
   padding: 0.5rem;
-  background: #630005;
+  background: #380202;
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -35,7 +35,7 @@
   left: 0;
   font-family: "Montserrat", sans-serif;
   height: 100vh;
-  background: #450a0a;
+  background: #380202;
   color: white;
   width: 16rem;
   border-radius: 0 1.5rem 1.5rem 0;
@@ -104,12 +104,12 @@
   text-align: left;
 }
 .menu-item:hover {
-  background: #860505;
+  background: #4a0404;
   padding-left: 1.5rem;
 }
 .menu-item.active {
   background: white;
-  color: #7f1d1d;
+  color: #4a0404;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 .menu-label {
@@ -131,9 +131,11 @@
   }
   .sidebar {
     z-index: 40;
+    width: 12rem;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
   }
+
   .sidebar.open {
     transform: translateX(0);
   }
