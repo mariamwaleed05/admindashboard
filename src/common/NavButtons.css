@@ -1,0 +1,76 @@
+.nav-wrapper {
+  position: fixed;       
+  top: 0;
+  right: 0;
+  z-index: 1000;       
+
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 20px;       
+  border-bottom-left-radius: 20px;
+}
+.search-container {
+  background-color: #380202; 
+  height: 50px;
+  width: 280px;
+  border-radius: 25px; 
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  transition: background-color 0.2s;
+}
+.search-container:hover {
+  background-color: #4a0404;
+}
+.search-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+  stroke-width: 3px;
+}
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  margin-left: 10px;
+  width: 100%;
+  font-size: 1rem;
+}
+.nav-btn {
+  background-color: #380202;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative; 
+  transition: transform 0.1s, background-color 0.2s;
+}
+.nav-btn:hover {
+  background-color: #4a0404;
+}
+.nav-btn:active {
+  transform: scale(0.95);
+}
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+  stroke-width: 2.5px;
+}
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 18px;
+  height: 18px;
+  background-color: #550000;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #380202;
+}
