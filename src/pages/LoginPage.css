@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif; 
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #000;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.logo-img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  object-fit: contain;
+}
+
+.login-title {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background-color: #e6e6e6;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  height: 55px;
+}
+
+.icon-wrapper {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-icon-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  opacity: 0.7;
+}
+
+.form-input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  color: #333;
+  padding-left: 10px;
+  font-family: "Montserrat", sans-serif; /* Ensures inputs also use the font */
+}
+
+.form-input::placeholder {
+  color: #555;
+}
+
+.options-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 25px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  gap: 10px;
+}
+
+.custom-checkbox {
+  accent-color: #fff;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid white;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  background: linear-gradient(to right, #4a0000, #750000, #4a0000);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.login-btn:hover {
+  opacity: 0.9;
+}
+
+.forgot-password-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+}
+
+.forgot-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.social-login-section {
+  text-align: center;
+}
+
+.social-login-section p {
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  min-width: 120px;
+  transition: background 0.3s;
+  font-family: "Montserrat", sans-serif;
+}
+
+.social-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.social-icon {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.fb-text {
+  font-weight: 700;
+  color: #fff;
+}
+
+.in-text {
+  font-weight: 700;
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .social-buttons {
+    flex-direction: column;
+  }
+  
+  .social-btn {
+    width: 100%;
+  }
+
+  .login-title {
+    text-align: center;
+  }
+}
