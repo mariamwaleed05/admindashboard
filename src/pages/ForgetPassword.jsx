@@ -9,14 +9,13 @@ const ForgetPassword = () => {
 
   const handleSendCode = () => {
 
-    navigate('/reset-password');
+    navigate('/ResetPassword');
   };
 
   return (
     <div className="forget-container">
       <div className="forget-wrapper">
         
-        {/* Logo Section */}
         <div className="logo-container">
           <img src={logo} alt="Logo" className="logo-img" />
         </div>
@@ -47,7 +46,7 @@ const ForgetPassword = () => {
             <button 
               type="button" 
               className="back-link" 
-              onClick={() => navigate('/login')}
+              onClick={() => navigate('/LoginPage')}
             >
               Back to Login
             </button>
