@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.css';
+import { useState } from 'react';
 import SideBar from '../common/SideBar';
 import NavButtons from '../common/NavButtons';
 import { Eye, Users, TrendingUp, Send, Plus, FolderOpen, Tag, FileText, ArrowRight } from 'lucide-react';
@@ -58,8 +59,34 @@ const Home = () => {
     });
     return `conic-gradient(${gradientParts.join(', ')})`;
   };
+  const [projects] = useState([
+    { id: 1, name: 'UX/UI', icon: '📐' },
+    { id: 2, name: 'Graphic Design', icon: '🎨' }
+  ]);
+
+  const [pages] = useState([
+    { id: 1, name: 'Contact Us', route: '/contact', status: 'Complete' },
+    { id: 2, name: 'About Us', route: '/about', status: 'Complete' }
+  ]);
+
+  const [activities] = useState([
+    { id: 1, text: 'New visitor from LinkedIn', subtext: 'Profile viewed', time: '2 minutes ago' },
+    { id: 2, text: 'Contact form submitted', subtext: 'john.doe@example.com', time: '15 minutes ago' },
+    { id: 3, text: 'Project page viewed', subtext: '/projects/web-app', time: '23 minutes ago' },
+    { id: 4, text: 'Resume downloaded', subtext: 'resume.pdf', time: '1 hour ago' },
+    { id: 5, text: 'Portfolio shared', subtext: 'Twitter referral', time: '2 hours ago' }
+  ]);
+
+  const topPages = [
+    { name: 'home', value: 10000 },
+    { name: 'projects', value: 7500 },
+    { name: 'about', value: 5000 },
+    { name: 'contact', value: 3750 },
+    { name: 'resume', value: 5000 }
+  ];
 
   return ( 
+    <>
     <div className="app-layout">
       
       <div className="sidebar-container">
@@ -215,9 +242,186 @@ const Home = () => {
 
             </div>
           </div>
+
+      <div className="dashboard">
+        <div className="dashboard-container">
+          <div className="top-section">
+            <div className="card">
+              <div className="card-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+                <span>Top Pages</span>
+              </div>
+              <div className="chart-container">
+                <svg width="100%" height="220">
+                  {[0, 2500, 5000, 7500, 10000].map((val, i) => (
+                    <g key={i}>
+                      <line
+                        x1="50"
+                        y1={200 - (val / 10000) * 170}
+                        x2="100%"
+                        y2={200 - (val / 10000) * 170}
+                        className="grid-line"
+                      />
+                      <text
+                        x="5"
+                        y={205 - (val / 10000) * 170}
+                        className="grid-text"
+                      >
+                        {val}
+                      </text>
+                    </g>
+                  ))}
+                  
+                  {topPages.map((page, i) => {
+                    const barWidth = 35;
+                    const spacing = 75;
+                    const x = 70 + i * spacing;
+                    const height = (page.value / 10000) * 170;
+                    
+                    return (
+                      <g key={i}>
+                        <rect
+                          x={x}
+                          y={200 - height}
+                          width={barWidth}
+                          height={height}
+                          className={i === 0 ? 'bar-primary' : 'bar-secondary'}
+                          rx="3"
+                        />
+                        <text
+                          x={x + barWidth / 2}
+                          y="215"
+                          className="bar-label"
+                        >
+                          {page.name}
+                        </text>
+                      </g>
+                    );
+                  })}
+                </svg>
+              </div>
+            </div>
+
+            <div className="card">
+              <div className="card-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+                <span>Recent Activity</span>
+              </div>
+              <div className="activity-list">
+                {activities.map((activity) => (
+                  <div key={activity.id} className="activity-item">
+                    <div className="activity-avatar"></div>
+                    <div className="activity-content">
+                      <div className="activity-text">{activity.text}</div>
+                      <div className="activity-subtext">{activity.subtext}</div>
+                      <div className="activity-time">{activity.time}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="metrics-section">
+            <div className="metric-card">
+              <div className="metric-header">
+                <span>Bounce Rate</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </div>
+              <div className="metric-value">42.3%</div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{width: '42.3%'}}></div>
+              </div>
+            </div>
+
+            <div className="metric-card">
+              <div className="metric-header">
+                <span>Avg. Session Duration</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
+                  <polyline points="18 15 12 9 6 15"/>
+                </svg>
+              </div>
+              <div className="metric-value">3m 24s</div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{width: '65%'}}></div>
+              </div>
+            </div>
+
+            <div className="metric-card">
+              <div className="metric-header">
+                <span>Pages per Session</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
+                  <polyline points="18 15 12 9 6 15"/>
+                </svg>
+              </div>
+              <div className="metric-value">4.8</div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{width: '80%'}}></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bottom-section">
+            <div className="card">
+              <div className="card-title">Recent Projects</div>
+              <div className="card-subtitle">Latest projects added to the system</div>
+              <div className="list-items">
+                {projects.map((project) => (
+                  <div key={project.id} className="list-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <span>{project.name}</span>
+                  </div>
+                ))}
+              </div>
+              <button className="view-all-btn">View All Projects →</button>
+            </div>
+
+            <div className="card">
+              <div className="card-title">Recent Pages</div>
+              <div className="card-subtitle">Latest static pages in the system</div>
+              <div className="list-items">
+                {pages.map((page) => (
+                  <div key={page.id} className="page-item">
+                    <div className="page-info">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                      </svg>
+                      <div>
+                        <div className="page-name">{page.name}</div>
+                        <div className="page-route">{page.route}</div>
+                      </div>
+                    </div>
+                    <span className="page-status">{page.status}</span>
+                  </div>
+                ))}
+              </div>
+              <button className="view-all-btn">View All Pages →</button>
+            </div>
+          </div>
+
+       
+
+
+        </div>
+      </div>
         </div>
       </div>
     </div>
+
+    
+    </>
+  
   );
 }
  
