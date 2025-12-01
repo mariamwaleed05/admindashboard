@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './ForgetPassword.css';
 import logo from '../imgs/logo.png';
 import userIcon from '../imgs/user.png';
+import { Helmet } from "react-helmet";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -13,6 +14,14 @@ const ForgetPassword = () => {
   };
 
   return (
+    <>
+     <Helmet>
+        <title>Forget Password</title>
+        <meta name="description" content="This is the forget password page" />
+        <meta property="og:title" content="forgetpassword" />
+        <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
+     </Helmet>
+   
     <div className="forget-container">
       <div className="forget-wrapper">
         
@@ -27,7 +36,7 @@ const ForgetPassword = () => {
 
         <form className="forget-form">
           
-          <div className="input-group">
+          <div className="input-grouup">
             <div className="icon-wrapper">
               <img src={userIcon} alt="User" className="input-icon-img" />
             </div>
@@ -56,6 +65,7 @@ const ForgetPassword = () => {
 
       </div>
     </div>
+     </>
   );
 };
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './ForgetPassword.css';
 import userIcon from '../imgs/user.png';
 import lockIcon from '../imgs/lock.png';
+import { Helmet } from "react-helmet";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -12,6 +13,14 @@ const ResetPassword = () => {
   };
 
   return (
+    <>
+        <Helmet>
+        <title>Reset Password</title>
+        <meta name="description" content="This is the reset password page" />
+        <meta property="og:title" content="Analytics" />
+        <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
+     </Helmet>
+   
     <div className="forget-container">
       <div className="forget-wrapper">
         
@@ -21,7 +30,7 @@ const ResetPassword = () => {
           
           <p className="form-label">Enter the verification code sent to your email</p>
           
-          <div className="input-group">
+          <div className="input-grouup">
             <div className="icon-wrapper">
               <img src={userIcon} alt="User" className="input-icon-img" />
             </div>
@@ -34,7 +43,7 @@ const ResetPassword = () => {
 
           <p className="form-label spacer-top">Reset Password</p>
 
-          <div className="input-group">
+          <div className="input-grouup">
             <div className="icon-wrapper">
               <img src={userIcon} alt="User" className="input-icon-img" />
             </div>
@@ -45,7 +54,7 @@ const ResetPassword = () => {
             />
           </div>
 
-          <div className="input-group">
+          <div className="input-grouup">
             <div className="icon-wrapper">
               <img src={lockIcon} alt="Lock" className="input-icon-img" />
             </div>
@@ -64,6 +73,7 @@ const ResetPassword = () => {
 
       </div>
     </div>
+     </>
   );
 };
 

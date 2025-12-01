@@ -10,6 +10,7 @@ import {
   Highlighter, Code, Link as LinkIcon, 
   MessageSquare, ImagePlus 
 } from 'lucide-react';
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   const stats = [
@@ -93,6 +94,13 @@ const Home = () => {
 
   return ( 
     <>
+    <Helmet>
+        <title>Dashboard Page</title>
+        <meta name="description" content="This is the dashboard page" />
+        <meta property="og:title" content="Dashboard" />
+        <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
+     </Helmet>
+
     <div className="app-layout">
       
       <div className="sidebar-container">

@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Montserrat", sans-serif; 
-}
 
 body {
   background-color: #000;
@@ -48,7 +42,7 @@ body {
   color: #fff;
 }
 
-.input-group {
+.input-groupp {
   display: flex;
   align-items: center;
   background-color: #e6e6e6;
@@ -81,7 +75,7 @@ body {
   font-size: 1rem;
   color: #333;
   padding-left: 10px;
-  font-family: "Montserrat", sans-serif; /* Ensures inputs also use the font */
+  font-family: "Montserrat", sans-serif; 
 }
 
 .form-input::placeholder {
@@ -117,6 +111,7 @@ body {
   font-size: 1.2rem;
   background: linear-gradient(to right, #4a0000, #750000, #4a0000);
   color: #fff;
+  font-family: "Montserrat", sans-serif; 
   border: none;
   border-radius: 4px;
   cursor: pointer;

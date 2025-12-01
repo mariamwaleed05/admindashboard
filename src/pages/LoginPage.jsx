@@ -4,6 +4,7 @@ import './LoginPage.css';
 import logo from '../imgs/logo.png';
 import userIcon from '../imgs/user.png';
 import lockIcon from '../imgs/lock.png';
+import { Helmet } from "react-helmet";
 
 const LoginPage = () => {
   const navigate = useNavigate(); 
@@ -13,6 +14,14 @@ const LoginPage = () => {
   };
 
   return (
+    <>
+          <Helmet>
+            <title>Login Page</title>
+            <meta name="description" content="This is the login page" />
+            <meta property="og:title" content="Login" />
+            <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
+         </Helmet>
+
     <div className="login-container">
       <div className="login-wrapper">
         
@@ -24,7 +33,7 @@ const LoginPage = () => {
 
         <form className="login-form">
           
-          <div className="input-group">
+          <div className="input-groupp">
             <div className="icon-wrapper">
               <img src={userIcon} alt="User" className="input-icon-img" />
             </div>
@@ -35,7 +44,7 @@ const LoginPage = () => {
             />
           </div>
 
-          <div className="input-group">
+          <div className="input-groupp">
             <div className="icon-wrapper">
               <img src={lockIcon} alt="Lock" className="input-icon-img" />
             </div>
@@ -85,6 +94,7 @@ const LoginPage = () => {
 
       </div>
     </div>
+    </>
   );
 };
 
