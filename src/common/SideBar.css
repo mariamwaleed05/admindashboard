@@ -92,6 +92,7 @@
   width: 100%;
   display: flex;
   font-family: "Montserrat", sans-serif;
+  text-decoration: none;
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
