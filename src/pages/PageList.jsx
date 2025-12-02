@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
 import NavButtons from '../common/NavButtons';
+import './PageList.css';
 
 const PageList = () => {
     return ( 
