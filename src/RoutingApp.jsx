@@ -36,7 +36,7 @@ import ProjectDetails from './pages/ProjectDetails';
                         <Route path='/About' element={<About />} />
                         <Route path='/MediaLibrary' element={<MediaLibrary />} />
                         <Route path='/PageList' element={<PageList />} />
-                        <Route path='/ProjectDeatils' element={<ProjectDetails />} />
+                        <Route path='/ProjectDetails' element={<ProjectDetails />} />
                         <Route path='/Messages' element={<Messages />} />
                         <Route path='/Help' element={<Help />} />
                         <Route path='/Settings' element={<SettingsPage />} />

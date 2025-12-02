@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from "react-helmet";
+import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate
 import NavButtons from '../common/NavButtons';
 import SideBar from '../common/SideBar';
 import './PageList.css';
@@ -12,6 +13,8 @@ import { useLanguage } from '../language/LanguageContext';
 const PageList = () => {
   const { t, language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState('all');
+  
+  const navigate = useNavigate();
 
   const services = [
     { id: 'all', label: t.pageList.filterAll, count: 10, icon: LayoutGrid },
@@ -41,6 +44,10 @@ const PageList = () => {
 
   const isRtl = language === 'ar';
   const directionStyle = { direction: isRtl ? 'rtl' : 'ltr' };
+
+  const handleEditClick = () => {
+    navigate('/ProjectDeatils'); 
+  };
 
   return ( 
     <>
@@ -112,7 +119,13 @@ const PageList = () => {
                       <button className="action-btnn delete-btn" title="Delete">
                         <Trash2 size={20} color="#dc2626" />
                       </button>
-                      <button className="action-btnn edit-btn" title="Edit">
+                      
+                      {/* 4. Added onClick to the Edit Button */}
+                      <button 
+                        className="action-btnn edit-btn" 
+                        title="Edit"
+                        onClick={handleEditClick}
+                      >
                         <Edit2 size={20} color="#000000" />
                       </button>
                     </div>
