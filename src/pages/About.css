@@ -3,13 +3,14 @@
   font-family: 'Montserrat', sans-serif;
   background-color: #000000;
   color: #ffffff;
-  padding: 2rem;
+  padding: 6rem 2rem 2rem 2rem; 
   width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
+
 
 .ps-header {
   margin-bottom: 0.5rem;
