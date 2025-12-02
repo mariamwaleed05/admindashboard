@@ -109,10 +109,10 @@ const PageList = () => {
                     </div>
        
                     <div className="project-actions-bottom">
-                      <button className="action-btn delete-btn" title="Delete">
+                      <button className="action-btnn delete-btn" title="Delete">
                         <Trash2 size={20} color="#dc2626" />
                       </button>
-                      <button className="action-btn edit-btn" title="Edit">
+                      <button className="action-btnn edit-btn" title="Edit">
                         <Edit2 size={20} color="#000000" />
                       </button>
                     </div>
