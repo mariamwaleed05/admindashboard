@@ -2,7 +2,6 @@ import React, { createContext, useState, useContext } from 'react';
 
 const translations = {
   en: {
-    // ... (Keep existing login, sidebar, home translations) ...
     loginTitle: "Log In",
     emailPlaceholder: "Enter email",
     passwordPlaceholder: "Enter password",
@@ -17,7 +16,6 @@ const translations = {
     metaTitle: "Login Page",
     metaDesc: "This is the login page",
     
-    // ... (Keep forget/reset password sections) ...
     forgetTitle: "Forget Password",
     forgetText: "Please enter your email address associated with your account to receive a verification code.",
     enterEmailAddress: "Enter email address",
@@ -36,7 +34,6 @@ const translations = {
     metaResetTitle: "Reset Password",
     metaResetDesc: "This is the reset password page",
 
-    // ... (Keep sidebar section) ...
     sidebar: {
       dashboard: "Dashboard",
       analytics: "Analytics",
@@ -52,7 +49,6 @@ const translations = {
       role: "Main Admin"
     },
 
-    // ... (Keep home section) ...
     home: {
       welcome: "Welcome Back Mariam",
       subtitle: "Here is what you missed.",
@@ -107,7 +103,6 @@ const translations = {
       enterMetaDesc: "Enter Meta Description"
     },
 
-    // ... (Keep pageList section) ...
     pageList: {
       title: "Project List",
       subtitle: "Browse through my portfolio of work across different services",
@@ -122,7 +117,6 @@ const translations = {
       filterPhoto: "Photography"
     },
 
-    // --- NEW SECTION FOR PROJECT DETAILS ---
     uxProjects: {
       mainTitle: "UX/UI Projects",
       subTitle: "Manage portfolio projects",
@@ -132,10 +126,77 @@ const translations = {
       featureDesc: "Mobile app for booking private buses with real-time tracking and QR code verification",
       editBtn: "Edit Project",
       hideBtn: "Hide"
+    },
+
+    aboutPage: {
+      title: "Profile Settings",
+      subTitle: "Update your personal information",
+      
+      personalInfo: "Personal Information",
+      edit: "Edit",
+      bio: "Only thing you will need to know is that I love making unique work that actually stands out.",
+      
+      visMisTitle: "Vision & Mission",
+      vision: "Vision",
+      visionPlace: "Enter Vision",
+      mission: "Mission",
+      missionPlace: "Enter Mission",
+
+      skillsTitle: "Skills",
+      addSkill: "Add Skill",
+      skill1: "Branding",
+      skill2: "Logo Designs",
+      skill3: "User Experience",
+      skill4: "Research",
+
+      eduTitle: "Education",
+      addEdu: "Add Education",
+      uniName: "University Name",
+      uniNamePlace: "Enter University Name",
+      uniLogo: "University Logo",
+      uploadLogo: "Upload Logo",
+      altText: "Alt Text",
+      altTextPlace: "Add Alt Text",
+      degree: "Degree Title",
+      degreePlace: "Enter Degree Title",
+      date: "Date",
+      datePlace: "Enter Date",
+
+      workTitle: "Work Experience",
+      addWork: "Add Experience",
+      compName: "Company Name",
+      compNamePlace: "Enter Company Name",
+      compLogo: "Company Logo",
+      posTitle: "Position Title",
+      posTitlePlace: "Enter Position Title",
+
+      certTitle: "Certificates & Credentials",
+      addCert: "Add Certificate",
+      certLabel: "Certificate",
+      uploadCert: "Upload Certificate",
+
+      hobbyTitle: "Hobbies & Interests",
+      addHobby: "Add Hobby",
+      noHobby: "No hobbies added yet. Click \"Add Hobby\" to get started.",
+
+      contactTitle: "Contact Information & Social Links",
+      addLink: "Add Link",
+      linkedin: "LinkedIn",
+      behance: "Behance",
+      instagram: "Instagram",
+      whatsapp: "Whatsapp",
+      email: "Email",
+
+      seo: "SEO",
+      slug: "Slug Name",
+      slugPlace: "Enter Slug Name",
+      tag: "Page Tag",
+      tagPlace: "Enter Tag",
+      meta: "Meta Description",
+      metaPlace: "Enter Meta Description"
     }
   },
   ar: {
-    // ... (Keep existing login, sidebar, home translations in Arabic) ...
     loginTitle: "تسجيل الدخول",
     emailPlaceholder: "أدخل البريد الإلكتروني",
     passwordPlaceholder: "أدخل كلمة المرور",
@@ -260,6 +321,74 @@ const translations = {
       featureDesc: "تطبيق جوال لحجز الحافلات الخاصة مع تتبع فوري والتحقق عبر رمز الاستجابة السريعة",
       editBtn: "تعديل المشروع",
       hideBtn: "إخفاء"
+    },
+
+    aboutPage: {
+      title: "إعدادات الملف الشخصي",
+      subTitle: "تحديث معلوماتك الشخصية",
+      
+      personalInfo: "المعلومات الشخصية",
+      edit: "تعديل",
+      bio: "الشيء الوحيد الذي تحتاج لمعرفته هو أنني أحب صنع أعمال فريدة تبرز حقاً.",
+      
+      visMisTitle: "الرؤية والرسالة",
+      vision: "الرؤية",
+      visionPlace: "أدخل الرؤية",
+      mission: "الرسالة",
+      missionPlace: "أدخل الرسالة",
+
+      skillsTitle: "المهارات",
+      addSkill: "إضافة مهارة",
+      skill1: "العلامة التجارية",
+      skill2: "تصميم الشعارات",
+      skill3: "تجربة المستخدم",
+      skill4: "البحث",
+
+      eduTitle: "التعليم",
+      addEdu: "إضافة تعليم",
+      uniName: "اسم الجامعة",
+      uniNamePlace: "أدخل اسم الجامعة",
+      uniLogo: "شعار الجامعة",
+      uploadLogo: "رفع الشعار",
+      altText: "النص البديل",
+      altTextPlace: "أضف نص بديل",
+      degree: "المؤهل العلمي",
+      degreePlace: "أدخل المؤهل العلمي",
+      date: "التاريخ",
+      datePlace: "أدخل التاريخ",
+
+      workTitle: "خبرة العمل",
+      addWork: "إضافة خبرة",
+      compName: "اسم الشركة",
+      compNamePlace: "أدخل اسم الشركة",
+      compLogo: "شعار الشركة",
+      posTitle: "المسمى الوظيفي",
+      posTitlePlace: "أدخل المسمى الوظيفي",
+
+      certTitle: "الشهادات والاعتمادات",
+      addCert: "إضافة شهادة",
+      certLabel: "الشهادة",
+      uploadCert: "رفع الشهادة",
+
+      hobbyTitle: "الهوايات والاهتمامات",
+      addHobby: "إضافة هواية",
+      noHobby: "لم تتم إضافة هوايات بعد. انقر على \"إضافة هواية\" للبدء.",
+
+      contactTitle: "معلومات الاتصال وروابط التواصل",
+      addLink: "إضافة رابط",
+      linkedin: "لينكد إن",
+      behance: "بيهانس",
+      instagram: "إنستغرام",
+      whatsapp: "واتساب",
+      email: "البريد الإلكتروني",
+
+      seo: "تحسين محركات البحث (SEO)",
+      slug: "الاسم اللطيف (Slug)",
+      slugPlace: "أدخل الاسم اللطيف",
+      tag: "وسم الصفحة",
+      tagPlace: "أدخل الوسم",
+      meta: "وصف الميتا",
+      metaPlace: "أدخل وصف الميتا"
     }
   }
 };
