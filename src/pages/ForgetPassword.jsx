@@ -4,6 +4,7 @@ import './ForgetPassword.css';
 import logo from '../imgs/logo.png';
 import userIcon from '../imgs/user.png';
 import { Helmet } from "react-helmet";
+import NavButtons from '../common/NavButtons';
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const ForgetPassword = () => {
         <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
      </Helmet>
    
+   <NavButtons/>
     <div className="forget-container">
       <div className="forget-wrapper">
         
