@@ -46,7 +46,7 @@ const PageList = () => {
   const directionStyle = { direction: isRtl ? 'rtl' : 'ltr' };
 
   const handleEditClick = () => {
-    navigate('/ProjectDeatils'); 
+    navigate('/ProjectDetails'); 
   };
 
   return ( 
@@ -120,7 +120,6 @@ const PageList = () => {
                         <Trash2 size={20} color="#dc2626" />
                       </button>
                       
-                      {/* 4. Added onClick to the Edit Button */}
                       <button 
                         className="action-btnn edit-btn" 
                         title="Edit"

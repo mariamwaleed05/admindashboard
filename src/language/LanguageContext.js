@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext } from 'react';
 
 const translations = {
   en: {
+    // ... (Keep existing login, sidebar, home translations) ...
     loginTitle: "Log In",
     emailPlaceholder: "Enter email",
     passwordPlaceholder: "Enter password",
@@ -15,7 +16,8 @@ const translations = {
     searchPlaceholder: "Search...",
     metaTitle: "Login Page",
     metaDesc: "This is the login page",
-
+    
+    // ... (Keep forget/reset password sections) ...
     forgetTitle: "Forget Password",
     forgetText: "Please enter your email address associated with your account to receive a verification code.",
     enterEmailAddress: "Enter email address",
@@ -34,6 +36,7 @@ const translations = {
     metaResetTitle: "Reset Password",
     metaResetDesc: "This is the reset password page",
 
+    // ... (Keep sidebar section) ...
     sidebar: {
       dashboard: "Dashboard",
       analytics: "Analytics",
@@ -49,24 +52,22 @@ const translations = {
       role: "Main Admin"
     },
 
+    // ... (Keep home section) ...
     home: {
       welcome: "Welcome Back Mariam",
       subtitle: "Here is what you missed.",
       metaTitle: "Dashboard Page",
       metaDesc: "This is the dashboard page",
-      
       totalViews: "Total Views",
       totalVisitors: "Total Visitors",
       engagementRate: "Engagement Rate",
       contactRequests: "Contact Requests",
-
       quickActionsTitle: "Quick Actions",
       quickActionsSub: "Common tasks and shortcuts",
       newProject: "New Project",
       manageCategories: "Manage Categories",
       newPage: "New Page",
       viewProjects: "View Projects",
-
       projectsTitle: "Projects",
       withCover: "With Cover Image",
       with3d: "With 3D Models",
@@ -77,31 +78,26 @@ const translations = {
       staticPages: "Static Pages",
       completed: "Completed",
       draft: "Draft",
-
       websiteTraffic: "Website Traffic",
       users: "Users",
       views: "Views",
       trafficSources: "Traffic Sources",
-      
       organic: "Organic Search",
       direct: "Direct",
       referral: "Referral",
       social: "Social Media",
       email: "Email",
-
       topPages: "Top Pages",
       recentActivity: "Recent Activity",
       bounceRate: "Bounce Rate",
       avgSession: "Avg. Session Duration",
       pagesSession: "Pages per Session",
-      
       recentProjects: "Recent Projects",
       recentProjSub: "Latest projects added to the system",
       viewAllProjects: "View All Projects →",
       recentPages: "Recent Pages",
       recentPagesSub: "Latest static pages in the system",
       viewAllPages: "View All Pages →",
-
       seoTitle: "SEO",
       slugName: "Slug Name",
       enterSlug: "Enter Slug Name",
@@ -111,7 +107,7 @@ const translations = {
       enterMetaDesc: "Enter Meta Description"
     },
 
-    // --- NEW SECTION ADDED HERE ---
+    // ... (Keep pageList section) ...
     pageList: {
       title: "Project List",
       subtitle: "Browse through my portfolio of work across different services",
@@ -124,9 +120,22 @@ const translations = {
       filterMotion: "Motion Graphics",
       filterCoding: "Coding",
       filterPhoto: "Photography"
+    },
+
+    // --- NEW SECTION FOR PROJECT DETAILS ---
+    uxProjects: {
+      mainTitle: "UX/UI Projects",
+      subTitle: "Manage portfolio projects",
+      addBtn: "Add Project",
+      pillText: "UX/UI",
+      featureTitle: "Fashion App",
+      featureDesc: "Mobile app for booking private buses with real-time tracking and QR code verification",
+      editBtn: "Edit Project",
+      hideBtn: "Hide"
     }
   },
   ar: {
+    // ... (Keep existing login, sidebar, home translations in Arabic) ...
     loginTitle: "تسجيل الدخول",
     emailPlaceholder: "أدخل البريد الإلكتروني",
     passwordPlaceholder: "أدخل كلمة المرور",
@@ -179,19 +188,16 @@ const translations = {
       subtitle: "إليك ما فاتك.",
       metaTitle: "لوحة التحكم",
       metaDesc: "هذه صفحة لوحة التحكم",
-      
       totalViews: "إجمالي المشاهدات",
       totalVisitors: "إجمالي الزوار",
       engagementRate: "معدل التفاعل",
       contactRequests: "طلبات التواصل",
-
       quickActionsTitle: "إجراءات سريعة",
       quickActionsSub: "المهام الشائعة والاختصارات",
       newProject: "مشروع جديد",
       manageCategories: "إدارة التصنيفات",
       newPage: "صفحة جديدة",
       viewProjects: "عرض المشاريع",
-      
       projectsTitle: "المشاريع",
       withCover: "مع صورة غلاف",
       with3d: "مع نماذج ثلاثية الأبعاد",
@@ -202,31 +208,26 @@ const translations = {
       staticPages: "صفحات ثابتة",
       completed: "مكتمل",
       draft: "مسودة",
-
       websiteTraffic: "زيارات الموقع",
       users: "المستخدمين",
       views: "المشاهدات",
       trafficSources: "مصادر الزيارات",
-      
       organic: "بحث عضوي",
       direct: "مباشر",
       referral: "إحالة",
       social: "تواصل اجتماعي",
       email: "بريد إلكتروني",
-
       topPages: "أعلى الصفحات",
       recentActivity: "النشاط الأخير",
       bounceRate: "معدل الارتداد",
       avgSession: "متوسط مدة الجلسة",
       pagesSession: "الصفحات لكل جلسة",
-      
       recentProjects: "أحدث المشاريع",
       recentProjSub: "أحدث المشاريع المضافة للنظام",
       viewAllProjects: "← عرض كل المشاريع", 
       recentPages: "أحدث الصفحات",
       recentPagesSub: "أحدث الصفحات الثابتة في النظام",
       viewAllPages: "← عرض كل الصفحات",
-
       seoTitle: "تحسين محركات البحث (SEO)",
       slugName: "الاسم اللطيف (Slug)",
       enterSlug: "أدخل الاسم اللطيف",
@@ -248,6 +249,17 @@ const translations = {
       filterMotion: "موشن جرافيك",
       filterCoding: "برمجة",
       filterPhoto: "تصوير فوتوغرافي"
+    },
+
+    uxProjects: {
+      mainTitle: "مشاريع واجهات المستخدم",
+      subTitle: "إدارة مشاريع المعرض",
+      addBtn: "إضافة مشروع",
+      pillText: "واجهات مستخدم",
+      featureTitle: "تطبيق الأزياء",
+      featureDesc: "تطبيق جوال لحجز الحافلات الخاصة مع تتبع فوري والتحقق عبر رمز الاستجابة السريعة",
+      editBtn: "تعديل المشروع",
+      hideBtn: "إخفاء"
     }
   }
 };
