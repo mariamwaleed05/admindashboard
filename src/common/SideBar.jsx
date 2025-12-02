@@ -8,7 +8,7 @@ import { useLanguage } from '../language/LanguageContext';
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const menuItems = [
     { icon: LayoutDashboard, label: t.sidebar.dashboard, link: '/' },
@@ -28,14 +28,6 @@ const SideBar = () => {
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);
-
-  const isRtl = language === 'ar';
-  const itemStyle = { flexDirection: isRtl ? 'row-reverse' : 'row' };
-  const labelStyle = { 
-    marginLeft: isRtl ? 0 : '0.75rem', 
-    marginRight: isRtl ? '0.75rem' : 0,
-    textAlign: isRtl ? 'right' : 'left'
-  };
 
   return (
     <>
@@ -57,9 +49,9 @@ const SideBar = () => {
       <aside className={`sidebar ${isOpen ? 'open' : ''}`} style={{ direction: 'ltr' }}>
         <div className="sidebar-content">
 
-          <div className="profile-section" style={itemStyle}>
+          <div className="profile-section">
             <img src={myimg} alt="myimg" className="profile-avatar" />
-            <div className="profile-info" style={labelStyle}>
+            <div className="profile-info">
               <h3 className="profile-name">Mariam Waleed</h3>
               <p className="profile-role">{t.sidebar.role}</p>
             </div>
@@ -84,10 +76,9 @@ const SideBar = () => {
                     }
                   }}
                   className={`menu-item ${isActive ? 'active' : ''}`}
-                  style={itemStyle}
                 >
                   <Icon size={20} />
-                  <span className="menu-label" style={labelStyle}>{item.label}</span>
+                  <span className="menu-label">{item.label}</span>
                 </Link>
               );
             })}
