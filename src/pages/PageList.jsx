@@ -81,7 +81,40 @@ const PageList = () => {
               })}
             </div>
 
-        
+            <div className="projects-grid">
+              {filteredProjects.map(project => (
+                <div key={project.id} className="project-card">
+                  <div className="project-image">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=800&fit=crop" alt={project.title} />
+                    
+                    <div className="overlay-buttons">
+                      <button className="icon-btn doc-btn" title="View Document">
+                        <FileText size={20} color="#7f1d1d" />
+                      </button>
+                      <button className="icon-btn eye-btn" title="Hide/Unhide">
+                        <Eye size={20} color="#000000" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="project-content">
+                    <div className="project-text">
+                        <h3>{project.title}</h3>
+                        <p>{project.description}</p>
+                    </div>
+       
+                    <div className="project-actions-bottom">
+                      <button className="action-btnn delete-btn" title="Delete">
+                        <Trash2 size={20} color="#dc2626" />
+                      </button>
+                      <button className="action-btnn edit-btn" title="Edit">
+                        <Edit2 size={20} color="#000000" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
