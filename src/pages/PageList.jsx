@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
+import NavButtons from '../common/NavButtons';
 
 const PageList = () => {
     return ( 
@@ -10,6 +11,8 @@ const PageList = () => {
         <meta property="og:title" content="Page list" />
         <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
      </Helmet>
+
+     <NavButtons/>
         </>
      );
 }
