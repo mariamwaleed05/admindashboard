@@ -22,7 +22,17 @@ const translations = {
     sendCodeBtn: "Send Code",
     backToLogin: "Back to Login",
     metaForgetTitle: "Forget Password",
-    metaForgetDesc: "Recover your password"
+    metaForgetDesc: "Recover your password",
+
+    resetTitle: "Reset Account Password",
+    verifyCodeLabel: "Enter the verification code sent to your email",
+    verifyCodePlaceholder: "Enter Verification Code",
+    resetLabel: "Reset Password",
+    newPasswordPlaceholder: "Enter new password",
+    confirmPasswordPlaceholder: "Confirm password",
+    resetBtn: "Reset Password",
+    metaResetTitle: "Reset Password",
+    metaResetDesc: "This is the reset password page"
   },
   ar: {
     loginTitle: "تسجيل الدخول",
@@ -45,7 +55,17 @@ const translations = {
     sendCodeBtn: "إرسال الرمز",
     backToLogin: "العودة لتسجيل الدخول",
     metaForgetTitle: "نسيت كلمة المرور",
-    metaForgetDesc: "استعادة كلمة المرور"
+    metaForgetDesc: "استعادة كلمة المرور",
+
+    resetTitle: "إعادة تعيين كلمة المرور",
+    verifyCodeLabel: "أدخل رمز التحقق المرسل إلى بريدك الإلكتروني",
+    verifyCodePlaceholder: "أدخل رمز التحقق",
+    resetLabel: "إعادة تعيين كلمة المرور",
+    newPasswordPlaceholder: "أدخل كلمة المرور الجديدة",
+    confirmPasswordPlaceholder: "تأكيد كلمة المرور",
+    resetBtn: "إعادة تعيين كلمة المرور",
+    metaResetTitle: "إعادة تعيين كلمة المرور",
+    metaResetDesc: "هذه صفحة إعادة تعيين كلمة المرور"
   }
 };
 
