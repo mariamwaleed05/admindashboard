@@ -8,7 +8,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; 
+  gap: 1.5rem;
 }
 
 .ps-header {
@@ -215,6 +215,17 @@
   justify-content: center;
   cursor: pointer;
   padding: 8px;
+  transition: background-color 0.2s;
+}
+
+.p-upload-box:hover {
+  background-color: #f4f4f5;
+}
+
+.p-upload-large {
+  height: 100px;
+  width: 100%;
+  border: 1px dashed #d4d4d8; 
 }
 
 .p-upload-box span {
@@ -224,7 +235,7 @@
 }
 
 .p-input-fill {
-  height: 50px;
+  height: 50px; 
 }
 
 .p-row-3-col {
@@ -237,12 +248,12 @@
 }
 
 .p-row-3-col .p-form-group:not(.wide-col) {
-  flex: 1; 
+  flex: 1;
 }
 
 @media (max-width: 900px) {
   .p-sec-grid {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
 }
 
@@ -283,6 +294,10 @@
     height: 60px;
     flex-direction: row;
     gap: 10px;
+  }
+
+  .p-upload-large {
+    height: 80px; 
   }
   
   .p-upload-box span {

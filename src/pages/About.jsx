@@ -74,7 +74,6 @@ const About = () => {
             </div>
 
             <div className="p-sec-grid">
-              
               <div className="ps-card">
                 <div className="ps-card-top">
                   <span className="ps-section-label">Vision & Mission</span>
@@ -83,12 +82,10 @@ const About = () => {
                     Edit
                   </button>
                 </div>
-                
                 <div className="p-form-group">
                   <label>Vision</label>
                   <input type="text" placeholder="Enter Vision" className="p-input white-bg" />
                 </div>
-
                 <div className="p-form-group">
                   <label>Mission</label>
                   <input type="text" placeholder="Enter Mission" className="p-input white-bg" />
@@ -103,7 +100,6 @@ const About = () => {
                     Add Skill
                   </button>
                 </div>
-
                 <div className="p-skills-list">
                   {skills.map((skill) => (
                     <div key={skill.id} className="p-skill-item">
@@ -158,6 +154,63 @@ const About = () => {
                   <label>Date</label>
                   <input type="text" placeholder="Enter Date" className="p-input white-bg" />
                 </div>
+              </div>
+            </div>
+
+            <div className="ps-card">
+              <div className="ps-card-top">
+                <span className="ps-section-label">Work Experience</span>
+                <button className="ps-edit-btn">
+                  <Plus size={14} />
+                  Add Experience
+                </button>
+              </div>
+
+              <div className="p-form-group">
+                <label>Company Name</label>
+                <input type="text" placeholder="Enter Company Name" className="p-input white-bg" />
+              </div>
+
+              <div className="p-row-2-col">
+                <div className="p-form-group">
+                  <label>Company Logo</label>
+                  <div className="p-upload-box white-bg">
+                    <Upload size={24} color="#a1a1aa" />
+                    <span>Upload Logo</span>
+                  </div>
+                </div>
+                <div className="p-form-group">
+                  <label>Alt Text</label>
+                  <input type="text" placeholder="Add Alt Text" className="p-input white-bg p-input-fill" />
+                </div>
+              </div>
+
+              <div className="p-form-group">
+                <label>Position Title</label>
+                <input type="text" placeholder="Enter Position Title" className="p-input white-bg" />
+              </div>
+            </div>
+
+            <div className="ps-card">
+              <div className="ps-card-top">
+                <span className="ps-section-label">Certificates & Credentials</span>
+                <button className="ps-edit-btn">
+                  <Plus size={14} />
+                  Add Certificate
+                </button>
+              </div>
+
+              <div className="p-form-group">
+                <label>Certificate</label>
+                <div className="p-upload-box white-bg p-upload-large">
+                  <Upload size={28} color="#a1a1aa" />
+                  <span>Upload Certificate</span>
+                </div>
+              </div>
+
+              <div className="p-form-group">
+                <label>Alt Text</label>
+                <input type="text" placeholder="Add Alt Text" className="p-input white-bg" />
               </div>
             </div>
 
