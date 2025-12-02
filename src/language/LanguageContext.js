@@ -109,6 +109,21 @@ const translations = {
       enterTag: "Enter Tag",
       metaDescription: "Meta Description",
       enterMetaDesc: "Enter Meta Description"
+    },
+
+    // --- NEW SECTION ADDED HERE ---
+    pageList: {
+      title: "Project List",
+      subtitle: "Browse through my portfolio of work across different services",
+      addProject: "Add Project",
+      filterAll: "All Projects",
+      filterUx: "UX/UI Design",
+      filterGraphic: "Graphic Design",
+      filterContent: "Content Creation",
+      filter3d: "3D Modeling",
+      filterMotion: "Motion Graphics",
+      filterCoding: "Coding",
+      filterPhoto: "Photography"
     }
   },
   ar: {
@@ -176,7 +191,6 @@ const translations = {
       manageCategories: "إدارة التصنيفات",
       newPage: "صفحة جديدة",
       viewProjects: "عرض المشاريع",
-
       
       projectsTitle: "المشاريع",
       withCover: "مع صورة غلاف",
@@ -220,6 +234,20 @@ const translations = {
       enterTag: "أدخل الوسم",
       metaDescription: "وصف الميتا",
       enterMetaDesc: "أدخل وصف الميتا"
+    },
+
+    pageList: {
+      title: "قائمة المشاريع",
+      subtitle: "تصفح ملف أعمالي عبر مختلف الخدمات",
+      addProject: "إضافة مشروع",
+      filterAll: "كل المشاريع",
+      filterUx: "تصميم واجهات",
+      filterGraphic: "تصميم جرافيك",
+      filterContent: "صناعة محتوى",
+      filter3d: "نمذجة ثلاثية الأبعاد",
+      filterMotion: "موشن جرافيك",
+      filterCoding: "برمجة",
+      filterPhoto: "تصوير فوتوغرافي"
     }
   }
 };

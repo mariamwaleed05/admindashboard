@@ -10,11 +10,9 @@ import {
 import { useLanguage } from '../language/LanguageContext';
 
 const PageList = () => {
-  // 2. Get translation (t) and current language
   const { t, language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // 3. Update services to use dynamic translations 't.pageList...'
   const services = [
     { id: 'all', label: t.pageList.filterAll, count: 10, icon: LayoutGrid },
     { id: 'uxui', label: t.pageList.filterUx, count: 5, icon: Palette },
@@ -41,7 +39,6 @@ const PageList = () => {
     ? projects 
     : projects.filter(project => project.category === activeFilter);
 
-  // 4. Helper for RTL Direction
   const isRtl = language === 'ar';
   const directionStyle = { direction: isRtl ? 'rtl' : 'ltr' };
 
@@ -52,7 +49,6 @@ const PageList = () => {
         <meta name="description" content="This is the page list page" />
       </Helmet>
 
-      {/* Apply Direction Style Here */}
       <div className="app-layout" style={directionStyle}>
         <div className="sidebar-container">
           <SideBar/>
@@ -64,13 +60,11 @@ const PageList = () => {
           <div className="project-list-container">
             <div className="project-list-header">
               <div className="header-content">
-                {/* Translate Title & Subtitle */}
                 <h1>{t.pageList.title}</h1>
                 <p>{t.pageList.subtitle}</p>
               </div>
               <button className="add-project-btn">
                 {t.pageList.addProject}
-                {/* Adjust icon margin based on direction */}
                 <Plus size={18} style={{ marginLeft: isRtl ? 0 : '0.5rem', marginRight: isRtl ? '0.5rem' : 0 }} />
               </button>
             </div>
@@ -98,8 +92,6 @@ const PageList = () => {
                   <div className="project-image">
                     <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=800&fit=crop" alt={project.title} />
                     
-                    {/* Keep overlay LTR so buttons don't flip positions on the image if not desired, 
-                        remove style={{direction: 'ltr'}} if you want them to flip sides in Arabic */}
                     <div className="overlay-buttons" style={{ direction: 'ltr' }}>
                       <button className="icon-btn doc-btn" title="View Document">
                         <FileText size={20} color="#7f1d1d" />
