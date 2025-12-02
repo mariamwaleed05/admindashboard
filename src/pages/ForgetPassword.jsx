@@ -4,36 +4,41 @@ import './ForgetPassword.css';
 import logo from '../imgs/logo.png';
 import userIcon from '../imgs/user.png';
 import { Helmet } from "react-helmet";
+import { useLanguage } from '../language/LanguageContext';
 import NavButtons from '../common/NavButtons';
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
+  const { t, language } = useLanguage(); 
 
   const handleSendCode = () => {
-
     navigate('/ResetPassword');
   };
+
+  const isRtl = language === 'ar';
+  const directionStyle = { direction: isRtl ? 'rtl' : 'ltr' };
+  const inputStyle = { textAlign: isRtl ? 'right' : 'left' };
 
   return (
     <>
      <Helmet>
-        <title>Forget Password</title>
-        <meta name="description" content="This is the forget password page" />
-        <meta property="og:title" content="forgetpassword" />
+        <title>{t.metaForgetTitle}</title>
+        <meta name="description" content={t.metaForgetDesc} />
+        <meta property="og:title" content={t.forgetTitle} />
         <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
      </Helmet>
    
    <NavButtons/>
-    <div className="forget-container">
+    <div className="forget-container" style={directionStyle}>
       <div className="forget-wrapper">
         
         <div className="logo-container">
           <img src={logo} alt="Logo" className="logo-img" />
         </div>
 
-        <h2 className="forget-title">Forget Password</h2>
+        <h2 className="forget-title">{t.forgetTitle}</h2>
         <p className="forget-text">
-          Please enter your email address associated with your account to receive a verification code.
+          {t.forgetText}
         </p>
 
         <form className="forget-form">
@@ -44,13 +49,14 @@ const ForgetPassword = () => {
             </div>
             <input 
               type="email" 
-              placeholder="Enter email address" 
+              placeholder={t.enterEmailAddress} 
               className="form-input" 
+              style={inputStyle}
             />
           </div>
 
           <button type="button" className="forget-btn" onClick={handleSendCode}>
-            Send Code
+            {t.sendCodeBtn}
           </button>
 
           <div className="back-login-row">
@@ -59,7 +65,7 @@ const ForgetPassword = () => {
               className="back-link" 
               onClick={() => navigate('/LoginPage')}
             >
-              Back to Login
+              {t.backToLogin}
             </button>
           </div>
 
