@@ -49,6 +49,11 @@
   font-weight: 500;
 }
 
+.mb-4 {
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
 .ps-edit-btn {
   background-color: #fecaca;
   color: #7f1d1d;
@@ -161,6 +166,12 @@
   outline: none;
 }
 
+.p-input-textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: 'Montserrat', sans-serif;
+}
+
 .white-bg {
   background-color: #ffffff;
   color: #18181b;
@@ -225,7 +236,6 @@
 .p-upload-large {
   height: 100px;
   width: 100%;
-  border: 1px dashed #d4d4d8; 
 }
 
 .p-upload-box span {
@@ -251,33 +261,26 @@
   flex: 1;
 }
 
-@media (max-width: 900px) {
-  .p-sec-grid {
-    grid-template-columns: 1fr;
-  }
+.p-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: #71717a;
 }
 
-@media (max-width: 768px) {
-  .about-container {
-    padding: 1.5rem;
-  }
-
-  .ps-card {
-    padding: 1.5rem;
-  }
-
-  .ps-main-info {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .ps-contact-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.25rem;
-  }
+.p-heart-icon {
+  color: #7f1d1d; 
+  margin-bottom: 1rem;
 }
+
+.p-empty-state p {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
 
 @media (max-width: 600px) {
   .p-row-2-col, 

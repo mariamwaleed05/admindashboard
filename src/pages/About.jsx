@@ -2,7 +2,11 @@ import React from 'react';
 import { Helmet } from "react-helmet";
 import SideBar from '../common/SideBar';
 import NavButtons from '../common/NavButtons';
-import { User, Pencil, Mail, Phone, MapPin, Plus, Trash2, Upload } from 'lucide-react';
+import { 
+  User, Pencil, Mail, Phone, MapPin, Plus, Trash2, Upload, Heart,
+  Bold, Italic, Strikethrough, Heading1, Heading2, Heading3, 
+  Highlighter, Code, Link as LinkIcon, MessageSquare, ImagePlus 
+} from 'lucide-react';
 import './About.css';
 
 const About = () => {
@@ -214,6 +218,59 @@ const About = () => {
               </div>
             </div>
 
+            <div className="ps-card">
+              <div className="ps-card-top">
+                <span className="ps-section-label">Hobbies & Interests</span>
+                <button className="ps-edit-btn">
+                  <Plus size={14} />
+                  Add Hobby
+                </button>
+              </div>
+
+              <div className="p-empty-state">
+                <Heart size={48} className="p-heart-icon" />
+                <p>No hobbies added yet. Click "Add Hobby" to get started.</p>
+              </div>
+            </div>
+
+            <div className="ps-card">
+              <div className="ps-card-top">
+                <span className="ps-section-label">Contact Information & Social Links</span>
+                <button className="ps-edit-btn">
+                  <Plus size={14} />
+                  Add Link
+                </button>
+              </div>
+
+              <div className="p-row-2-col">
+                <div className="p-form-group">
+                  <label>LinkedIn</label>
+                  <input type="text" defaultValue="https://www.linkedin.com/in/mariammwaleed/" className="p-input white-bg" />
+                </div>
+                <div className="p-form-group">
+                  <label>Behance</label>
+                  <input type="text" defaultValue="https://www.behance.net/mariamwaleed7" className="p-input white-bg" />
+                </div>
+              </div>
+
+              <div className="p-row-2-col">
+                <div className="p-form-group">
+                  <label>Instagram</label>
+                  <input type="text" defaultValue="https://www.instagram.com/mariammwaleedd/" className="p-input white-bg" />
+                </div>
+                <div className="p-form-group">
+                  <label>Whatsapp</label>
+                  <input type="text" defaultValue="01275843440" className="p-input white-bg" />
+                </div>
+              </div>
+
+              <div className="p-form-group">
+                <label>Email</label>
+                <input type="text" defaultValue="mariamwaleed2005@gmail.com" className="p-input white-bg" />
+              </div>
+            </div>
+
+         
           </div>
         </div>
       </div>
