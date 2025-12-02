@@ -11,20 +11,23 @@ import {
   MessageSquare, ImagePlus 
 } from 'lucide-react';
 import { Helmet } from "react-helmet";
+import { useLanguage } from '../language/LanguageContext';
 
 const Home = () => {
+  const { t, language } = useLanguage();
+
   const stats = [
-    { icon: Eye, label: 'Total Views', value: '45,231', change: '+12.5%' },
-    { icon: Users, label: 'Total Visitors', value: '12,482', change: '+8.2%' },
-    { icon: TrendingUp, label: 'Engagement Rate', value: '68.4%', change: '+3.3%' },
-    { icon: Send, label: 'Contact Requests', value: '142', change: '+18.7%' }
+    { icon: Eye, label: t.home.totalViews, value: '45,231', change: '+12.5%' },
+    { icon: Users, label: t.home.totalVisitors, value: '12,482', change: '+8.2%' },
+    { icon: TrendingUp, label: t.home.engagementRate, value: '68.4%', change: '+3.3%' },
+    { icon: Send, label: t.home.contactRequests, value: '142', change: '+18.7%' }
   ];
 
   const quickActions = [
-    { icon: Plus, label: 'New Project' },
-    { icon: Tag, label: 'Manage Categories' },
-    { icon: Plus, label: 'New Page' },
-    { icon: FolderOpen, label: 'View Projects' }
+    { icon: Plus, label: t.home.newProject },
+    { icon: Tag, label: t.home.manageCategories },
+    { icon: Plus, label: t.home.newPage },
+    { icon: FolderOpen, label: t.home.viewProjects }
   ];
 
   const categories = ['UI/UX', 'Graphic Design', 'Coding', 'Modeling', 'Motion Graphics', 'Photography', 'Content Creation'];
@@ -40,11 +43,11 @@ const Home = () => {
   ];
 
   const trafficSources = [
-    { name: 'Organic Search', value: 34, color: '#dc2626' },
-    { name: 'Direct', value: 25, color: '#991b1b' },
-    { name: 'Referral', value: 13, color: '#7f1d1d' },
-    { name: 'Social Media', value: 17, color: '#450a0a' },
-    { name: 'Email', value: 11, color: '#fee2e2' }
+    { name: t.home.organic, value: 34, color: '#dc2626' },
+    { name: t.home.direct, value: 25, color: '#991b1b' },
+    { name: t.home.referral, value: 13, color: '#7f1d1d' },
+    { name: t.home.social, value: 17, color: '#450a0a' },
+    { name: t.home.email, value: 11, color: '#fee2e2' }
   ];
 
   const getPoints = (key, height = 200, width = 100) => {
@@ -92,16 +95,20 @@ const Home = () => {
     { name: 'resume', value: 5000 }
   ];
 
+  const isRtl = language === 'ar';
+  const directionStyle = { direction: isRtl ? 'rtl' : 'ltr' };
+  const arrowStyle = { transform: isRtl ? 'rotate(180deg)' : 'none' };
+
   return ( 
     <>
     <Helmet>
-        <title>Dashboard Page</title>
-        <meta name="description" content="This is the dashboard page" />
+        <title>{t.home.metaTitle}</title>
+        <meta name="description" content={t.home.metaDesc} />
         <meta property="og:title" content="Dashboard" />
         <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
      </Helmet>
 
-    <div className="app-layout">
+    <div className="app-layout" style={directionStyle}>
       
       <div className="sidebar-container">
         <SideBar/>
@@ -112,8 +119,8 @@ const Home = () => {
 
         <div className="home-container">
           <div className="home-header">
-              <h1>Welcome Back Mariam</h1>
-              <h3>Here is what you missed.</h3>
+              <h1>{t.home.welcome}</h1>
+              <h3>{t.home.subtitle}</h3>
           </div>
           
           <div className="dashboard-content">
@@ -139,8 +146,8 @@ const Home = () => {
             </div>
 
             <div className="card" style={{ marginBottom: '1.5rem' }}>
-              <h2 className="section-title">Quick Actions</h2>
-              <p className="section-subtitle">Common tasks and shortcuts</p>
+              <h2 className="section-title">{t.home.quickActionsTitle}</h2>
+              <p className="section-subtitle">{t.home.quickActionsSub}</p>
               <div className="actions-grid">
                 {quickActions.map((action, index) => (
                   <button key={index} className="action-btn">
@@ -157,44 +164,44 @@ const Home = () => {
               <div className="card">
                 <div className="section-header-row">
                   <div className="icon-box"><FolderOpen className="icon-md" /></div>
-                  <h2 className="section-title">Projects</h2>
+                  <h2 className="section-title">{t.home.projectsTitle}</h2>
                   <div className="badge">1</div>
                 </div>
                 <div className="info-rows">
-                  <div className="info-row"><FileText className="icon-sm" /><span>With Cover Image</span><span className="ml-auto">0</span></div>
-                  <div className="info-row"><FileText className="icon-sm" /><span>With 3D Models</span><span className="ml-auto">0</span></div>
+                  <div className="info-row"><FileText className="icon-sm" /><span>{t.home.withCover}</span><span className="ml-auto">0</span></div>
+                  <div className="info-row"><FileText className="icon-sm" /><span>{t.home.with3d}</span><span className="ml-auto">0</span></div>
                 </div>
                 <div className="button-group">
-                  <button className="btn-dark">View All <ArrowRight className="icon-sm" /></button>
-                  <button className="btn-red"><Plus className="icon-sm" /> Add New</button>
+                  <button className="btn-dark">{t.home.viewAll} <ArrowRight className="icon-sm" style={arrowStyle} /></button>
+                  <button className="btn-red"><Plus className="icon-sm" /> {t.home.addNew}</button>
                 </div>
               </div>
 
               <div className="card">
                 <div className="section-header-row">
                   <div className="icon-box"><Tag className="icon-md" /></div>
-                  <h2 className="section-title">Categories</h2>
+                  <h2 className="section-title">{t.home.categoriesTitle}</h2>
                   <div className="badge">7</div>
                 </div>
                 <div className="tags-container">
                   {categories.map((cat, index) => <span key={index} className="tag-pill">{cat}</span>)}
                 </div>
-                <button className="btn-dark" style={{ width: '100%' }}>Manage <ArrowRight className="icon-sm" /></button>
+                <button className="btn-dark" style={{ width: '100%' }}>{t.home.manage} <ArrowRight className="icon-sm" style={arrowStyle} /></button>
               </div>
 
               <div className="card">
                 <div className="section-header-row">
                   <div className="icon-box"><FileText className="icon-md" /></div>
-                  <h2 className="section-title">Static Pages</h2>
+                  <h2 className="section-title">{t.home.staticPages}</h2>
                   <div className="badge">2</div>
                 </div>
                 <div className="info-rows">
-                  <div className="info-row"><div className="status-dot"></div><span>Completed</span><span className="ml-auto">2</span></div>
-                  <div className="info-row"><span className="ml-indent">Draft</span><span className="ml-auto">0</span></div>
+                  <div className="info-row"><div className="status-dot"></div><span>{t.home.completed}</span><span className="ml-auto">2</span></div>
+                  <div className="info-row"><span className="ml-indent">{t.home.draft}</span><span className="ml-auto">0</span></div>
                 </div>
                 <div className="button-group">
-                  <button className="btn-dark">View All <ArrowRight className="icon-sm" /></button>
-                  <button className="btn-red"><Plus className="icon-sm" /> Add New</button>
+                  <button className="btn-dark">{t.home.viewAll} <ArrowRight className="icon-sm" style={arrowStyle} /></button>
+                  <button className="btn-red"><Plus className="icon-sm" /> {t.home.addNew}</button>
                 </div>
               </div>
             </div>
@@ -204,7 +211,7 @@ const Home = () => {
               <div className="card">
                 <div className="section-header-row" style={{ marginBottom: '1.5rem' }}>
                   <div className="icon-box"><TrendingUp className="icon-md" /></div>
-                  <h2 className="section-title">Website Traffic</h2>
+                  <h2 className="section-title">{t.home.websiteTraffic}</h2>
                 </div>
                 
                 <div className="custom-chart-container">
@@ -221,8 +228,8 @@ const Home = () => {
                 </div>
 
                 <div className="chart-legend">
-                  <div className="legend-item"><div className="legend-dot" style={{ backgroundColor: '#dc2626' }}></div><span>Users</span></div>
-                  <div className="legend-item"><div className="legend-dot" style={{ backgroundColor: '#991b1b' }}></div><span>Views</span></div>
+                  <div className="legend-item"><div className="legend-dot" style={{ backgroundColor: '#dc2626' }}></div><span>{t.home.users}</span></div>
+                  <div className="legend-item"><div className="legend-dot" style={{ backgroundColor: '#991b1b' }}></div><span>{t.home.views}</span></div>
                 </div>
               </div>
 
@@ -233,7 +240,7 @@ const Home = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h2 className="section-title">Traffic Sources</h2>
+                  <h2 className="section-title">{t.home.trafficSources}</h2>
                 </div>
                 
                 <div className="pie-layout">
@@ -266,7 +273,7 @@ const Home = () => {
                   <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
                   <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                 </svg>
-                <span>Top Pages</span>
+                <span>{t.home.topPages}</span>
               </div>
               <div className="chart-container">
                 <svg width="100%" height="220">
@@ -324,7 +331,7 @@ const Home = () => {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
                 </svg>
-                <span>Recent Activity</span>
+                <span>{t.home.recentActivity}</span>
               </div>
               <div className="activity-list">
                 {activities.map((activity) => (
@@ -344,7 +351,7 @@ const Home = () => {
           <div className="metrics-section">
             <div className="metric-card">
               <div className="metric-header">
-                <span>Bounce Rate</span>
+                <span>{t.home.bounceRate}</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
                   <polyline points="6 9 12 15 18 9"/>
                 </svg>
@@ -357,7 +364,7 @@ const Home = () => {
 
             <div className="metric-card">
               <div className="metric-header">
-                <span>Avg. Session Duration</span>
+                <span>{t.home.avgSession}</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
                   <polyline points="18 15 12 9 6 15"/>
                 </svg>
@@ -370,7 +377,7 @@ const Home = () => {
 
             <div className="metric-card">
               <div className="metric-header">
-                <span>Pages per Session</span>
+                <span>{t.home.pagesSession}</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
                   <polyline points="18 15 12 9 6 15"/>
                 </svg>
@@ -384,8 +391,8 @@ const Home = () => {
 
           <div className="bottom-section">
             <div className="card">
-              <div className="card-title">Recent Projects</div>
-              <div className="card-subtitle">Latest projects added to the system</div>
+              <div className="card-title">{t.home.recentProjects}</div>
+              <div className="card-subtitle">{t.home.recentProjSub}</div>
               <div className="list-items">
                 {projects.map((project) => (
                   <div key={project.id} className="list-item">
@@ -397,12 +404,12 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-              <button className="view-all-btn">View All Projects →</button>
+              <button className="view-all-btn">{t.home.viewAllProjects}</button>
             </div>
 
             <div className="card">
-              <div className="card-title">Recent Pages</div>
-              <div className="card-subtitle">Latest static pages in the system</div>
+              <div className="card-title">{t.home.recentPages}</div>
+              <div className="card-subtitle">{t.home.recentPagesSub}</div>
               <div className="list-items">
                 {pages.map((page) => (
                   <div key={page.id} className="page-item">
@@ -420,22 +427,22 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-              <button className="view-all-btn">View All Pages →</button>
+              <button className="view-all-btn">{t.home.viewAllPages}</button>
             </div>
           </div>
 
        
   <div className="seo-container">
-      <h2 className="seo-title">SEO</h2>
+      <h2 className="seo-title">{t.home.seoTitle}</h2>
 
       <div className="seo-row">
         <div className="seo-field-group">
-          <label>Slug Name</label>
-          <input type="text" placeholder="Enter Slug Name" />
+          <label>{t.home.slugName}</label>
+          <input type="text" placeholder={t.home.enterSlug} />
         </div>
         <div className="seo-field-group">
-          <label>Page Tag</label>
-          <input type="text" placeholder="Enter Tag" />
+          <label>{t.home.pageTag}</label>
+          <input type="text" placeholder={t.home.enterTag} />
         </div>
       </div>
 
@@ -456,8 +463,8 @@ const Home = () => {
       </div>
 
       <div className="seo-field-group">
-        <label>Meta Description</label>
-        <textarea placeholder="Enter Meta Description" rows={6}></textarea>
+        <label>{t.home.metaDescription}</label>
+        <textarea placeholder={t.home.enterMetaDesc} rows={6}></textarea>
       </div>
     </div>
 
