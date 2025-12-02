@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
+import SideBar from '../common/SideBar';
 
 const About = () => {
     return ( 
@@ -10,6 +11,8 @@ const About = () => {
         <meta property="og:title" content="About" />
         <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
      </Helmet>
+
+     <SideBar/>
         </>
      );
 }
