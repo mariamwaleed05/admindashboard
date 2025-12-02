@@ -30,13 +30,11 @@ const About = () => {
 
           <div className="about-container">
             
-            {/* --- Page Header --- */}
             <div className="ps-header">
               <h1>Profile Settings</h1>
               <p>Update your personal information</p>
             </div>
 
-            {/* --- Section 1: Personal Info Card --- */}
             <div className="ps-card">
               <div className="ps-card-top">
                 <span className="ps-section-label">Personal Information</span>
@@ -75,10 +73,8 @@ const About = () => {
               </div>
             </div>
 
-            {/* --- Section 2: Vision & Skills Grid --- */}
             <div className="p-sec-grid">
               
-              {/* Vision & Mission Card */}
               <div className="ps-card">
                 <div className="ps-card-top">
                   <span className="ps-section-label">Vision & Mission</span>
@@ -99,7 +95,6 @@ const About = () => {
                 </div>
               </div>
 
-              {/* Skills Card */}
               <div className="ps-card">
                 <div className="ps-card-top">
                   <span className="ps-section-label">Skills</span>
@@ -122,7 +117,49 @@ const About = () => {
               </div>
             </div>
 
-          
+            <div className="ps-card">
+              <div className="ps-card-top">
+                <span className="ps-section-label">Education</span>
+                <button className="ps-edit-btn">
+                  <Plus size={14} />
+                  Add Education
+                </button>
+              </div>
+
+              <div className="p-form-group">
+                <label>University Name</label>
+                <input type="text" placeholder="Enter University Name" className="p-input white-bg" />
+              </div>
+
+              <div className="p-row-2-col">
+                <div className="p-form-group">
+                  <label>University Logo</label>
+                  <div className="p-upload-box white-bg">
+                    <Upload size={24} color="#a1a1aa" />
+                    <span>Upload Logo</span>
+                  </div>
+                </div>
+                <div className="p-form-group">
+                  <label>Alt Text</label>
+                  <input type="text" placeholder="Add Alt Text" className="p-input white-bg p-input-fill" />
+                </div>
+              </div>
+
+              <div className="p-row-3-col">
+                <div className="p-form-group wide-col">
+                  <label>Degree Title</label>
+                  <input type="text" placeholder="Enter Degree Title" className="p-input white-bg" />
+                </div>
+                <div className="p-form-group">
+                  <label>Date</label>
+                  <input type="text" placeholder="Enter Date" className="p-input white-bg" />
+                </div>
+                <div className="p-form-group">
+                  <label>Date</label>
+                  <input type="text" placeholder="Enter Date" className="p-input white-bg" />
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
