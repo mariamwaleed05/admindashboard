@@ -1,6 +1,6 @@
 import React from 'react';
 import './NavButtons.css';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../languageLanguageContext'; 
 
 const NavButtons = () => {
   const { toggleLanguage, t } = useLanguage(); 
