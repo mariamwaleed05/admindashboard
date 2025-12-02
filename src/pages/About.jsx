@@ -270,7 +270,46 @@ const About = () => {
               </div>
             </div>
 
-         
+            <div className="ps-card">
+              <div className="ps-section-label mb-4">SEO</div>
+              
+              <div className="p-row-2-col">
+                <div className="p-form-group">
+                  <label>Slug Name</label>
+                  <input type="text" placeholder="Enter Slug Name" className="p-input white-bg" />
+                </div>
+                <div className="p-form-group">
+                  <label>Page Tag</label>
+                  <input type="text" placeholder="Enter Tag" className="p-input white-bg" />
+                </div>
+              </div>
+
+              <div className="seo-toolbar">
+                <button title="Bold"><Bold size={18} /></button>
+                <button title="Italic"><Italic size={18} /></button>
+                <button title="Strikethrough"><Strikethrough size={18} /></button>
+                <div className="divider"></div>
+                <button title="H1"><Heading1 size={18} /></button>
+                <button title="H2"><Heading2 size={18} /></button>
+                <button title="H3"><Heading3 size={18} /></button>
+                <div className="divider"></div>
+                <button title="Highlight"><Highlighter size={18} /></button>
+                <button title="Code"><Code size={18} /></button>
+                <button title="Link"><LinkIcon size={18} /></button>
+                <button title="Comment"><MessageSquare size={18} /></button>
+                <button title="Add Image"><ImagePlus size={18} /></button>
+              </div>
+
+              <div className="p-form-group">
+                <label>Meta Description</label>
+                <textarea 
+                  placeholder="Enter Meta Description" 
+                  className="p-input white-bg p-input-textarea" 
+                  rows={4}
+                ></textarea>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
