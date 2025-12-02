@@ -40,6 +40,7 @@ import ProjectDetails from './pages/ProjectDetails';
                         <Route path='/Messages' element={<Messages />} />
                         <Route path='/Help' element={<Help />} />
                         <Route path='/Settings' element={<SettingsPage />} />
+                        
                         <Route path='*' element={<Error />} />
                     </Routes>
                 </div>
