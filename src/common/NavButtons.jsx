@@ -1,11 +1,13 @@
 import React from 'react';
 import './NavButtons.css';
+import { useLanguage } from '../context/LanguageContext';
 
 const NavButtons = () => {
+  const { toggleLanguage, t } = useLanguage(); 
+
   return (
     <div className="nav-wrapper">
       
-      {/* Search Bar Component */}
       <div className="search-container">
         <svg 
           className="search-icon" 
@@ -18,12 +20,17 @@ const NavButtons = () => {
           <circle cx="11" cy="11" r="8" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
-        {/* Invisible input to make it functional, remove if strictly visual */}
-        <input type="text" className="search-input" />
+        {/* Update placeholder based on language */}
+        <input type="text" className="search-input" placeholder={t.searchPlaceholder} />
       </div>
 
-      {/* Globe Button */}
-      <button className="nav-btn" aria-label="Language">
+      {/* Globe Button - Added onClick event */}
+      <button 
+        className="nav-btn" 
+        aria-label="Language" 
+        onClick={toggleLanguage} 
+        style={{ cursor: 'pointer' }}
+      >
         <svg 
           className="nav-icon" 
           viewBox="0 0 24 24" 
@@ -44,7 +51,7 @@ const NavButtons = () => {
         <svg 
           className="nav-icon" 
           viewBox="0 0 24 24" 
-          fill="currentColor" /* Filled white as per image */
+          fill="currentColor"
           stroke="none"
         >
            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
