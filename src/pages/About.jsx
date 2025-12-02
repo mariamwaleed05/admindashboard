@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
 import SideBar from '../common/SideBar';
+import './About.css';
 
 const About = () => {
     return ( 
