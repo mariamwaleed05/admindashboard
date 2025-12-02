@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { LanguageProvider } from './language/LanguageContext'; 
 import Error from './pages/Error';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
@@ -18,6 +19,7 @@ import SideBar from './common/SideBar';
    const RoutingApp = () => {
     return ( 
         <>
+            <LanguageProvider>
         <BrowserRouter>
             <div style={{ display: 'flex' }}>
                 <SideBar /> 
@@ -41,6 +43,7 @@ import SideBar from './common/SideBar';
                 </div>
             </div>
         </BrowserRouter>
+        </LanguageProvider>
         </>
      );
 }
