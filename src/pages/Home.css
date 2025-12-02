@@ -1016,3 +1016,17 @@ body {
     justify-content: center;
   }
 }
+
+.card-title {
+  font-size: 1.25rem;      
+  font-weight: 600;        
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;    
+}
+
+.card-subtitle {
+  font-size: 0.875rem;     
+  color: var(--text-secondary); 
+  margin-bottom: 1.5rem;  
+  line-height: 1.5;
+}
