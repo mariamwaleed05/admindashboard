@@ -1,15 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-.ps-container {
+/* --- Main Layout Wrapper --- */
+.about-container {
   font-family: 'Montserrat', sans-serif;
   background-color: #000000;
   color: #ffffff;
   padding: 2rem;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Gap between major sections */
 }
 
+/* --- Header Section --- */
 .ps-header {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .ps-header h1 {
@@ -26,6 +32,7 @@
   font-weight: 400;
 }
 
+/* --- Common Card Styling --- */
 .ps-card {
   background-color: #18181b;
   border-radius: 16px;
@@ -37,7 +44,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .ps-section-label {
@@ -50,7 +57,7 @@
   background-color: #fecaca;
   color: #7f1d1d;
   border: none;
-  padding: 8px 24px;
+  padding: 8px 16px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -66,6 +73,7 @@
   transform: scale(1.05);
 }
 
+/* --- Profile Info Section --- */
 .ps-main-info {
   display: flex;
   align-items: center;
@@ -76,7 +84,7 @@
 .ps-avatar {
   width: 80px;
   height: 80px;
-  background-color: #450a0a; 
+  background-color: #450a0a;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -85,30 +93,24 @@
   flex-shrink: 0;
 }
 
-.ps-text-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
 .ps-text-info h2 {
   font-size: 1.25rem;
   font-weight: 600;
-  margin: 0;
+  margin: 0 0 4px 0;
   color: #ffffff;
 }
 
 .ps-text-info h3 {
   font-size: 0.95rem;
   font-weight: 400;
-  margin: 0;
+  margin: 0 0 6px 0;
   color: #d4d4d8;
 }
 
 .ps-bio {
   font-size: 0.9rem;
   color: #71717a;
-  margin: 4px 0 0 0;
+  margin: 0;
   line-height: 1.4;
 }
 
@@ -133,8 +135,86 @@
   color: #71717a;
 }
 
+/* --- Grid Layout for Vision & Skills --- */
+.p-sec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* --- Inputs & Forms --- */
+.p-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+
+.p-form-group label {
+  font-size: 0.9rem;
+  color: #e4e4e7;
+  font-weight: 400;
+}
+
+.p-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.white-bg {
+  background-color: #ffffff;
+  color: #18181b;
+}
+
+.p-input::placeholder {
+  color: #a1a1aa;
+}
+
+/* --- Skills List --- */
+.p-skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.p-skill-item {
+  background-color: #ffffff;
+  color: #18181b;
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.p-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+
+
+@media (max-width: 900px) {
+  .p-sec-grid {
+    grid-template-columns: 1fr; 
+  }
+}
+
 @media (max-width: 768px) {
-  .ps-container {
+  .about-container {
     padding: 1.5rem;
   }
 
@@ -152,5 +232,27 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .p-row-2-col, 
+  .p-row-3-col {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .wide-col {
+    flex: 1;
+  }
+  
+  .p-upload-box {
+    height: 60px;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  .p-upload-box span {
+    margin-top: 0;
   }
 }
