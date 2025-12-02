@@ -3,29 +3,39 @@ import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, BarChart3, Briefcase, User, Film, FileText, Wrench, MessageSquare, HelpCircle, Settings, LogOut, Menu, X } from 'lucide-react';
 import './SideBar.css';
 import myimg from '../imgs/myimg.png'; 
+import { useLanguage } from '../language/LanguageContext';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { t, language } = useLanguage();
 
   const menuItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', link: '/' },
-    { icon: BarChart3, label: 'Analytics', link: '/Analytics' },
-    { icon: Briefcase, label: 'Services', link: '/Services' },
-    { icon: User, label: 'About', link: '/About' },
+    { icon: LayoutDashboard, label: t.sidebar.dashboard, link: '/' },
+    { icon: BarChart3, label: t.sidebar.analytics, link: '/Analytics' },
+    { icon: Briefcase, label: t.sidebar.services, link: '/Services' },
+    { icon: User, label: t.sidebar.about, link: '/About' },
     { divider: true },
-    { icon: Film, label: 'Media Library', link: '/MediaLibrary' },
-    { icon: FileText, label: 'Pages', link: '/PageList' },
-    { icon: Wrench, label: 'UI Elements', link: '/UiElements' },
-    { icon: MessageSquare, label: 'Messages', link: '/Messages' },
+    { icon: Film, label: t.sidebar.mediaLibrary, link: '/MediaLibrary' },
+    { icon: FileText, label: t.sidebar.pages, link: '/PageList' },
+    { icon: Wrench, label: t.sidebar.uiElements, link: '/UiElements' },
+    { icon: MessageSquare, label: t.sidebar.messages, link: '/Messages' },
     { divider: true },
-    { icon: HelpCircle, label: 'Help', link: '/Help' },
-    { icon: Settings, label: 'Settings', link: '/Settings' },
+    { icon: HelpCircle, label: t.sidebar.help, link: '/Help' },
+    { icon: Settings, label: t.sidebar.settings, link: '/Settings' },
     { divider: true },
-    { icon: LogOut, label: 'Sign Out', link: '/LoginPage' },
+    { icon: LogOut, label: t.sidebar.signOut, link: '/LoginPage' },
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+
+  const isRtl = language === 'ar';
+  const itemStyle = { flexDirection: isRtl ? 'row-reverse' : 'row' };
+  const labelStyle = { 
+    marginLeft: isRtl ? 0 : '0.75rem', 
+    marginRight: isRtl ? '0.75rem' : 0,
+    textAlign: isRtl ? 'right' : 'left'
+  };
 
   return (
     <>
@@ -44,14 +54,14 @@ const SideBar = () => {
         />
       )}
 
-      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <aside className={`sidebar ${isOpen ? 'open' : ''}`} style={{ direction: 'ltr' }}>
         <div className="sidebar-content">
 
-          <div className="profile-section">
-            <img src={myimg} alt="myimg" />
-            <div className="profile-info">
+          <div className="profile-section" style={itemStyle}>
+            <img src={myimg} alt="myimg" className="profile-avatar" />
+            <div className="profile-info" style={labelStyle}>
               <h3 className="profile-name">Mariam Waleed</h3>
-              <p className="profile-role">Main Admin</p>
+              <p className="profile-role">{t.sidebar.role}</p>
             </div>
           </div>
 
@@ -74,9 +84,10 @@ const SideBar = () => {
                     }
                   }}
                   className={`menu-item ${isActive ? 'active' : ''}`}
+                  style={itemStyle}
                 >
                   <Icon size={20} />
-                  <span className="menu-label">{item.label}</span>
+                  <span className="menu-label" style={labelStyle}>{item.label}</span>
                 </Link>
               );
             })}
