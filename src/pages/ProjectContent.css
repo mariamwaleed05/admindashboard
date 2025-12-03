@@ -28,7 +28,8 @@ body {
 .pc-container {
   padding: 40px;
   width: 100%;
-  max-width: 1200px;
+  padding-top: 70px;
+  max-width: 1300px;
   margin: 0 auto;
   font-family: 'Montserrat', sans-serif;
   color: #fff;

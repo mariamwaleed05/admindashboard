@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
 import { Plus, FileText, Trash2, ArrowRight, EyeOff } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; 
 import './ProjectDetails.css';
 import NavButtons from './../common/NavButtons';
 import uxPic from '../imgs/uxpic.png';
@@ -8,11 +9,16 @@ import { useLanguage } from '../language/LanguageContext';
 
 const ProjectDetails = () => {
     const { t, language } = useLanguage();
+    const navigate = useNavigate(); 
     
     const isRtl = language === 'ar';
     const directionStyle = { direction: isRtl ? 'rtl' : 'ltr' };
     
     const arrowStyle = { transform: isRtl ? 'rotate(180deg)' : 'none' };
+
+    const handleEditClick = () => {
+        navigate('/ProjectContent'); 
+    };
 
     return ( 
         <>
@@ -77,7 +83,10 @@ const ProjectDetails = () => {
                     </div>
 
                     <div className="card-action-row">
-                        <button className="pill-action-btn white-btn">
+                        <button 
+                            className="pill-action-btn white-btn" 
+                            onClick={handleEditClick}
+                        >
                             {t.uxProjects.editBtn}
                             <ArrowRight size={18} style={arrowStyle} />
                         </button>

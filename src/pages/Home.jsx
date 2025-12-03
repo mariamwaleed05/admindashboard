@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { Helmet } from "react-helmet";
 import { useLanguage } from '../language/LanguageContext';
+import RichTextEditor from '../components/RichTextEditor';
 
 const Home = () => {
   const { t, language } = useLanguage();
@@ -446,21 +447,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="seo-toolbar">
-        <button title="Bold"><Bold size={18} /></button>
-        <button title="Italic"><Italic size={18} /></button>
-        <button title="Strikethrough"><Strikethrough size={18} /></button>
-        <div className="divider"></div>
-        <button title="H1"><Heading1 size={18} /></button>
-        <button title="H2"><Heading2 size={18} /></button>
-        <button title="H3"><Heading3 size={18} /></button>
-        <div className="divider"></div>
-        <button title="Highlight"><Highlighter size={18} /></button>
-        <button title="Code"><Code size={18} /></button>
-        <button title="Link"><LinkIcon size={18} /></button>
-        <button title="Comment"><MessageSquare size={18} /></button>
-        <button title="Add Image"><ImagePlus size={18} /></button>
-      </div>
+<RichTextEditor />
 
       <div className="seo-field-group">
         <label>{t.home.metaDescription}</label>
