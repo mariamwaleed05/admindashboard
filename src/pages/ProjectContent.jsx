@@ -1,9 +1,30 @@
 import React from 'react';
 import './ProjectContent.css';
+import SideBar from '../common/SideBar';
+import NavButtons from '../common/NavButtons';
+import { Helmet } from "react-helmet";
+import { useLanguage } from '../language/LanguageContext';
 
 const ProjectContent = () => {
-  return (
     
+  return (
+    <>
+<Helmet>
+        <title>Project Content</title>
+        <meta name="description" content="Project Content" />
+        <meta property="og:title" content="Dashboard" />
+        <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
+     </Helmet>
+
+    <div className="app-layout">
+      
+      <div className="sidebar-container">
+        <SideBar/>
+      </div>
+
+      <div className="main-content">
+        <NavButtons/>
+
     <div className="pd-container">
       <div className="pd-top-nav">
         <div className="pd-headings">
@@ -106,6 +127,10 @@ const ProjectContent = () => {
         </form>
       </div>
     </div>
+
+    </div>
+    </div>
+      </>
   );
 };
 
