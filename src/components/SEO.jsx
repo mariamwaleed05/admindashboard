@@ -13,6 +13,7 @@ const SEO = () => {
 
     return ( 
         <>
+        <div className="dashboard-content">
             <div className="app-layout">
       <div className="main-content">
 
@@ -55,7 +56,7 @@ const SEO = () => {
 
 </div>
 </div>
-
+</div>
         </>
      );
 }
