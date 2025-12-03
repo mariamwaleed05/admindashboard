@@ -13,11 +13,11 @@ const SideBar = () => {
   const menuItems = [
     { icon: LayoutDashboard, label: t.sidebar.dashboard, link: '/' },
     { icon: BarChart3, label: t.sidebar.analytics, link: '/Analytics' },
-    { icon: Briefcase, label: t.sidebar.services, link: '/Services' },
+    { icon: Briefcase, label: t.sidebar.services, link: '/PageList' },
     { icon: User, label: t.sidebar.about, link: '/About' },
     { divider: true },
     { icon: Film, label: t.sidebar.mediaLibrary, link: '/MediaLibrary' },
-    { icon: FileText, label: t.sidebar.pages, link: '/PageList' },
+    { icon: FileText, label: t.sidebar.pages, link: '/Services' },
     { icon: Wrench, label: t.sidebar.uiElements, link: '/UiElements' },
     { icon: MessageSquare, label: t.sidebar.messages, link: '/Messages' },
     { divider: true },

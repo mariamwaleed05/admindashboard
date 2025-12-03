@@ -37,10 +37,10 @@ const translations = {
     sidebar: {
       dashboard: "Dashboard",
       analytics: "Analytics",
-      services: "Services",
+      services: "Project List",
       about: "About",
       mediaLibrary: "Media Library",
-      pages: "Pages",
+      pages: "Page List",
       uiElements: "UI Elements",
       messages: "Messages",
       help: "Help",
