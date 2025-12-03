@@ -210,17 +210,32 @@ select.pc-input {
   cursor: pointer;
 }
 
+/* Grid Layouts */
 .pc-row-three {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 40px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .pc-grid-two {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
+}
+
+/* New: Dual Section for stacked EN/AR in Overview */
+.pc-dual-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #222;
+  padding-bottom: 20px;
+}
+
+.pc-dual-section:last-child {
+  border-bottom: none;
 }
 
 .pc-subheader-row {
@@ -261,12 +276,23 @@ select.pc-input {
   margin-bottom: 10px;
 }
 
+.pc-mt-20 {
+  margin-top: 20px;
+}
+
+.pc-mb-20 {
+  margin-bottom: 20px;
+}
+
 .pc-mt-40 {
   margin-top: 40px;
 }
 
 .pc-process-item {
   margin-bottom: 30px;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 /* Gallery Specific */
@@ -313,8 +339,31 @@ select.pc-input {
   font-weight: 500;
 }
 
-.pc-mt-20 {
-  margin-top: 20px;
+/* Language Badges & Direction */
+.lang-badge {
+  display: inline-block;
+  background-color: #222;
+  color: #aaa;
+  border: 1px solid #333;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  margin-right: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* Force text direction based on attribute */
+input[dir="rtl"], textarea[dir="rtl"], select[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
+
+input[dir="ltr"], textarea[dir="ltr"], select[dir="ltr"] {
+  text-align: left;
+  direction: ltr;
 }
 
 @media (max-width: 900px) {
@@ -333,11 +382,11 @@ select.pc-input {
 
   .pc-row-three {
     grid-template-columns: 1fr;
-    gap: 25px;
+    gap: 20px;
   }
 
-  .pc-grid-two {
+  .pc-grid-two, .pc-dual-section {
     grid-template-columns: 1fr;
-    gap: 25px;
+    gap: 20px;
   }
 }

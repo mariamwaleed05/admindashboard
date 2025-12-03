@@ -32,6 +32,7 @@ const ProjectContent = () => {
               </button>
             </div>
 
+            {/* Tags Section */}
             <div className="pc-card">
               <div className="pc-pink-header">Tags</div>
               <div className="pc-tags-container">
@@ -49,83 +50,199 @@ const ProjectContent = () => {
                 </div>
                 <button className="pc-add-btn">+</button>
               </div>
+              {/* Optional: Input for new tags */}
+              <div className="pc-grid-two pc-mt-20">
+                 <div className="pc-form-group">
+                    <label>Add Tag <span className="lang-badge">EN</span></label>
+                    <input type="text" placeholder="New Tag" className="pc-input" dir="ltr" />
+                 </div>
+                 <div className="pc-form-group">
+                    <label>Add Tag <span className="lang-badge">AR</span></label>
+                    <input type="text" placeholder="وسم جديد" className="pc-input" dir="rtl" />
+                 </div>
+              </div>
             </div>
 
+            {/* Main Info Header */}
             <div className="pc-card">
-              <div className="pc-pink-header">Header</div>
+              <div className="pc-pink-header">Header Info</div>
               <form className="pc-form">
-                <div className="pc-form-group">
-                  <label>Project Title</label>
-                  <input type="text" placeholder="Enter Title" className="pc-input" />
+                
+                {/* Title EN/AR */}
+                <div className="pc-grid-two">
+                    <div className="pc-form-group">
+                    <label>Project Title <span className="lang-badge">EN</span></label>
+                    <input type="text" placeholder="Enter Title" className="pc-input" dir="ltr" />
+                    </div>
+                    <div className="pc-form-group">
+                    <label>Project Title <span className="lang-badge">AR</span></label>
+                    <input type="text" placeholder="عنوان المشروع" className="pc-input" dir="rtl" />
+                    </div>
                 </div>
 
+                {/* Service Category (Often shared, but duplicated for display text) */}
+                <div className="pc-grid-two">
+                    <div className="pc-form-group">
+                        <label>Service Category <span className="lang-badge">EN</span></label>
+                        <div className="pc-select-wrapper">
+                            <select defaultValue="" className="pc-input" dir="ltr">
+                            <option value="" disabled>Select Service</option>
+                            <option value="ui">UI Design</option>
+                            <option value="ux">UX Research</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="pc-form-group">
+                        <label>Service Category <span className="lang-badge">AR</span></label>
+                        <div className="pc-select-wrapper">
+                            <select defaultValue="" className="pc-input" dir="rtl">
+                            <option value="" disabled>اختر الخدمة</option>
+                            <option value="ui">تصميم واجهات</option>
+                            <option value="ux">أبحاث تجربة المستخدم</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Description Rich Text */}
                 <div className="pc-form-group">
-                  <label>Service Category</label>
-                  <div className="pc-select-wrapper">
-                    <select defaultValue="" className="pc-input">
-                      <option value="" disabled>Select Service</option>
-                      <option value="ui">UI Design</option>
-                      <option value="ux">UX Research</option>
-                      <option value="dev">Development</option>
-                    </select>
+                    <label className="pc-desc-label">Description <span className="lang-badge">EN</span></label>
+                    <div dir="ltr" className="pc-mb-20">
+                        <RichTextEditor />
+                    </div>
+                    
+                    <label className="pc-desc-label">Description <span className="lang-badge">AR</span></label>
+                    <div dir="rtl">
+                        <RichTextEditor />
+                    </div>
+                </div>
+
+                {/* Short Description Textarea */}
+                <div className="pc-grid-two pc-mt-20">
+                     <div className="pc-form-group">
+                        <label>Short Description <span className="lang-badge">EN</span></label>
+                        <textarea className="pc-input pc-textarea-small" rows="4" placeholder="Brief summary..." dir="ltr"></textarea>
+                     </div>
+                     <div className="pc-form-group">
+                        <label>Short Description <span className="lang-badge">AR</span></label>
+                        <textarea className="pc-input pc-textarea-small" rows="4" placeholder="ملخص سريع..." dir="rtl"></textarea>
+                     </div>
+                </div>
+
+                {/* Meta Data (Date, Type, Duration) - Duplicated per row */}
+                <div className="pc-row-three">
+                  <div className="pc-form-group">
+                    <label>Date <span className="lang-badge">EN</span></label>
+                    <input type="text" placeholder="Oct 2023" className="pc-input" dir="ltr" />
                   </div>
-                </div>
-
-                <div className="pc-form-group">
-                    <RichTextEditor />
-                  <label className="pc-desc-label">Description</label>
-                  <textarea className="pc-input pc-textarea" rows="8" placeholder="Project Description"></textarea>
+                  <div className="pc-form-group">
+                    <label>Type <span className="lang-badge">EN</span></label>
+                    <input type="text" placeholder="Freelance" className="pc-input" dir="ltr" />
+                  </div>
+                  <div className="pc-form-group">
+                    <label>Duration <span className="lang-badge">EN</span></label>
+                    <input type="text" placeholder="2 Weeks" className="pc-input" dir="ltr" />
+                  </div>
                 </div>
 
                 <div className="pc-row-three">
                   <div className="pc-form-group">
-                    <label>Date</label>
-                    <input type="text" placeholder="Enter Date" className="pc-input" />
+                    <label>Date <span className="lang-badge">AR</span></label>
+                    <input type="text" placeholder="أكتوبر ٢٠٢٣" className="pc-input" dir="rtl" />
                   </div>
                   <div className="pc-form-group">
-                    <label>Type</label>
-                    <input type="text" placeholder="Enter Type" className="pc-input" />
+                    <label>Type <span className="lang-badge">AR</span></label>
+                    <input type="text" placeholder="عمل حر" className="pc-input" dir="rtl" />
                   </div>
                   <div className="pc-form-group">
-                    <label>Duration</label>
-                    <input type="text" placeholder="Enter Duration" className="pc-input" />
+                    <label>Duration <span className="lang-badge">AR</span></label>
+                    <input type="text" placeholder="أسبوعين" className="pc-input" dir="rtl" />
                   </div>
                 </div>
+
               </form>
             </div>
 
+            {/* Overview Section - Grouped by Topic, split by Language */}
             <div className="pc-card">
-              <div className="pc-pink-header">Overview</div>
-              <div className="pc-grid-two">
+              <div className="pc-pink-header">Overview & Details</div>
+              
+              {/* Project Overview */}
+              <div className="pc-dual-section">
                 <div className="pc-form-group">
-                  <label>Project Overview</label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Project Overview"></textarea>
+                  <label>Project Overview <span className="lang-badge">EN</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Project Overview" dir="ltr"></textarea>
                 </div>
                 <div className="pc-form-group">
-                  <label>My Role</label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Add Role"></textarea>
+                  <label>Project Overview <span className="lang-badge">AR</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="نظرة عامة على المشروع" dir="rtl"></textarea>
+                </div>
+              </div>
+
+              {/* My Role */}
+              <div className="pc-dual-section">
+                <div className="pc-form-group">
+                  <label>My Role <span className="lang-badge">EN</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Add Role" dir="ltr"></textarea>
                 </div>
                 <div className="pc-form-group">
-                  <label>Challenges</label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Challenges"></textarea>
+                  <label>My Role <span className="lang-badge">AR</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="دوري في المشروع" dir="rtl"></textarea>
+                </div>
+              </div>
+
+              {/* Challenges */}
+              <div className="pc-dual-section">
+                <div className="pc-form-group">
+                  <label>Challenges <span className="lang-badge">EN</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Challenges" dir="ltr"></textarea>
                 </div>
                 <div className="pc-form-group">
-                  <label>Technologies</label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter technologies"></textarea>
+                  <label>Challenges <span className="lang-badge">AR</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="التحديات" dir="rtl"></textarea>
+                </div>
+              </div>
+
+              {/* Technologies */}
+              <div className="pc-dual-section">
+                <div className="pc-form-group">
+                  <label>Technologies <span className="lang-badge">EN</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter technologies" dir="ltr"></textarea>
                 </div>
                 <div className="pc-form-group">
-                  <label>Solution</label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Solution"></textarea>
+                  <label>Technologies <span className="lang-badge">AR</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="التقنيات المستخدمة" dir="rtl"></textarea>
+                </div>
+              </div>
+
+              {/* Solution */}
+              <div className="pc-dual-section">
+                <div className="pc-form-group">
+                  <label>Solution <span className="lang-badge">EN</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Solution" dir="ltr"></textarea>
                 </div>
                 <div className="pc-form-group">
-                  <label>Key Achievements</label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Key Achievements"></textarea>
+                  <label>Solution <span className="lang-badge">AR</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="الحل المقترح" dir="rtl"></textarea>
+                </div>
+              </div>
+
+              {/* Key Achievements */}
+              <div className="pc-dual-section">
+                <div className="pc-form-group">
+                  <label>Key Achievements <span className="lang-badge">EN</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Key Achievements" dir="ltr"></textarea>
+                </div>
+                <div className="pc-form-group">
+                  <label>Key Achievements <span className="lang-badge">AR</span></label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="أهم الإنجازات" dir="rtl"></textarea>
                 </div>
               </div>
             </div>
 
+            {/* Features & Process */}
             <div className="pc-card">
-              <div className="pc-pink-header">Details</div>
+              <div className="pc-pink-header">Features & Process</div>
               
               <div className="pc-subheader-row">
                 <h3>Key Features</h3>
@@ -133,15 +250,30 @@ const ProjectContent = () => {
               </div>
 
               <div className="pc-grid-two">
+                {/* Feature 1 */}
                 <div className="pc-feature-block">
-                  <label className="pc-sub-label">Feature 1</label>
-                  <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
-                  <textarea className="pc-input pc-textarea-small" placeholder="Description"></textarea>
+                  <label className="pc-sub-label">Feature 1 <span className="lang-badge">EN</span></label>
+                  <input type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" />
+                  <textarea className="pc-input pc-textarea-small" placeholder="Description EN" dir="ltr"></textarea>
+                  
+                  <div className="pc-mt-20"></div>
+                  
+                  <label className="pc-sub-label">Feature 1 <span className="lang-badge">AR</span></label>
+                  <input type="text" className="pc-input pc-mb-10" placeholder="العنوان بالعربية" dir="rtl" />
+                  <textarea className="pc-input pc-textarea-small" placeholder="الوصف بالعربية" dir="rtl"></textarea>
                 </div>
+
+                {/* Feature 2 */}
                 <div className="pc-feature-block">
-                  <label className="pc-sub-label">Feature 2</label>
-                  <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
-                  <textarea className="pc-input pc-textarea-small" placeholder="Description"></textarea>
+                  <label className="pc-sub-label">Feature 2 <span className="lang-badge">EN</span></label>
+                  <input type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" />
+                  <textarea className="pc-input pc-textarea-small" placeholder="Description EN" dir="ltr"></textarea>
+
+                   <div className="pc-mt-20"></div>
+
+                  <label className="pc-sub-label">Feature 2 <span className="lang-badge">AR</span></label>
+                  <input type="text" className="pc-input pc-mb-10" placeholder="العنوان بالعربية" dir="rtl" />
+                  <textarea className="pc-input pc-textarea-small" placeholder="الوصف بالعربية" dir="rtl"></textarea>
                 </div>
               </div>
 
@@ -152,21 +284,23 @@ const ProjectContent = () => {
 
               <div className="pc-process-container">
                 <div className="pc-process-item">
-                  <label className="pc-sub-label">Process 1</label>
-                  <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
-                    <RichTextEditor />
-                  <textarea className="pc-input pc-textarea" rows="6" placeholder="Description"></textarea>
-                </div>
-
-                <div className="pc-process-item">
-                  <label className="pc-sub-label">Process 2</label>
-                  <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
-                    <RichTextEditor />
-                  <textarea className="pc-input pc-textarea" rows="6" placeholder="Description"></textarea>
+                  <div className="pc-grid-two">
+                    <div>
+                        <label className="pc-sub-label">Process 1 <span className="lang-badge">EN</span></label>
+                        <input type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" />
+                        <div dir="ltr"><RichTextEditor /></div>
+                    </div>
+                    <div>
+                        <label className="pc-sub-label">Process 1 <span className="lang-badge">AR</span></label>
+                        <input type="text" className="pc-input pc-mb-10" placeholder="العنوان بالعربية" dir="rtl" />
+                        <div dir="rtl"><RichTextEditor /></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
+            {/* Gallery */}
             <div className="pc-card">
               <div className="pc-pink-header">Gallery</div>
               
@@ -186,9 +320,15 @@ const ProjectContent = () => {
                 <span className="pc-upload-text">Upload Image</span>
               </div>
 
-              <div className="pc-form-group pc-mt-20">
-                <label>Alt Text</label>
-                <input type="text" className="pc-input" placeholder="Add Alt Text" />
+              <div className="pc-grid-two pc-mt-20">
+                <div className="pc-form-group">
+                    <label>Alt Text <span className="lang-badge">EN</span></label>
+                    <input type="text" className="pc-input" placeholder="Image Description" dir="ltr" />
+                </div>
+                <div className="pc-form-group">
+                    <label>Alt Text <span className="lang-badge">AR</span></label>
+                    <input type="text" className="pc-input" placeholder="وصف الصورة" dir="rtl" />
+                </div>
               </div>
             </div>
 
