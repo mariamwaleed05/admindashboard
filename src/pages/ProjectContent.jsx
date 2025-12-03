@@ -32,7 +32,6 @@ const ProjectContent = () => {
               </button>
             </div>
 
-            {/* Tags Section */}
             <div className="pc-card">
               <div className="pc-pink-header">Tags</div>
               <div className="pc-tags-container">
@@ -50,7 +49,6 @@ const ProjectContent = () => {
                 </div>
                 <button className="pc-add-btn">+</button>
               </div>
-              {/* Optional: Input for new tags */}
               <div className="pc-grid-two pc-mt-20">
                  <div className="pc-form-group">
                     <label>Add Tag <span className="lang-badge">EN</span></label>
@@ -63,12 +61,10 @@ const ProjectContent = () => {
               </div>
             </div>
 
-            {/* Main Info Header */}
             <div className="pc-card">
               <div className="pc-pink-header">Header Info</div>
               <form className="pc-form">
                 
-                {/* Title EN/AR */}
                 <div className="pc-grid-two">
                     <div className="pc-form-group">
                     <label>Project Title <span className="lang-badge">EN</span></label>
@@ -80,15 +76,19 @@ const ProjectContent = () => {
                     </div>
                 </div>
 
-                {/* Service Category (Often shared, but duplicated for display text) */}
                 <div className="pc-grid-two">
                     <div className="pc-form-group">
                         <label>Service Category <span className="lang-badge">EN</span></label>
                         <div className="pc-select-wrapper">
                             <select defaultValue="" className="pc-input" dir="ltr">
-                            <option value="" disabled>Select Service</option>
-                            <option value="ui">UI Design</option>
-                            <option value="ux">UX Research</option>
+                                <option value="" disabled>Select Service</option>
+                                <option value="ux_ui">UX/UI Design</option>
+                                <option value="graphic">Graphic Design</option>
+                                <option value="content">Content Creation</option>
+                                <option value="3d">3D Modeling</option>
+                                <option value="motion">Motion Graphics</option>
+                                <option value="coding">Coding</option>
+                                <option value="photo">Photography</option>
                             </select>
                         </div>
                     </div>
@@ -96,15 +96,19 @@ const ProjectContent = () => {
                         <label>Service Category <span className="lang-badge">AR</span></label>
                         <div className="pc-select-wrapper">
                             <select defaultValue="" className="pc-input" dir="rtl">
-                            <option value="" disabled>اختر الخدمة</option>
-                            <option value="ui">تصميم واجهات</option>
-                            <option value="ux">أبحاث تجربة المستخدم</option>
+                                <option value="" disabled>اختر الخدمة</option>
+                                <option value="ux_ui">تصميم تجربة وواجهة المستخدم</option>
+                                <option value="graphic">التصميم الجرافيكي</option>
+                                <option value="content">صناعة المحتوى</option>
+                                <option value="3d">النمذجة ثلاثية الأبعاد</option>
+                                <option value="motion">موشن جرافيك</option>
+                                <option value="coding">البرمجة</option>
+                                <option value="photo">التصوير الفوتوغرافي</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                {/* Description Rich Text */}
                 <div className="pc-form-group">
                     <label className="pc-desc-label">Description <span className="lang-badge">EN</span></label>
                     <div dir="ltr" className="pc-mb-20">
@@ -117,7 +121,6 @@ const ProjectContent = () => {
                     </div>
                 </div>
 
-                {/* Short Description Textarea */}
                 <div className="pc-grid-two pc-mt-20">
                      <div className="pc-form-group">
                         <label>Short Description <span className="lang-badge">EN</span></label>
@@ -129,7 +132,6 @@ const ProjectContent = () => {
                      </div>
                 </div>
 
-                {/* Meta Data (Date, Type, Duration) - Duplicated per row */}
                 <div className="pc-row-three">
                   <div className="pc-form-group">
                     <label>Date <span className="lang-badge">EN</span></label>
@@ -163,11 +165,9 @@ const ProjectContent = () => {
               </form>
             </div>
 
-            {/* Overview Section - Grouped by Topic, split by Language */}
             <div className="pc-card">
               <div className="pc-pink-header">Overview & Details</div>
               
-              {/* Project Overview */}
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Project Overview <span className="lang-badge">EN</span></label>
@@ -179,7 +179,6 @@ const ProjectContent = () => {
                 </div>
               </div>
 
-              {/* My Role */}
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>My Role <span className="lang-badge">EN</span></label>
@@ -191,7 +190,6 @@ const ProjectContent = () => {
                 </div>
               </div>
 
-              {/* Challenges */}
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Challenges <span className="lang-badge">EN</span></label>
@@ -203,7 +201,6 @@ const ProjectContent = () => {
                 </div>
               </div>
 
-              {/* Technologies */}
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Technologies <span className="lang-badge">EN</span></label>
@@ -215,7 +212,6 @@ const ProjectContent = () => {
                 </div>
               </div>
 
-              {/* Solution */}
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Solution <span className="lang-badge">EN</span></label>
@@ -227,7 +223,6 @@ const ProjectContent = () => {
                 </div>
               </div>
 
-              {/* Key Achievements */}
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Key Achievements <span className="lang-badge">EN</span></label>
@@ -240,7 +235,6 @@ const ProjectContent = () => {
               </div>
             </div>
 
-            {/* Features & Process */}
             <div className="pc-card">
               <div className="pc-pink-header">Features & Process</div>
               
@@ -250,7 +244,6 @@ const ProjectContent = () => {
               </div>
 
               <div className="pc-grid-two">
-                {/* Feature 1 */}
                 <div className="pc-feature-block">
                   <label className="pc-sub-label">Feature 1 <span className="lang-badge">EN</span></label>
                   <input type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" />
@@ -263,7 +256,6 @@ const ProjectContent = () => {
                   <textarea className="pc-input pc-textarea-small" placeholder="الوصف بالعربية" dir="rtl"></textarea>
                 </div>
 
-                {/* Feature 2 */}
                 <div className="pc-feature-block">
                   <label className="pc-sub-label">Feature 2 <span className="lang-badge">EN</span></label>
                   <input type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" />
@@ -300,7 +292,6 @@ const ProjectContent = () => {
               </div>
             </div>
 
-            {/* Gallery */}
             <div className="pc-card">
               <div className="pc-pink-header">Gallery</div>
               

@@ -210,7 +210,6 @@ select.pc-input {
   cursor: pointer;
 }
 
-/* Grid Layouts */
 .pc-row-three {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -224,7 +223,6 @@ select.pc-input {
   gap: 30px;
 }
 
-/* New: Dual Section for stacked EN/AR in Overview */
 .pc-dual-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -295,7 +293,6 @@ select.pc-input {
   border-radius: 8px;
 }
 
-/* Gallery Specific */
 .pc-add-image-btn {
   background-color: #490808;
   color: #fff;
@@ -339,7 +336,6 @@ select.pc-input {
   font-weight: 500;
 }
 
-/* Language Badges & Direction */
 .lang-badge {
   display: inline-block;
   background-color: #222;
@@ -355,7 +351,6 @@ select.pc-input {
   vertical-align: middle;
 }
 
-/* Force text direction based on attribute */
 input[dir="rtl"], textarea[dir="rtl"], select[dir="rtl"] {
   text-align: right;
   direction: rtl;

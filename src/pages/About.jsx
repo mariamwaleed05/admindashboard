@@ -92,13 +92,23 @@ const About = () => {
                     {t.aboutPage.edit}
                   </button>
                 </div>
+                
                 <div className="p-form-group">
-                  <label>{t.aboutPage.vision}</label>
-                  <input type="text" placeholder={t.aboutPage.visionPlace} className="p-input white-bg" />
+                  <label>{t.aboutPage.vision} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.visionPlace} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
-                  <label>{t.aboutPage.mission}</label>
-                  <input type="text" placeholder={t.aboutPage.missionPlace} className="p-input white-bg" />
+                  <label>{t.aboutPage.vision} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="رؤيتك..." className="p-input white-bg" dir="rtl" />
+                </div>
+
+                <div className="p-form-group">
+                  <label>{t.aboutPage.mission} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.missionPlace} className="p-input white-bg" dir="ltr" />
+                </div>
+                <div className="p-form-group">
+                  <label>{t.aboutPage.mission} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="مهمتك..." className="p-input white-bg" dir="rtl" />
                 </div>
               </div>
 
@@ -132,9 +142,15 @@ const About = () => {
                 </button>
               </div>
 
-              <div className="p-form-group">
-                <label>{t.aboutPage.uniName}</label>
-                <input type="text" placeholder={t.aboutPage.uniNamePlace} className="p-input white-bg" />
+              <div className="p-row-2-col">
+                <div className="p-form-group">
+                  <label>{t.aboutPage.uniName} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.uniNamePlace} className="p-input white-bg" dir="ltr" />
+                </div>
+                <div className="p-form-group">
+                  <label>{t.aboutPage.uniName} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="اسم الجامعة" className="p-input white-bg" dir="rtl" />
+                </div>
               </div>
 
               <div className="p-row-2-col">
@@ -145,24 +161,32 @@ const About = () => {
                     <span>{t.aboutPage.uploadLogo}</span>
                   </div>
                 </div>
-                <div className="p-form-group">
-                  <label>{t.aboutPage.altText}</label>
-                  <input type="text" placeholder={t.aboutPage.altTextPlace} className="p-input white-bg p-input-fill" />
+                <div className="p-form-group-stack">
+                   <div className="p-form-group">
+                      <label>{t.aboutPage.altText} <span className="lang-badge">EN</span></label>
+                      <input type="text" placeholder={t.aboutPage.altTextPlace} className="p-input white-bg p-input-fill" dir="ltr" />
+                   </div>
+                   <div className="p-form-group">
+                      <label>{t.aboutPage.altText} <span className="lang-badge">AR</span></label>
+                      <input type="text" placeholder="وصف الصورة" className="p-input white-bg p-input-fill" dir="rtl" />
+                   </div>
                 </div>
               </div>
 
               <div className="p-row-3-col">
                 <div className="p-form-group wide-col">
-                  <label>{t.aboutPage.degree}</label>
-                  <input type="text" placeholder={t.aboutPage.degreePlace} className="p-input white-bg" />
+                  <label>{t.aboutPage.degree} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.degreePlace} className="p-input white-bg" dir="ltr" />
+                  <div style={{ marginTop: '10px' }}></div>
+                  <label>{t.aboutPage.degree} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="الدرجة العلمية" className="p-input white-bg" dir="rtl" />
                 </div>
                 <div className="p-form-group">
-                  <label>{t.aboutPage.date}</label>
-                  <input type="text" placeholder={t.aboutPage.datePlace} className="p-input white-bg" />
-                </div>
-                <div className="p-form-group">
-                  <label>{t.aboutPage.date}</label>
-                  <input type="text" placeholder={t.aboutPage.datePlace} className="p-input white-bg" />
+                  <label>{t.aboutPage.date} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.datePlace} className="p-input white-bg" dir="ltr" />
+                  <div style={{ marginTop: '10px' }}></div>
+                  <label>{t.aboutPage.date} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="التاريخ" className="p-input white-bg" dir="rtl" />
                 </div>
               </div>
             </div>
@@ -176,9 +200,15 @@ const About = () => {
                 </button>
               </div>
 
-              <div className="p-form-group">
-                <label>{t.aboutPage.compName}</label>
-                <input type="text" placeholder={t.aboutPage.compNamePlace} className="p-input white-bg" />
+              <div className="p-row-2-col">
+                <div className="p-form-group">
+                  <label>{t.aboutPage.compName} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.compNamePlace} className="p-input white-bg" dir="ltr" />
+                </div>
+                <div className="p-form-group">
+                  <label>{t.aboutPage.compName} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="اسم الشركة" className="p-input white-bg" dir="rtl" />
+                </div>
               </div>
 
               <div className="p-row-2-col">
@@ -189,15 +219,27 @@ const About = () => {
                     <span>{t.aboutPage.uploadLogo}</span>
                   </div>
                 </div>
-                <div className="p-form-group">
-                  <label>{t.aboutPage.altText}</label>
-                  <input type="text" placeholder={t.aboutPage.altTextPlace} className="p-input white-bg p-input-fill" />
+                <div className="p-form-group-stack">
+                    <div className="p-form-group">
+                      <label>{t.aboutPage.altText} <span className="lang-badge">EN</span></label>
+                      <input type="text" placeholder={t.aboutPage.altTextPlace} className="p-input white-bg p-input-fill" dir="ltr" />
+                    </div>
+                    <div className="p-form-group">
+                      <label>{t.aboutPage.altText} <span className="lang-badge">AR</span></label>
+                      <input type="text" placeholder="وصف الصورة" className="p-input white-bg p-input-fill" dir="rtl" />
+                    </div>
                 </div>
               </div>
 
-              <div className="p-form-group">
-                <label>{t.aboutPage.posTitle}</label>
-                <input type="text" placeholder={t.aboutPage.posTitlePlace} className="p-input white-bg" />
+              <div className="p-row-2-col">
+                <div className="p-form-group">
+                  <label>{t.aboutPage.posTitle} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.posTitlePlace} className="p-input white-bg" dir="ltr" />
+                </div>
+                <div className="p-form-group">
+                  <label>{t.aboutPage.posTitle} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="المسمى الوظيفي" className="p-input white-bg" dir="rtl" />
+                </div>
               </div>
             </div>
 
@@ -218,9 +260,15 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="p-form-group">
-                <label>{t.aboutPage.altText}</label>
-                <input type="text" placeholder={t.aboutPage.altTextPlace} className="p-input white-bg" />
+              <div className="p-row-2-col">
+                <div className="p-form-group">
+                  <label>{t.aboutPage.altText} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.altTextPlace} className="p-input white-bg" dir="ltr" />
+                </div>
+                <div className="p-form-group">
+                  <label>{t.aboutPage.altText} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="وصف الصورة" className="p-input white-bg" dir="rtl" />
+                </div>
               </div>
             </div>
 
@@ -251,28 +299,28 @@ const About = () => {
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.linkedin}</label>
-                  <input type="text" defaultValue="https://www.linkedin.com/in/mariammwaleed/" className="p-input white-bg" />
+                  <input type="text" defaultValue="https://www.linkedin.com/in/mariammwaleed/" className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.behance}</label>
-                  <input type="text" defaultValue="https://www.behance.net/mariamwaleed7" className="p-input white-bg" />
+                  <input type="text" defaultValue="https://www.behance.net/mariamwaleed7" className="p-input white-bg" dir="ltr" />
                 </div>
               </div>
 
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.instagram}</label>
-                  <input type="text" defaultValue="https://www.instagram.com/mariammwaleedd/" className="p-input white-bg" />
+                  <input type="text" defaultValue="https://www.instagram.com/mariammwaleedd/" className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.whatsapp}</label>
-                  <input type="text" defaultValue="01275843440" className="p-input white-bg" />
+                  <input type="text" defaultValue="01275843440" className="p-input white-bg" dir="ltr" />
                 </div>
               </div>
 
               <div className="p-form-group">
                 <label>{t.aboutPage.email}</label>
-                <input type="text" defaultValue="mariamwaleed2005@gmail.com" className="p-input white-bg" />
+                <input type="text" defaultValue="mariamwaleed2005@gmail.com" className="p-input white-bg" dir="ltr" />
               </div>
             </div>
 
@@ -281,12 +329,23 @@ const About = () => {
               
               <div className="p-row-2-col">
                 <div className="p-form-group">
-                  <label>{t.aboutPage.slug}</label>
-                  <input type="text" placeholder={t.aboutPage.slugPlace} className="p-input white-bg" />
+                  <label>{t.aboutPage.slug} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.slugPlace} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
-                  <label>{t.aboutPage.tag}</label>
-                  <input type="text" placeholder={t.aboutPage.tagPlace} className="p-input white-bg" />
+                  <label>{t.aboutPage.slug} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="رابط-الصفحة" className="p-input white-bg" dir="rtl" />
+                </div>
+              </div>
+
+              <div className="p-row-2-col">
+                 <div className="p-form-group">
+                  <label>{t.aboutPage.tag} <span className="lang-badge">EN</span></label>
+                  <input type="text" placeholder={t.aboutPage.tagPlace} className="p-input white-bg" dir="ltr" />
+                </div>
+                <div className="p-form-group">
+                  <label>{t.aboutPage.tag} <span className="lang-badge">AR</span></label>
+                  <input type="text" placeholder="وسم" className="p-input white-bg" dir="rtl" />
                 </div>
               </div>
 
@@ -307,11 +366,22 @@ const About = () => {
               </div>
 
               <div className="p-form-group">
-                <label>{t.aboutPage.meta}</label>
+                <label>{t.aboutPage.meta} <span className="lang-badge">EN</span></label>
                 <textarea 
                   placeholder={t.aboutPage.metaPlace} 
                   className="p-input white-bg p-input-textarea" 
                   rows={4}
+                  dir="ltr"
+                ></textarea>
+              </div>
+              
+              <div className="p-form-group">
+                <label>{t.aboutPage.meta} <span className="lang-badge">AR</span></label>
+                <textarea 
+                  placeholder="وصف الميتا بالعربية..." 
+                  className="p-input white-bg p-input-textarea" 
+                  rows={4}
+                  dir="rtl"
                 ></textarea>
               </div>
             </div>
