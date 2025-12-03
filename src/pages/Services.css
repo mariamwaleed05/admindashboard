@@ -1,0 +1,545 @@
+/* --- Base Resets --- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #000;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.sidebar-container {
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 0;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Services Container --- */
+.services-container {
+  padding: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+}
+
+/* Header */
+.svc-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.svc-title-group h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #fff;
+}
+
+.svc-title-group p {
+  font-size: 16px;
+  color: #aaa;
+  margin: 0;
+  font-weight: 400;
+}
+
+.svc-add-btn {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #333;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.svc-add-btn:hover {
+  background-color: #333;
+  border-color: #444;
+}
+
+/* Main Card */
+.svc-card {
+  background-color: #151515;
+  border-radius: 12px;
+  padding: 30px;
+  border: 1px solid #222;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  min-height: 600px; /* Ensure space for dropdowns */
+}
+
+/* Search Bar */
+.svc-search-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+  background-color: #202020;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.svc-search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.svc-search-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 14px 14px 14px 45px;
+  color: #fff;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+}
+
+.svc-search-input::placeholder {
+  color: #666;
+}
+
+/* --- Table Grid System --- */
+.svc-grid-layout {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.5fr 0.8fr; 
+  align-items: center;
+  padding: 0 10px;
+}
+
+.svc-table-header {
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.svc-table-row {
+  border-bottom: 1px solid #222;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+  /* position: relative; Removed to allow dropdown to float over */
+}
+
+.svc-table-row:hover {
+  background-color: #1a1a1a;
+}
+
+/* Column Alignment */
+.col-status { text-align: left; }
+.col-date { text-align: left; }
+.col-lang { 
+    display: flex; 
+    justify-content: center;
+    position: relative; /* Anchor for Dropdown */
+}
+.col-actions { display: flex; justify-content: flex-end; padding-right: 5px; }
+
+/* Status / Name Content */
+.svc-name-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.svc-icon-box {
+  width: 36px;
+  height: 36px;
+  background-color: #F8C8C8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.svc-icon-box svg {
+  color: #5D1818;
+}
+
+.svc-page-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+}
+
+.svc-date-text {
+  font-size: 14px;
+  color: #bbb;
+}
+
+/* --- Language Pill --- */
+.svc-lang-pill {
+  background-color: #222;
+  border: 1px solid #333;
+  color: #ddd;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  min-width: 140px;
+  justify-content: space-between;
+}
+
+.svc-lang-pill:hover, .svc-lang-pill.active {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+.chevron-anim {
+  transition: transform 0.2s;
+}
+
+.chevron-anim.rotate {
+  transform: rotate(180deg);
+}
+
+.flag-icon {
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.lang-text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+/* --- DROPDOWN MENU STYLES --- */
+.svc-dropdown-menu {
+  position: absolute;
+  top: 45px; /* Just below the pill */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  z-index: 100;
+  padding: 15px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.svc-dd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #aaa;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.svc-dd-badge {
+  background-color: #333;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: #fff;
+}
+
+.svc-dd-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.svc-dd-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #ddd;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+.svc-dd-item svg {
+  color: #666;
+}
+
+.svc-dd-item:hover {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.svc-dd-edit-btn {
+  width: 100%;
+  background-color: #490808; /* Theme Red/Brown */
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 10px;
+}
+
+.svc-dd-edit-btn:hover {
+  background-color: #5d1010;
+}
+
+.svc-dd-divider {
+  height: 1px;
+  background-color: #333;
+  margin: 10px 0;
+}
+
+.svc-dd-switch-btn {
+  width: 100%;
+  background: transparent;
+  color: #888;
+  border: 1px dashed #444;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.svc-dd-switch-btn:hover {
+  border-color: #666;
+  color: #fff;
+  background-color: #262626;
+}
+
+/* Actions */
+.svc-action-group { gap: 10px; }
+
+.svc-action-btn {
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.svc-action-btn:hover { background-color: #ddd; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .svc-grid-layout { grid-template-columns: 2fr 1fr 1.5fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .svc-table-header { display: none; }
+  
+  .svc-grid-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    margin-bottom: 15px;
+  }
+
+  .col-lang { width: 100%; justify-content: flex-start; }
+  .svc-lang-pill { width: 100%; }
+  .col-actions { width: 100%; justify-content: flex-start; border-top: 1px solid #333; padding-top: 15px; }
+  
+  .svc-dropdown-menu {
+    position: relative;
+    top: 10px;
+    left: 0;
+    transform: none;
+    width: 100%;
+    z-index: 10;
+  }
+}
+/* ... [Previous CSS remains the same] ... */
+
+/* --- DROPDOWN MENU STYLES --- */
+.svc-dropdown-menu {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  z-index: 100;
+  padding: 15px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.svc-dd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #aaa;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.svc-dd-badge {
+  background-color: #333;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: #fff;
+}
+
+.svc-dd-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+  max-height: 200px;
+  overflow-y: auto; /* Scroll if list is long */
+}
+
+/* Scrollbar styling for list */
+.svc-dd-list::-webkit-scrollbar {
+  width: 4px;
+}
+.svc-dd-list::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;
+}
+
+.svc-dd-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #ddd;
+  padding: 8px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+/* Arabic Item Styling */
+.svc-dd-item.rtl-item {
+  flex-direction: row-reverse; /* Icons on right, text on left (visually aligned for RTL) */
+  text-align: right;
+  font-family: 'Tahoma', 'Arial', sans-serif; /* Fallback for Arabic readability if Montserrat lacks it */
+}
+
+.svc-dd-item svg {
+  color: #666;
+  flex-shrink: 0;
+}
+
+.svc-dd-item:hover {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.svc-dd-edit-btn {
+  width: 100%;
+  background-color: #490808; 
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 10px;
+}
+
+.svc-dd-edit-btn:hover {
+  background-color: #5d1010;
+}
+
+.svc-dd-divider {
+  height: 1px;
+  background-color: #333;
+  margin: 10px 0;
+}
+
+.svc-dd-switch-btn {
+  width: 100%;
+  background: transparent;
+  color: #888;
+  border: 1px dashed #444;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.2s;
+}
+
+.svc-dd-switch-btn:hover {
+  border-color: #666;
+  color: #fff;
+  background-color: #262626;
+}
+
+/* ... [Rest of CSS remains the same] ... */
