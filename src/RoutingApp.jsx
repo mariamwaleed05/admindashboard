@@ -16,6 +16,7 @@ import Help from './pages/Help';
 import SettingsPage from './pages/SettingsPage';
 import SideBar from './common/SideBar';
 import ProjectDetails from './pages/ProjectDetails';
+import ProjectContent from './pages/ProjectContent';
 
    const RoutingApp = () => {
     return ( 
@@ -35,11 +36,15 @@ import ProjectDetails from './pages/ProjectDetails';
                         <Route path='/Services' element={<Services />} />
                         <Route path='/About' element={<About />} />
                         <Route path='/MediaLibrary' element={<MediaLibrary />} />
-                        <Route path='/PageList' element={<PageList />} />
-                        <Route path='/ProjectDetails' element={<ProjectDetails />} />
                         <Route path='/Messages' element={<Messages />} />
                         <Route path='/Help' element={<Help />} />
                         <Route path='/Settings' element={<SettingsPage />} />
+                        
+                        <Route path='/PageList' element={<PageList />} />
+                        <Route path='/ProjectDetails' element={<ProjectDetails />} />
+                        <Route path='/ProjectContent' element={<ProjectContent />} />
+
+                 
                         
                         <Route path='*' element={<Error />} />
                     </Routes>
