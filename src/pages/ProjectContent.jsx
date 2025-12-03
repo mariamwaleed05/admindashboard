@@ -74,7 +74,7 @@ const ProjectContent = () => {
                 <div className="pc-form-group">
 
                     <RichTextEditor />
-                    
+
                   <label className="pc-desc-label">Description</label>
                   <textarea className="pc-input pc-textarea" rows="8" placeholder="Project Description"></textarea>
                 </div>
@@ -156,7 +156,7 @@ const ProjectContent = () => {
                 <div className="pc-process-item">
                   <label className="pc-sub-label">Process 1</label>
                   <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
-                 {}
+                    <RichTextEditor />
                   <textarea className="pc-input pc-textarea" rows="6" placeholder="Description"></textarea>
                 </div>
 
@@ -164,7 +164,8 @@ const ProjectContent = () => {
                   <label className="pc-sub-label">Process 2</label>
                   <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
                   
-                {}
+                    <RichTextEditor />
+                    
                   <textarea className="pc-input pc-textarea" rows="6" placeholder="Description"></textarea>
                 </div>
               </div>
