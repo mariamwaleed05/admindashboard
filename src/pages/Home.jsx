@@ -4,14 +4,9 @@ import { useState } from 'react';
 import SideBar from '../common/SideBar';
 import NavButtons from '../common/NavButtons';
 import { Eye, Users, TrendingUp, Send, Plus, FolderOpen, Tag, FileText, ArrowRight } from 'lucide-react';
-import { 
-  Bold, Italic, Strikethrough, 
-  Heading1, Heading2, Heading3, 
-  Highlighter, Code, Link as LinkIcon, 
-  MessageSquare, ImagePlus 
-} from 'lucide-react';
 import { Helmet } from "react-helmet";
 import { useLanguage } from '../language/LanguageContext';
+import SEO from './../components/SEO';
 
 const Home = () => {
   const { t, language } = useLanguage();
@@ -438,6 +433,8 @@ const Home = () => {
         </div>
       </div>
     </div>
+
+<SEO/>
 
     
     </>

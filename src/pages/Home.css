@@ -787,7 +787,6 @@ body {
 }
 
 
-
 @media (max-width: 768px) {
   .top-section {
     grid-template-columns: 1fr;

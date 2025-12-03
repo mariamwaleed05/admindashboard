@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
+import { 
+  Bold, Italic, Strikethrough, 
+  Heading1, Heading2, Heading3, 
+  Highlighter, Code, Link as LinkIcon, 
+  MessageSquare, ImagePlus 
+} from 'lucide-react';
+import { useLanguage } from '../language/LanguageContext';
+import './SEO.css';
 
 const SEO = () => {
+      const { t, language } = useLanguage();
+
     return ( 
         <>
-        
+            <div className="app-layout">
+      <div className="main-content">
+
                
   <div className="seo-container">
       <h2 className="seo-title">{t.home.seoTitle}</h2>
@@ -40,7 +52,10 @@ const SEO = () => {
         <textarea placeholder={t.home.enterMetaDesc} rows={6}></textarea>
       </div>
     </div>
-    
+
+</div>
+</div>
+
         </>
      );
 }
