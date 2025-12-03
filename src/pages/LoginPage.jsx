@@ -23,6 +23,7 @@ const LoginPage = () => {
   return (
     <>
       <Helmet>
+        <meta name="robots" content="noindex, nofollow"></meta>
         <title>{t.metaTitle}</title>
         <meta name="description" content={t.metaDesc} />
         <meta property="og:title" content="Login" />

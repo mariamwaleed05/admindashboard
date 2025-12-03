@@ -9,7 +9,6 @@ import './Services.css';
 const Services = () => {
   const navigate = useNavigate();
 
-  // Updated Data: 'sections' is now an object with 'en' and 'ar' arrays
   const initialPages = [
     { 
       id: 1, 
@@ -96,22 +95,18 @@ const Services = () => {
   const [pages, setPages] = useState(initialPages);
   const [activeDropdownId, setActiveDropdownId] = useState(null);
 
-  // Toggle Dropdown
   const toggleDropdown = (id) => {
     setActiveDropdownId(activeDropdownId === id ? null : id);
   };
 
-  // Switch Language Handler (Updates state and refreshes dropdown list)
   const switchLanguage = (id) => {
     setPages(pages.map(page => 
       page.id === id 
         ? { ...page, lang: page.lang === 'en' ? 'ar' : 'en' } 
         : page
     ));
-    // We keep the dropdown open so the user sees the content change immediately
   };
 
-  // Navigate to Edit Page
   const handleEditRedirect = (pageName, lang) => {
     console.log(`Editing ${pageName} in ${lang}`);
     navigate('/project-content'); 
@@ -151,7 +146,6 @@ const Services = () => {
                 <input type="text" placeholder="Search pages..." className="svc-search-input" />
               </div>
 
-              {/* Table Headers */}
               <div className="svc-grid-layout svc-table-header">
                 <div className="col-status">Status</div>
                 <div className="col-date">Date</div>
@@ -159,18 +153,15 @@ const Services = () => {
                 <div className="col-actions">Actions</div>
               </div>
 
-              {/* Table Body */}
               <div className="svc-table-body">
                 {pages.map((page) => {
                   
-                  // Logic to determine which list to show based on current lang
                   const currentSections = page.sections[page.lang] || [];
                   const isRtlList = page.lang === 'ar';
 
                   return (
                     <div className="svc-grid-layout svc-table-row" key={page.id}>
                       
-                      {/* Status / Name */}
                       <div className="col-status svc-name-group">
                         <div className="svc-icon-box">
                           <FileText size={18} />
@@ -178,12 +169,10 @@ const Services = () => {
                         <span className="svc-page-name">{page.name}</span>
                       </div>
 
-                      {/* Date */}
                       <div className="col-date svc-date-text">
                         {page.date}
                       </div>
 
-                      {/* Language Dropdown Column */}
                       <div className="col-lang svc-lang-wrapper">
                         <button 
                           className={`svc-lang-pill ${page.lang === 'en' ? 'en-active' : 'ar-active'} ${activeDropdownId === page.id ? 'active' : ''}`} 
@@ -216,7 +205,6 @@ const Services = () => {
                           <ChevronDown size={14} className={`chevron-anim ${activeDropdownId === page.id ? 'rotate' : ''}`} />
                         </button>
 
-                        {/* DROPDOWN MENU */}
                         {activeDropdownId === page.id && (
                           <div className="svc-dropdown-menu">
                               <div className="svc-dd-header">
@@ -224,7 +212,6 @@ const Services = () => {
                                   <span className="svc-dd-badge">{currentSections.length}</span>
                               </div>
                               
-                              {/* Filtered List based on Language */}
                               <ul className="svc-dd-list">
                                   {currentSections.length > 0 ? (
                                     currentSections.map((section, idx) => (
@@ -258,7 +245,6 @@ const Services = () => {
                         )}
                       </div>
 
-                      {/* Actions */}
                       <div className="col-actions svc-action-group">
                         <button className="svc-action-btn delete">
                           <Trash2 size={16} />
