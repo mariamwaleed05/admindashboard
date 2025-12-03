@@ -72,9 +72,7 @@ const ProjectContent = () => {
                 </div>
 
                 <div className="pc-form-group">
-
                     <RichTextEditor />
-
                   <label className="pc-desc-label">Description</label>
                   <textarea className="pc-input pc-textarea" rows="8" placeholder="Project Description"></textarea>
                 </div>
@@ -163,14 +161,37 @@ const ProjectContent = () => {
                 <div className="pc-process-item">
                   <label className="pc-sub-label">Process 2</label>
                   <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
-                  
                     <RichTextEditor />
-                    
                   <textarea className="pc-input pc-textarea" rows="6" placeholder="Description"></textarea>
                 </div>
               </div>
-
             </div>
+
+            <div className="pc-card">
+              <div className="pc-pink-header">Gallery</div>
+              
+              <div className="pc-subheader-row">
+                <h3>Project Images</h3>
+                <button className="pc-add-image-btn">
+                    Add Image <span>+</span>
+                </button>
+              </div>
+
+              <div className="pc-upload-box">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <span className="pc-upload-text">Upload Image</span>
+              </div>
+
+              <div className="pc-form-group pc-mt-20">
+                <label>Alt Text</label>
+                <input type="text" className="pc-input" placeholder="Add Alt Text" />
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
