@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import SideBar from '../common/SideBar';
 import NavButtons from '../common/NavButtons';
 import './ProjectContent.css';
+import RichTextEditor from '../components/RichTextEditor';
 
 const ProjectContent = () => {
   return (
@@ -71,21 +72,9 @@ const ProjectContent = () => {
                 </div>
 
                 <div className="pc-form-group">
-                  <div className="pc-toolbar">
-                    <span>B</span>
-                    <span style={{ fontStyle: 'italic' }}>I</span>
-                    <span style={{ textDecoration: 'line-through' }}>S</span>
-                    <span className="pc-divider">|</span>
-                    <span>H<sub>1</sub></span>
-                    <span>H<sub>2</sub></span>
-                    <span>H<sub>3</sub></span>
-                    <span className="pc-divider">|</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                  </div>
+
+                    <RichTextEditor />
+                    
                   <label className="pc-desc-label">Description</label>
                   <textarea className="pc-input pc-textarea" rows="8" placeholder="Project Description"></textarea>
                 </div>
@@ -105,6 +94,81 @@ const ProjectContent = () => {
                   </div>
                 </div>
               </form>
+            </div>
+
+            <div className="pc-card">
+              <div className="pc-pink-header">Overview</div>
+              <div className="pc-grid-two">
+                <div className="pc-form-group">
+                  <label>Project Overview</label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Project Overview"></textarea>
+                </div>
+                <div className="pc-form-group">
+                  <label>My Role</label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Add Role"></textarea>
+                </div>
+                <div className="pc-form-group">
+                  <label>Challenges</label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Challenges"></textarea>
+                </div>
+                <div className="pc-form-group">
+                  <label>Technologies</label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter technologies"></textarea>
+                </div>
+                <div className="pc-form-group">
+                  <label>Solution</label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Solution"></textarea>
+                </div>
+                <div className="pc-form-group">
+                  <label>Key Achievements</label>
+                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Key Achievements"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div className="pc-card">
+              <div className="pc-pink-header">Details</div>
+              
+              <div className="pc-subheader-row">
+                <h3>Key Features</h3>
+                <button className="pc-action-btn">Add Feature +</button>
+              </div>
+
+              <div className="pc-grid-two">
+                <div className="pc-feature-block">
+                  <label className="pc-sub-label">Feature 1</label>
+                  <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
+                  <textarea className="pc-input pc-textarea-small" placeholder="Description"></textarea>
+                </div>
+                <div className="pc-feature-block">
+                  <label className="pc-sub-label">Feature 2</label>
+                  <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
+                  <textarea className="pc-input pc-textarea-small" placeholder="Description"></textarea>
+                </div>
+              </div>
+
+              <div className="pc-subheader-row pc-mt-40">
+                <h3>Design Process</h3>
+                <button className="pc-action-btn">Add Process +</button>
+              </div>
+
+              <div className="pc-process-container">
+                <div className="pc-process-item">
+                  <label className="pc-sub-label">Process 1</label>
+                  <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
+                 {}
+                  <textarea className="pc-input pc-textarea" rows="6" placeholder="Description"></textarea>
+                </div>
+
+                <div className="pc-process-item">
+                  <label className="pc-sub-label">Process 2</label>
+                  <input type="text" className="pc-input pc-mb-10" placeholder="Add Title" />
+                  
+                {}
+                  <textarea className="pc-input pc-textarea" rows="6" placeholder="Description"></textarea>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
