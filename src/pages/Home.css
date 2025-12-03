@@ -890,55 +890,53 @@ body {
   margin: 0 4px;
 }
 
-@media (max-width: 768px) {
-  .top-section {
-    grid-template-columns: 1fr;
-  }
-
-  .bottom-section {
-    grid-template-columns: 1fr;
-  }
-
-  .metrics-section {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard {
-    padding: 16px;
-  }
-
-  .card {
-    padding: 20px;
-  }
-
-  .seo-row {
-    flex-direction: column;
-    gap: 16px;
-  }
+/* NEW STYLES FOR DUAL INPUTS */
+.lang-badge {
+  display: inline-block;
+  background-color: var(--card-border);
+  color: var(--text-secondary);
+  border: 1px solid var(--input-border-dark);
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  margin-right: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.app-layout[style*="direction: rtl"] input {
+.editor-section-wrapper {
+  margin-bottom: 24px;
+}
+
+.editor-group {
+  margin-bottom: 1.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.editor-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--seo-label);
+  margin-bottom: 12px;
+}
+
+/* Force text direction based on attribute */
+input[dir="rtl"], textarea[dir="rtl"] {
   text-align: right;
+  direction: rtl;
 }
 
-.app-layout[style*="direction: rtl"] textarea {
-  text-align: right;
+input[dir="ltr"], textarea[dir="ltr"] {
+  text-align: left;
+  direction: ltr;
 }
 
-.app-layout[style*="direction: rtl"] .lucide-log-out {
-  transform: rotate(180deg);
-}
-
-.app-layout[style*="direction: rtl"] .lucide-arrow-right {
-  transform: rotate(180deg);
-}
-
-.seo-toolbar {
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  height: auto; 
-}
+/* RESPONSIVE STYLES */
 
 @media (max-width: 768px) {
   .top-section,
@@ -1015,6 +1013,29 @@ body {
     text-align: center;
     justify-content: center;
   }
+}
+
+.app-layout[style*="direction: rtl"] input {
+  text-align: right;
+}
+
+.app-layout[style*="direction: rtl"] textarea {
+  text-align: right;
+}
+
+.app-layout[style*="direction: rtl"] .lucide-log-out {
+  transform: rotate(180deg);
+}
+
+.app-layout[style*="direction: rtl"] .lucide-arrow-right {
+  transform: rotate(180deg);
+}
+
+.seo-toolbar {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  height: auto; 
 }
 
 .card-title {

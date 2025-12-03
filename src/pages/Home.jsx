@@ -4,12 +4,6 @@ import { useState } from 'react';
 import SideBar from '../common/SideBar';
 import NavButtons from '../common/NavButtons';
 import { Eye, Users, TrendingUp, Send, Plus, FolderOpen, Tag, FileText, ArrowRight } from 'lucide-react';
-import { 
-  Bold, Italic, Strikethrough, 
-  Heading1, Heading2, Heading3, 
-  Highlighter, Code, Link as LinkIcon, 
-  MessageSquare, ImagePlus 
-} from 'lucide-react';
 import { Helmet } from "react-helmet";
 import { useLanguage } from '../language/LanguageContext';
 import RichTextEditor from '../components/RichTextEditor';
@@ -432,28 +426,74 @@ const Home = () => {
             </div>
           </div>
 
-       
-  <div className="seo-container">
-      <h2 className="seo-title">{t.home.seoTitle}</h2>
+          <div className="seo-container">
+            <h2 className="seo-title">{t.home.seoTitle}</h2>
 
-      <div className="seo-row">
-        <div className="seo-field-group">
-          <label>{t.home.slugName}</label>
-          <input type="text" placeholder={t.home.enterSlug} />
-        </div>
-        <div className="seo-field-group">
-          <label>{t.home.pageTag}</label>
-          <input type="text" placeholder={t.home.enterTag} />
-        </div>
-      </div>
+            <div className="seo-row">
+              <div className="seo-field-group">
+                <label>
+                  {t.home.slugName} <span className="lang-badge">EN</span>
+                </label>
+                <input type="text" placeholder={t.home.enterSlug} dir="ltr" />
+              </div>
+              <div className="seo-field-group">
+                <label>
+                  {t.home.slugName} <span className="lang-badge">AR</span>
+                </label>
+                <input type="text" placeholder="رابط-الصفحة" dir="rtl" />
+              </div>
+            </div>
 
-<RichTextEditor />
+            <div className="seo-row">
+              <div className="seo-field-group">
+                <label>
+                  {t.home.pageTag} <span className="lang-badge">EN</span>
+                </label>
+                <input type="text" placeholder={t.home.enterTag} dir="ltr" />
+              </div>
+              <div className="seo-field-group">
+                <label>
+                  {t.home.pageTag} <span className="lang-badge">AR</span>
+                </label>
+                <input type="text" placeholder="وسم الصفحة" dir="rtl" />
+              </div>
+            </div>
 
-      <div className="seo-field-group">
-        <label>{t.home.metaDescription}</label>
-        <textarea placeholder={t.home.enterMetaDesc} rows={6}></textarea>
-      </div>
-    </div>
+            <div className="editor-section-wrapper">
+              <div className="editor-group mb-4">
+                <label className="editor-label">
+                  Content Body <span className="lang-badge">EN</span>
+                </label>
+                <div dir="ltr">
+                  <RichTextEditor />
+                </div>
+              </div>
+
+              <div className="editor-group mb-4">
+                <label className="editor-label">
+                  Content Body <span className="lang-badge">AR</span>
+                </label>
+                <div dir="rtl">
+                  <RichTextEditor />
+                </div>
+              </div>
+            </div>
+
+            <div className="seo-row">
+              <div className="seo-field-group">
+                <label>
+                  {t.home.metaDescription} <span className="lang-badge">EN</span>
+                </label>
+                <textarea placeholder={t.home.enterMetaDesc} rows={6} dir="ltr"></textarea>
+              </div>
+              <div className="seo-field-group">
+                <label>
+                  {t.home.metaDescription} <span className="lang-badge">AR</span>
+                </label>
+                <textarea placeholder="أدخل وصف الميتا بالعربية" rows={6} dir="rtl"></textarea>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
