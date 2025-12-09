@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #000000;
+  color: #333;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 120vw;
+  overflow-x: hidden;
+}
+
+.top-nav-container {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px 20px 0 20px;
+}
+
+.email-wrapper {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.card h3, .card h4 {
+  color: #000000;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.action-bar {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  flex: 1;
+  background-color: #ffffff;
+  color: #333;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-action:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.btn-action.btn-delete {
+  background-color: #3e0e0e;
+  color: #ff4d4d;
+  border: 1px solid #3e0e0e;
+}
+
+.btn-action.btn-delete:hover {
+  background-color: #580808;
+  color: #ffffff;
+}
+
+
+.sender-profile h3 {
+  margin-bottom: 15px;
+}
+
+.sender-header {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sender-name {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.sender-company {
+  color: #666;
+  font-size: 14px;
+}
+
+.sender-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #555;
+  font-size: 14px;
+}
+
+.detail-item .icon {
+  color: #777;
+  display: flex;
+  align-items: center;
+}
+
+.meta-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.meta-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.meta-icon {
+  color: #3e0e0e; 
+  margin-top: 2px;
+}
+
+.meta-content p {
+  font-size: 14px;
+  color: #333;
+  margin: 2px 0;
+}
+
+.badge-priority {
+  display: inline-block;
+  background-color: #3e0e0e;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  border-left: 3px solid #ff4d4d;
+}
+
+.label-flex {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.tags-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.tag-important {
+  background-color: #fce4ec;
+  color: #c2185b;
+}
+
+.tag-project {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.message-card {
+  min-height: 300px;
+}
+
+.email-body {
+  color: #444;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.email-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.attachment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.attachment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.attachment-file {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.file-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.file-size {
+  font-size: 11px;
+  color: #777;
+}
+
+.btn-download {
+  background: #ffffff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.2s;
+}
+
+.btn-download:hover {
+  background-color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+  
+  .main-content {
+    margin: 0;
+  }
+  
+  .email-wrapper {
+    padding: 0 15px 40px 15px;
+  }
+
+  .sender-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-row {
+    grid-template-columns: 1fr;
+  }
+
+  .action-bar {
+    gap: 10px;
+  }
+  
+  .btn-action {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .attachment-grid {
+    grid-template-columns: 1fr; 
+  }
+}

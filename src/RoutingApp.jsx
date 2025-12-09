@@ -17,6 +17,7 @@ import SettingsPage from './pages/SettingsPage';
 import SideBar from './common/SideBar';
 import ProjectDetails from './pages/ProjectDetails';
 import ProjectContent from './pages/ProjectContent';
+import EmailContent from './pages/EmailContent';
 
    const RoutingApp = () => {
     return ( 
@@ -39,7 +40,8 @@ import ProjectContent from './pages/ProjectContent';
                         <Route path='/Messages' element={<Messages />} />
                         <Route path='/Help' element={<Help />} />
                         <Route path='/Settings' element={<SettingsPage />} />
-                        
+                        <Route path='/EmailContent' element={<EmailContent />} />
+
                         <Route path='/PageList' element={<PageList />} />
                         <Route path='/ProjectDetails' element={<ProjectDetails />} />
                         <Route path='/ProjectContent' element={<ProjectContent />} />
