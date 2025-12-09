@@ -1,10 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom'; 
 import SideBar from '../common/SideBar';
 import NavButtons from '../common/NavButtons';
 import './EmailContent.css';
 
 const Icons = {
+  ArrowLeft: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>,
   Reply: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 14 4 9 9 4"></polyline><path d="M20 20v-7a4 4 0 0 0-4-4H4"></path></svg>,
   Forward: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 14 20 9 15 4"></polyline><path d="M4 20v-7a4 4 0 0 1 4-4h12"></path></svg>,
   Archive: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>,
@@ -25,6 +27,8 @@ const Icons = {
 };
 
 const EmailContent = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="app-container">
       <Helmet>
@@ -41,6 +45,10 @@ const EmailContent = () => {
         </div>
 
         <div className="email-wrapper">
+            <button className='button' onClick={() => navigate('/Messages')} >
+                <Icons.ArrowLeft /> Back to Messages
+            </button>
+
           <div className="action-bar">
             <button className="btn-action"><Icons.Reply /> Reply</button>
             <button className="btn-action"><Icons.Forward /> Forward</button>
@@ -151,7 +159,7 @@ const EmailContent = () => {
                   <span className="file-name">Q4_Proposal_Final.pdf</span>
                   <span className="file-size">2.4 MB</span>
                 </div>
-                <button className="btn-download"><Icons.Download /></button>
+                <button className="btn-downloadd"><Icons.Download /></button>
               </div>
 
               <div className="attachment-file">
@@ -160,7 +168,7 @@ const EmailContent = () => {
                   <span className="file-name">Budget_Breakdown.xlsx</span>
                   <span className="file-size">1.1 MB</span>
                 </div>
-                <button className="btn-download"><Icons.Download /></button>
+                <button className="btn-downloadd"><Icons.Download /></button>
               </div>
 
               <div className="attachment-file">
@@ -169,7 +177,7 @@ const EmailContent = () => {
                   <span className="file-name">Timeline_Chart.png</span>
                   <span className="file-size">856 KB</span>
                 </div>
-                <button className="btn-download"><Icons.Download /></button>
+                <button className="btn-downloadd"><Icons.Download /></button>
               </div>
 
             </div>

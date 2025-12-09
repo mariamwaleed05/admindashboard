@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
 import SideBar from '../common/SideBar';
 import NavButtons from '../common/NavButtons';
 import RichTextEditor from '../components/RichTextEditor';
@@ -30,10 +31,14 @@ const Icons = {
   Close: () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
   ),
+  Send: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+  )
 };
 
 const Messages = () => {
   const [isComposeVisible, setIsComposeVisible] = useState(false);
+  const navigate = useNavigate(); 
 
   const toggleCompose = () => {
     setIsComposeVisible(!isComposeVisible);
@@ -41,6 +46,10 @@ const Messages = () => {
 
   const openCompose = () => {
     setIsComposeVisible(true);
+  };
+
+  const handleRowClick = () => {
+    navigate('/EmailContent'); 
   };
 
   return (
@@ -130,54 +139,54 @@ const Messages = () => {
                     <th className="text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
+                <tbody style={{ cursor: 'pointer' }}> 
+                  <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-read">Read</span></td>
                     <td>Sarah Johnson</td>
                     <td className="text-muted">sarah.johnson@email.com</td>
                     <td>Website Design Project Inquiry</td>
                     <td>Nov 22, 2025</td>
-                    <td className="text-right"><button className="action-btn"><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
-                  <tr>
+                  <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-new">New</span></td>
                     <td>Michael Chen</td>
                     <td className="text-muted">m.chen@techcorp.com</td>
                     <td className="fw-bold">Collaboration Opportunity</td>
                     <td className="fw-bold">Nov 21, 2025</td>
-                    <td className="text-right"><button className="action-btn"><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
-                  <tr>
+                  <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-read">Read</span></td>
                     <td>Emma Rodriguez</td>
                     <td className="text-muted">emma.r@designstudio.com</td>
                     <td>Speaking Engagement Request</td>
                     <td>Nov 20, 2025</td>
-                    <td className="text-right"><button className="action-btn"><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
-                  <tr>
+                  <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-read">Read</span></td>
                     <td>David Park</td>
                     <td className="text-muted">david.park@startup.io</td>
                     <td>Portfolio Review Request</td>
                     <td>Nov 19, 2025</td>
-                    <td className="text-right"><button className="action-btn"><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
-                  <tr>
+                  <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-read">Read</span></td>
                     <td>Lisa Thompson</td>
                     <td className="text-muted">lisa.thompson@agency.com</td>
                     <td>Job Opportunity - Senior Designer</td>
                     <td>Nov 18, 2025</td>
-                    <td className="text-right"><button className="action-btn"><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
-                  <tr>
+                  <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-new">New</span></td>
                     <td>James Wilson</td>
                     <td className="text-muted">james.w@freelance.com</td>
                     <td className="fw-bold">Question About Your Services</td>
                     <td className="fw-bold">Nov 17, 2025</td>
-                    <td className="text-right"><button className="action-btn"><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
                 </tbody>
               </table>
@@ -207,7 +216,7 @@ const Messages = () => {
 
               <div className="form-actions">
                 <button className="btn-send">
-                  Send Email <span className="icon-spacer"></span>
+                  Send Email <span className="icon-spacer"><Icons.Send /></span>
                 </button>
               </div>
             </div>
