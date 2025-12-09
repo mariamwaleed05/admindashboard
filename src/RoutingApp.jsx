@@ -9,7 +9,6 @@ import ResetPassword from './pages/ResetPassword';
 import Analytics from './pages/Analytics';
 import Services from './pages/Services';
 import About from './pages/About';
-import MediaLibrary from './pages/MediaLibrary';
 import PageList from './pages/PageList';
 import Messages from './pages/Messages';
 import Help from './pages/Help';
@@ -37,7 +36,6 @@ import UiElements from './pages/UiElements';
                         <Route path='/Analytics' element={<Analytics />} />
                         <Route path='/Services' element={<Services />} />
                         <Route path='/About' element={<About />} />
-                        <Route path='/MediaLibrary' element={<MediaLibrary />} />
                         <Route path='/Messages' element={<Messages />} />
                         <Route path='/Help' element={<Help />} />
                         <Route path='/Settings' element={<SettingsPage />} />
