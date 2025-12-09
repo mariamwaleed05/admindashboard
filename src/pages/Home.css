@@ -244,6 +244,7 @@ body {
 
 .action-text {
   color: var(--card-bg);
+  font-family: var(--font-main);
   font-weight: 500;
 }
 

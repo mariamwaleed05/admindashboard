@@ -42,6 +42,7 @@ body {
 .anl-title {
   font-size: 28px;
   font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
   color: #ffffff;
   margin-bottom: 6px;
 }
@@ -51,6 +52,7 @@ body {
   opacity: 0.8;
   font-size: 15px;
   font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .anl-controls {
@@ -62,6 +64,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+    font-family: 'Montserrat', sans-serif;
   padding: 10px 16px;
   font-size: 14px;
   white-space: nowrap;
@@ -593,9 +596,11 @@ body {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+  .anl-wrapper{
+    width: 92%;
+  }
   .anl-controls {
-    width: 100%;
+    width:90%;
   }
 
   .anl-control-btn {
