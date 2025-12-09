@@ -146,7 +146,7 @@ const Messages = () => {
                     <td className="text-muted">sarah.johnson@email.com</td>
                     <td>Website Design Project Inquiry</td>
                     <td>Nov 22, 2025</td>
-                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
                   <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-new">New</span></td>
@@ -154,7 +154,7 @@ const Messages = () => {
                     <td className="text-muted">m.chen@techcorp.com</td>
                     <td className="fw-bold">Collaboration Opportunity</td>
                     <td className="fw-bold">Nov 21, 2025</td>
-                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
                   <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-read">Read</span></td>
@@ -162,7 +162,7 @@ const Messages = () => {
                     <td className="text-muted">emma.r@designstudio.com</td>
                     <td>Speaking Engagement Request</td>
                     <td>Nov 20, 2025</td>
-                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
                   <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-read">Read</span></td>
@@ -170,7 +170,7 @@ const Messages = () => {
                     <td className="text-muted">david.park@startup.io</td>
                     <td>Portfolio Review Request</td>
                     <td>Nov 19, 2025</td>
-                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
                   <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-read">Read</span></td>
@@ -178,7 +178,7 @@ const Messages = () => {
                     <td className="text-muted">lisa.thompson@agency.com</td>
                     <td>Job Opportunity - Senior Designer</td>
                     <td>Nov 18, 2025</td>
-                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
                   <tr onClick={handleRowClick} className="clickable-row">
                     <td><span className="badge badge-new">New</span></td>
@@ -186,7 +186,7 @@ const Messages = () => {
                     <td className="text-muted">james.w@freelance.com</td>
                     <td className="fw-bold">Question About Your Services</td>
                     <td className="fw-bold">Nov 17, 2025</td>
-                    <td className="text-right"><button className="action-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
+                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
                   </tr>
                 </tbody>
               </table>
