@@ -5,9 +5,15 @@ import { Link } from 'react-router-dom';
 import NavButtons from '../common/NavButtons';
 import './ProjectContent.css';
 import RichTextEditor from '../components/RichTextEditor';
-import PageList from './PageList';
+
 
 const CreateProject = () => {
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Submitted");
+  };
+
   return (
     <>
       <Helmet>
@@ -23,14 +29,17 @@ const CreateProject = () => {
         <div className="main-content">
           <NavButtons />
 
-          <div className="pc-container">
+          <form className="pc-container" onSubmit={handleSubmit}>
             <div className="pc-header-row">
               <div className="pc-title-group">
                 <h1>Create Project</h1>
+                <p>Add details for your new portfolio item</p>
               </div>
-              <Link to="/PageList"><button className="pc-back-btn">
-                Back To Projects &gt;
-              </button></Link>
+              <Link to="/PageList">
+                <button type="button" className="pc-back-btn">
+                  Back To Projects &gt;
+                </button>
+              </Link>
             </div>
 
             <div className="pc-card">
@@ -48,7 +57,7 @@ const CreateProject = () => {
                   Figma
                   <div className="pc-close-badge">×</div>
                 </div>
-                <button className="pc-add-btn">+</button>
+                <button type="button" className="pc-add-btn">+</button>
               </div>
               <div className="pc-grid-two pc-mt-20">
                  <div className="pc-form-group">
@@ -64,7 +73,7 @@ const CreateProject = () => {
 
             <div className="pc-card">
               <div className="pc-pink-header">Header Info</div>
-              <form className="pc-form">
+              <div className="pc-form">
                 
                 <div className="pc-grid-two">
                     <div className="pc-form-group">
@@ -163,7 +172,7 @@ const CreateProject = () => {
                   </div>
                 </div>
 
-              </form>
+              </div>
             </div>
 
             <div className="pc-card">
@@ -241,7 +250,7 @@ const CreateProject = () => {
               
               <div className="pc-subheader-row">
                 <h3>Key Features</h3>
-                <button className="pc-action-btn">Add Feature +</button>
+                <button type="button" className="pc-action-btn">Add Feature +</button>
               </div>
 
               <div className="pc-grid-two">
@@ -272,7 +281,7 @@ const CreateProject = () => {
 
               <div className="pc-subheader-row pc-mt-40">
                 <h3>Design Process</h3>
-                <button className="pc-action-btn">Add Process +</button>
+                <button type="button" className="pc-action-btn">Add Process +</button>
               </div>
 
               <div className="pc-process-container">
@@ -298,7 +307,7 @@ const CreateProject = () => {
               
               <div className="pc-subheader-row">
                 <h3>Project Images</h3>
-                <button className="pc-add-image-btn">
+                <button type="button" className="pc-add-image-btn">
                     Add Image <span>+</span>
                 </button>
               </div>
@@ -324,7 +333,17 @@ const CreateProject = () => {
               </div>
             </div>
 
-          </div>
+            <div className="pc-footer-actions">
+                <Link to="/PageList" className="pc-link-no-style">
+                    <button type="button" className="pc-btn-cancel">Cancel</button>
+                </Link>
+                <div className="pc-action-group">
+                    <button type="button" className="pc-btn-save-draft">Save as Draft</button>
+                    <button type="submit" className="pc-btn-submit">Publish Project</button>
+                </div>
+            </div>
+
+          </form> 
         </div>
       </div>
     </>
