@@ -49,7 +49,7 @@ const LoginPage = () => {
               </div>
               <input 
                 type="email" 
-                placeholder={t.emailPlaceholder} // Dynamic placeholder
+                placeholder={t.emailPlaceholder} 
                 className="form-input" 
                 style={inputStyle}
               />

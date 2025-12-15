@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from "react-helmet";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate , Link} from 'react-router-dom'; 
 import NavButtons from '../common/NavButtons';
 import SideBar from '../common/SideBar';
 import './PageList.css';
@@ -9,6 +9,7 @@ import {
   FileText, Eye, Trash2, Edit2, Plus 
 } from 'lucide-react';
 import { useLanguage } from '../language/LanguageContext';
+import CreateProject from './CreateProject';
 
 const PageList = () => {
   const { t, language } = useLanguage();
@@ -70,10 +71,10 @@ const PageList = () => {
                 <h1>{t.pageList.title}</h1>
                 <p>{t.pageList.subtitle}</p>
               </div>
-              <button className="add-project-btn">
+              <Link to="/CreateProject"><button className="add-project-btn">
                 {t.pageList.addProject}
                 <Plus size={18} style={{ marginLeft: isRtl ? 0 : '0.5rem', marginRight: isRtl ? '0.5rem' : 0 }} />
-              </button>
+              </button></Link>
             </div>
 
             <div className="services-filter">

@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import NavButtons from '../common/NavButtons';
 import './ProjectContent.css';
 import RichTextEditor from '../components/RichTextEditor';
+import PageList from './PageList';
 
-const ProjectContent = () => {
+const CreateProject = () => {
   return (
     <>
       <Helmet>
@@ -25,12 +26,11 @@ const ProjectContent = () => {
           <div className="pc-container">
             <div className="pc-header-row">
               <div className="pc-title-group">
-                <h1>Project Details</h1>
-                <p>UX/UI Projects - Fashion App</p>
+                <h1>Create Project</h1>
               </div>
-             <Link to="/PageList"><button className="pc-back-btn">
+              <Link to="/PageList"><button className="pc-back-btn">
                 Back To Projects &gt;
-              </button></Link> 
+              </button></Link>
             </div>
 
             <div className="pc-card">
@@ -331,4 +331,4 @@ const ProjectContent = () => {
   );
 };
 
-export default ProjectContent;
+export default CreateProject;
