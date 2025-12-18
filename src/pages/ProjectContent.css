@@ -111,6 +111,11 @@ body {
   padding-bottom: 10px;
 }
 
+.pc-no-tags {
+  color: #666;
+  font-size: 14px;
+}
+
 .pc-tag {
   position: relative;
   padding: 12px 40px;
@@ -165,6 +170,11 @@ body {
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
+.pc-btn-square {
+  height: 46px;
+  width: 46px;
+}
+
 .pc-form-group {
   margin-bottom: 30px;
 }
@@ -175,6 +185,16 @@ body {
   font-weight: 600;
   margin-bottom: 12px;
   color: #fff;
+}
+
+.pc-input-group-row {
+  display: flex;
+  gap: 10px;
+}
+
+.pc-flex-gap {
+  display: flex;
+  gap: 10px;
 }
 
 .pc-desc-label {
@@ -319,11 +339,11 @@ select.pc-input {
 }
 
 .pc-remove-gallery-btn {
-  background-color: #333;
-  color: #ff6b6b;
+  color: #700000;
   border: 1px solid #444;
   padding: 0 20px;
   border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   font-weight: 600;
 }
@@ -332,6 +352,33 @@ select.pc-input {
   display: flex;
   gap: 15px;
   margin-top: 20px;
+}
+
+.pc-feature-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pc-label-no-margin {
+  margin-bottom: 0;
+}
+
+.pc-btn-remove-text {
+  color: #700000;
+  background: none;
+  border: none;
+    font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.pc-process-remove-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
 }
 
 .lang-badge {
