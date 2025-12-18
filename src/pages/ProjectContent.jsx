@@ -32,10 +32,12 @@ const ProjectContent = () => {
     Tags: [], 
     KeyFeatures: [],
     Process: [],
-    HeroImage: '' 
+    HeroImage: '',
+    Gallery: [] 
   });
 
   const [tagInput, setTagInput] = useState({ en: '', ar: '' });
+  const [galleryInput, setGalleryInput] = useState('');
 
   useEffect(() => {
     if (idToEdit) {
@@ -83,7 +85,8 @@ const ProjectContent = () => {
             Tags: Array.isArray(data.Tags) ? data.Tags : [],
             KeyFeatures: Array.isArray(data.KeyFeatures) ? data.KeyFeatures : [],
             Process: Array.isArray(data.Process) ? data.Process : [],
-            HeroImage: data.HeroImage || ''
+            HeroImage: data.HeroImage || '',
+            Gallery: Array.isArray(data.Gallery) ? data.Gallery : []
         });
       }
     } catch (error) {
@@ -169,6 +172,23 @@ const ProjectContent = () => {
     setFormData(prev => ({ ...prev, Process: updated }));
   };
 
+  const addGalleryImage = () => {
+    if (galleryInput.trim()) {
+      setFormData(prev => ({
+        ...prev,
+        Gallery: [...prev.Gallery, galleryInput.trim()]
+      }));
+      setGalleryInput('');
+    }
+  };
+
+  const removeGalleryImage = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      Gallery: prev.Gallery.filter((_, i) => i !== index)
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
@@ -190,7 +210,8 @@ const ProjectContent = () => {
             KeyFeatures: formData.KeyFeatures,
             Process: formData.Process,
             HeroImage: formData.HeroImage,
-            ServiceCategory: formData.ServiceCategory 
+            ServiceCategory: formData.ServiceCategory,
+            Gallery: formData.Gallery
         };
 
         let error;
@@ -236,6 +257,14 @@ const ProjectContent = () => {
           <NavButtons />
 
           <div className="pc-container">
+            
+            <div className="pc-status-bar">
+                <span className="pc-status-label">Current Workspace:</span>
+                <span className="pc-status-value">
+                    {idToEdit ? (formData.Title.en || 'Untitled Project') : 'Creating New Project'}
+                </span>
+            </div>
+
             <div className="pc-header-row">
               <div className="pc-title-group">
                 <h1>{idToEdit ? 'Edit Project' : 'New Project'}</h1>
@@ -655,25 +684,42 @@ const ProjectContent = () => {
             </div>
 
             <div className="pc-card">
-              <div className="pc-pink-header">Gallery</div>
+              <div className="pc-pink-header">Gallery & Hero</div>
               
-              <div className="pc-subheader-row">
-                <h3>Project Images</h3>
+              <div className="pc-form-group">
+                  <label>Main Image URL (Hero)</label>
+                  <input 
+                      type="text" 
+                      className="pc-input" 
+                      placeholder="https://..." 
+                      dir="ltr" 
+                      value={formData.HeroImage}
+                      onChange={(e) => setFormData(prev => ({...prev, HeroImage: e.target.value}))}
+                  />
               </div>
 
-              <div className="pc-grid-two pc-mt-20">
-                <div className="pc-form-group">
-                    <label>Main Image URL</label>
-                    <input 
-                        type="text" 
-                        className="pc-input" 
-                        placeholder="https://..." 
-                        dir="ltr" 
-                        value={formData.HeroImage}
-                        onChange={(e) => setFormData(prev => ({...prev, HeroImage: e.target.value}))}
-                    />
-                </div>
+              <div className="pc-subheader-row pc-mt-40">
+                <h3>Gallery Images</h3>
               </div>
+
+              {formData.Gallery.map((imgUrl, idx) => (
+                <div key={idx} className="pc-gallery-item">
+                   <input type="text" className="pc-input" value={imgUrl} readOnly />
+                   <button className="pc-remove-gallery-btn" onClick={() => removeGalleryImage(idx)}>Remove</button>
+                </div>
+              ))}
+
+              <div className="pc-gallery-add-row">
+                 <input 
+                   type="text" 
+                   className="pc-input" 
+                   placeholder="Add new image URL..." 
+                   value={galleryInput}
+                   onChange={(e) => setGalleryInput(e.target.value)}
+                 />
+                 <button className="pc-action-btn" onClick={addGalleryImage} type="button">Add Image</button>
+              </div>
+
             </div>
 
             <div className="pc-footer-actions">
