@@ -68,7 +68,7 @@ const PageList = () => {
   };
 
   const handleEditClick = (id) => {
-    navigate('/ProjectDetails', { state: { idToEdit: id } });
+    navigate('/ProjectContent', { state: { idToEdit: id } });
   };
 
   const cleanText = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : "";

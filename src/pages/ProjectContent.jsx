@@ -26,7 +26,7 @@ const ProjectContent = () => {
             <div className="pc-header-row">
               <div className="pc-title-group">
                 <h1>Project Details</h1>
-                <p>UX/UI Projects - Fashion App</p>
+                {/* <p>UX/UI Projects - Fashion App</p> */}
               </div>
              <Link to="/PageList"><button className="pc-back-btn">
                 Back To Projects &gt;
