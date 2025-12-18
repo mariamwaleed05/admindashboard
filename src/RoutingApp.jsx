@@ -25,10 +25,8 @@ import CreateProject from './pages/CreateProject';
         <>
             <LanguageProvider>
         <BrowserRouter>
-            <div style={{ display: 'flex' }}>
                 <SideBar /> 
                 
-                <div style={{ flex: 1, padding: '20px' }}>
                     <Routes>
                         <Route path='/' element={<Home />} />
                         <Route path='/LoginPage' element={<LoginPage />} />
@@ -42,18 +40,17 @@ import CreateProject from './pages/CreateProject';
                         <Route path='/Settings' element={<SettingsPage />} />
                         <Route path='/EmailContent' element={<EmailContent />} />
                         <Route path='/UiElements' element={<UiElements />} />
-                        <Route path='/CreateProject' element={<CreateProject />} />
 
                         <Route path='/PageList' element={<PageList />} />
                         <Route path='/ProjectDetails' element={<ProjectDetails />} />
                         <Route path='/ProjectContent' element={<ProjectContent />} />
+                        <Route path='/CreateProject' element={<CreateProject />} />
 
                  
                         
                         <Route path='*' element={<Error />} />
                     </Routes>
-                </div>
-            </div>
+                
         </BrowserRouter>
         </LanguageProvider>
         </>
