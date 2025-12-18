@@ -56,6 +56,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+      font-family: 'Montserrat', sans-serif;
   gap: 0.5rem;
   transition: all 0.3s;
 }
