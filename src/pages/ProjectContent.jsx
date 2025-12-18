@@ -1,16 +1,215 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from "react-helmet";
+import { Link, useLocation, useNavigate } from 'react-router-dom'; 
 import SideBar from '../common/SideBar';
-import { Link } from 'react-router-dom'; 
 import NavButtons from '../common/NavButtons';
 import './ProjectContent.css';
 import RichTextEditor from '../components/RichTextEditor';
+import { supabase } from '../SupaBase';
 
 const ProjectContent = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { idToEdit } = location.state || {};
+
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  const [formData, setFormData] = useState({
+    Title: { en: '', ar: '' },
+    ServiceCategory: { en: '', ar: '' },
+    Description: { en: '', ar: '' },
+    ShortDescription: { en: '', ar: '' },
+    Date: { en: '', ar: '' },
+    Type: { en: '', ar: '' },
+    Duration: { en: '', ar: '' },
+    Overview: { en: '', ar: '' },
+    Role: { en: '', ar: '' },
+    Challenges: { en: '', ar: '' },
+    Technologies: { en: '', ar: '' },
+    Solution: { en: '', ar: '' },
+    Achievements: { en: '', ar: '' },
+    Tags: [], 
+    KeyFeatures: [],
+    Process: [],
+    HeroImage: '' 
+  });
+
+  const [tagInput, setTagInput] = useState({ en: '', ar: '' });
+
+  useEffect(() => {
+    if (idToEdit) {
+      fetchProjectData(idToEdit);
+    }
+  }, [idToEdit]);
+
+  const fetchProjectData = async (id) => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('ProjectDetails')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      if (data) {
+        const parseField = (field) => {
+          if (!field) return { en: '', ar: '' };
+          if (typeof field === 'object') return field;
+          try { 
+            const parsed = JSON.parse(field); 
+            return parsed || { en: '', ar: '' };
+          } catch { 
+            return { en: field, ar: '' }; 
+          }
+        };
+
+        setFormData({
+            Title: parseField(data.Title),
+            ServiceCategory: parseField(data.ServiceCategory || data.Type), 
+            Description: parseField(data.Info), 
+            ShortDescription: parseField(data.Overview), 
+            Date: parseField(data.Date),
+            Type: parseField(data.Type),
+            Duration: parseField(data.Duration),
+            Overview: parseField(data.Overview),
+            Role: parseField(data.Role),
+            Challenges: parseField(data.Challenge),
+            Technologies: parseField(data.Technologies),
+            Solution: parseField(data.Solution),
+            Achievements: parseField(data.Achievements),
+            Tags: Array.isArray(data.Tags) ? data.Tags : [],
+            KeyFeatures: Array.isArray(data.KeyFeatures) ? data.KeyFeatures : [],
+            Process: Array.isArray(data.Process) ? data.Process : [],
+            HeroImage: data.HeroImage || ''
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (field, lang, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: {
+        ...(prev[field] || { en: '', ar: '' }),
+        [lang]: value
+      }
+    }));
+  };
+
+  const handleRichTextChange = (field, lang, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: { ...(prev[field] || { en: '', ar: '' }), [lang]: value }
+    }));
+  };
+
+  const handleAddTag = () => {
+    if (tagInput.en || tagInput.ar) {
+      setFormData(prev => ({
+        ...prev,
+        Tags: [...prev.Tags, { ...tagInput }]
+      }));
+      setTagInput({ en: '', ar: '' });
+    }
+  };
+
+  const removeTag = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      Tags: prev.Tags.filter((_, i) => i !== index)
+    }));
+  };
+
+  const addFeature = () => {
+    setFormData(prev => ({
+      ...prev,
+      KeyFeatures: [...prev.KeyFeatures, { title: { en: '', ar: '' }, desc: { en: '', ar: '' } }]
+    }));
+  };
+
+  const updateFeature = (index, part, lang, value) => {
+    const updated = [...formData.KeyFeatures];
+    if (!updated[index][part]) updated[index][part] = { en: '', ar: '' };
+    updated[index][part][lang] = value;
+    setFormData(prev => ({ ...prev, KeyFeatures: updated }));
+  };
+
+  const addProcess = () => {
+    setFormData(prev => ({
+      ...prev,
+      Process: [...prev.Process, { title: { en: '', ar: '' }, content: { en: '', ar: '' } }]
+    }));
+  };
+
+  const updateProcess = (index, part, lang, value) => {
+    const updated = [...formData.Process];
+    if (!updated[index][part]) updated[index][part] = { en: '', ar: '' };
+    updated[index][part][lang] = value;
+    setFormData(prev => ({ ...prev, Process: updated }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+
+    try {
+        const payload = {
+            Title: formData.Title,
+            Type: formData.Type, 
+            Date: formData.Date,
+            Duration: formData.Duration,
+            Info: formData.Description, 
+            Overview: formData.Overview,
+            Role: formData.Role,
+            Challenge: formData.Challenges,
+            Solution: formData.Solution,
+            Technologies: formData.Technologies,
+            Achievements: formData.Achievements,
+            Tags: formData.Tags,
+            KeyFeatures: formData.KeyFeatures,
+            Process: formData.Process,
+            HeroImage: formData.HeroImage,
+            ServiceCategory: formData.ServiceCategory 
+        };
+
+        let error;
+        if (idToEdit) {
+            const res = await supabase
+                .from('ProjectDetails')
+                .update(payload)
+                .eq('id', idToEdit);
+            error = res.error;
+        } else {
+            const res = await supabase
+                .from('ProjectDetails')
+                .insert([payload]);
+            error = res.error;
+        }
+
+        if (error) throw error;
+        navigate('/PageList');
+
+    } catch (error) {
+        console.error(error);
+        alert('Error saving project: ' + error.message);
+    } finally {
+        setSaving(false);
+    }
+  };
+
+  if (loading) return <div className="loading-center">Loading Data...</div>;
+
   return (
     <>
       <Helmet>
-        <title>Project Details</title>
+        <title>{idToEdit ? 'Edit Project' : 'Create Project'}</title>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </Helmet>
 
@@ -25,8 +224,7 @@ const ProjectContent = () => {
           <div className="pc-container">
             <div className="pc-header-row">
               <div className="pc-title-group">
-                <h1>Project Details</h1>
-                {/* <p>UX/UI Projects - Fashion App</p> */}
+                <h1>{idToEdit ? 'Edit Project' : 'New Project'}</h1>
               </div>
              <Link to="/PageList"><button className="pc-back-btn">
                 Back To Projects &gt;
@@ -36,44 +234,64 @@ const ProjectContent = () => {
             <div className="pc-card">
               <div className="pc-pink-header">Tags</div>
               <div className="pc-tags-container">
-                <div className="pc-tag pc-tag-red">
-                  UI Design
-                  <div className="pc-close-badge">×</div>
-                </div>
-                <div className="pc-tag pc-tag-dark">
-                  UX Research
-                  <div className="pc-close-badge">×</div>
-                </div>
-                <div className="pc-tag pc-tag-dark">
-                  Figma
-                  <div className="pc-close-badge">×</div>
-                </div>
-                <button className="pc-add-btn">+</button>
+                {formData.Tags.map((tag, idx) => (
+                    <div key={idx} className="pc-tag pc-tag-dark">
+                        {tag.en} / {tag.ar}
+                        <div className="pc-close-badge" onClick={() => removeTag(idx)}>×</div>
+                    </div>
+                ))}
+                <button className="pc-add-btn" onClick={handleAddTag} type="button">+</button>
               </div>
               <div className="pc-grid-two pc-mt-20">
                  <div className="pc-form-group">
                     <label>Add Tag <span className="lang-badge">EN</span></label>
-                    <input type="text" placeholder="New Tag" className="pc-input" dir="ltr" />
+                    <input 
+                        type="text" 
+                        placeholder="New Tag" 
+                        className="pc-input" 
+                        dir="ltr"
+                        value={tagInput.en}
+                        onChange={(e) => setTagInput(prev => ({...prev, en: e.target.value}))}
+                    />
                  </div>
                  <div className="pc-form-group">
                     <label>Add Tag <span className="lang-badge">AR</span></label>
-                    <input type="text" placeholder="وسم جديد" className="pc-input" dir="rtl" />
+                    <input 
+                        type="text" 
+                        placeholder="وسم جديد" 
+                        className="pc-input" 
+                        dir="rtl"
+                        value={tagInput.ar}
+                        onChange={(e) => setTagInput(prev => ({...prev, ar: e.target.value}))}
+                    />
                  </div>
               </div>
             </div>
 
             <div className="pc-card">
               <div className="pc-pink-header">Header Info</div>
-              <form className="pc-form">
+              <form className="pc-form" onSubmit={handleSubmit}>
                 
                 <div className="pc-grid-two">
                     <div className="pc-form-group">
-                    <label>Project Title <span className="lang-badge">EN</span></label>
-                    <input type="text" placeholder="Enter Title" className="pc-input" dir="ltr" />
+                        <label>Project Title <span className="lang-badge">EN</span></label>
+                        <input 
+                            type="text" 
+                            className="pc-input" 
+                            dir="ltr" 
+                            value={formData.Title?.en || ''} 
+                            onChange={(e) => handleChange('Title', 'en', e.target.value)}
+                        />
                     </div>
                     <div className="pc-form-group">
-                    <label>Project Title <span className="lang-badge">AR</span></label>
-                    <input type="text" placeholder="عنوان المشروع" className="pc-input" dir="rtl" />
+                        <label>Project Title <span className="lang-badge">AR</span></label>
+                        <input 
+                            type="text" 
+                            className="pc-input" 
+                            dir="rtl" 
+                            value={formData.Title?.ar || ''}
+                            onChange={(e) => handleChange('Title', 'ar', e.target.value)}
+                        />
                     </div>
                 </div>
 
@@ -81,30 +299,40 @@ const ProjectContent = () => {
                     <div className="pc-form-group">
                         <label>Service Category <span className="lang-badge">EN</span></label>
                         <div className="pc-select-wrapper">
-                            <select defaultValue="" className="pc-input" dir="ltr">
+                            <select 
+                                className="pc-input" 
+                                dir="ltr"
+                                value={formData.ServiceCategory?.en || ''}
+                                onChange={(e) => handleChange('ServiceCategory', 'en', e.target.value)}
+                            >
                                 <option value="" disabled>Select Service</option>
-                                <option value="ux_ui">UX/UI Design</option>
-                                <option value="graphic">Graphic Design</option>
-                                <option value="content">Content Creation</option>
-                                <option value="3d">3D Modeling</option>
-                                <option value="motion">Motion Graphics</option>
-                                <option value="coding">Coding</option>
-                                <option value="photo">Photography</option>
+                                <option value="UX/UI">UX/UI Design</option>
+                                <option value="Graphic Design">Graphic Design</option>
+                                <option value="Content Creation">Content Creation</option>
+                                <option value="3D Modeling">3D Modeling</option>
+                                <option value="Motion Graphics">Motion Graphics</option>
+                                <option value="Coding">Coding</option>
+                                <option value="Photography">Photography</option>
                             </select>
                         </div>
                     </div>
                     <div className="pc-form-group">
                         <label>Service Category <span className="lang-badge">AR</span></label>
                         <div className="pc-select-wrapper">
-                            <select defaultValue="" className="pc-input" dir="rtl">
+                            <select 
+                                className="pc-input" 
+                                dir="rtl"
+                                value={formData.ServiceCategory?.ar || ''}
+                                onChange={(e) => handleChange('ServiceCategory', 'ar', e.target.value)}
+                            >
                                 <option value="" disabled>اختر الخدمة</option>
-                                <option value="ux_ui">تصميم تجربة وواجهة المستخدم</option>
-                                <option value="graphic">التصميم الجرافيكي</option>
-                                <option value="content">صناعة المحتوى</option>
-                                <option value="3d">النمذجة ثلاثية الأبعاد</option>
-                                <option value="motion">موشن جرافيك</option>
-                                <option value="coding">البرمجة</option>
-                                <option value="photo">التصوير الفوتوغرافي</option>
+                                <option value="تصميم تجربة وواجهة المستخدم">تصميم تجربة وواجهة المستخدم</option>
+                                <option value="التصميم الجرافيكي">التصميم الجرافيكي</option>
+                                <option value="صناعة المحتوى">صناعة المحتوى</option>
+                                <option value="النمذجة ثلاثية الأبعاد">النمذجة ثلاثية الأبعاد</option>
+                                <option value="موشن جرافيك">موشن جرافيك</option>
+                                <option value="البرمجة">البرمجة</option>
+                                <option value="التصوير الفوتوغرافي">التصوير الفوتوغرافي</option>
                             </select>
                         </div>
                     </div>
@@ -113,56 +341,95 @@ const ProjectContent = () => {
                 <div className="pc-form-group">
                     <label className="pc-desc-label">Description <span className="lang-badge">EN</span></label>
                     <div dir="ltr" className="pc-mb-20">
-                        <RichTextEditor />
+                        <RichTextEditor 
+                            value={formData.Description?.en || ''} 
+                            onChange={(val) => handleRichTextChange('Description', 'en', val)} 
+                        />
                     </div>
                     
                     <label className="pc-desc-label">Description <span className="lang-badge">AR</span></label>
                     <div dir="rtl">
-                        <RichTextEditor />
+                        <RichTextEditor 
+                            value={formData.Description?.ar || ''} 
+                            onChange={(val) => handleRichTextChange('Description', 'ar', val)} 
+                        />
                     </div>
                 </div>
 
                 <div className="pc-grid-two pc-mt-20">
                      <div className="pc-form-group">
                         <label>Short Description <span className="lang-badge">EN</span></label>
-                        <textarea className="pc-input pc-textarea-small" rows="4" placeholder="Brief summary..." dir="ltr"></textarea>
+                        <textarea 
+                            className="pc-input pc-textarea-small" 
+                            rows="4" dir="ltr"
+                            value={formData.ShortDescription?.en || ''}
+                            onChange={(e) => handleChange('ShortDescription', 'en', e.target.value)}
+                        />
                      </div>
                      <div className="pc-form-group">
                         <label>Short Description <span className="lang-badge">AR</span></label>
-                        <textarea className="pc-input pc-textarea-small" rows="4" placeholder="ملخص سريع..." dir="rtl"></textarea>
+                        <textarea 
+                            className="pc-input pc-textarea-small" 
+                            rows="4" dir="rtl"
+                            value={formData.ShortDescription?.ar || ''}
+                            onChange={(e) => handleChange('ShortDescription', 'ar', e.target.value)}
+                        />
                      </div>
                 </div>
 
                 <div className="pc-row-three">
                   <div className="pc-form-group">
                     <label>Date <span className="lang-badge">EN</span></label>
-                    <input type="text" placeholder="Oct 2023" className="pc-input" dir="ltr" />
+                    <input 
+                        type="text" className="pc-input" dir="ltr" 
+                        value={formData.Date?.en || ''}
+                        onChange={(e) => handleChange('Date', 'en', e.target.value)}
+                    />
                   </div>
                   <div className="pc-form-group">
                     <label>Type <span className="lang-badge">EN</span></label>
-                    <input type="text" placeholder="Freelance" className="pc-input" dir="ltr" />
+                    <input 
+                        type="text" className="pc-input" dir="ltr" 
+                        value={formData.Type?.en || ''}
+                        onChange={(e) => handleChange('Type', 'en', e.target.value)}
+                    />
                   </div>
                   <div className="pc-form-group">
                     <label>Duration <span className="lang-badge">EN</span></label>
-                    <input type="text" placeholder="2 Weeks" className="pc-input" dir="ltr" />
+                    <input 
+                        type="text" className="pc-input" dir="ltr" 
+                        value={formData.Duration?.en || ''}
+                        onChange={(e) => handleChange('Duration', 'en', e.target.value)}
+                    />
                   </div>
                 </div>
 
                 <div className="pc-row-three">
                   <div className="pc-form-group">
                     <label>Date <span className="lang-badge">AR</span></label>
-                    <input type="text" placeholder="أكتوبر ٢٠٢٣" className="pc-input" dir="rtl" />
+                    <input 
+                        type="text" className="pc-input" dir="rtl" 
+                        value={formData.Date?.ar || ''}
+                        onChange={(e) => handleChange('Date', 'ar', e.target.value)}
+                    />
                   </div>
                   <div className="pc-form-group">
                     <label>Type <span className="lang-badge">AR</span></label>
-                    <input type="text" placeholder="عمل حر" className="pc-input" dir="rtl" />
+                    <input 
+                        type="text" className="pc-input" dir="rtl" 
+                        value={formData.Type?.ar || ''}
+                        onChange={(e) => handleChange('Type', 'ar', e.target.value)}
+                    />
                   </div>
                   <div className="pc-form-group">
                     <label>Duration <span className="lang-badge">AR</span></label>
-                    <input type="text" placeholder="أسبوعين" className="pc-input" dir="rtl" />
+                    <input 
+                        type="text" className="pc-input" dir="rtl" 
+                        value={formData.Duration?.ar || ''}
+                        onChange={(e) => handleChange('Duration', 'ar', e.target.value)}
+                    />
                   </div>
                 </div>
-
               </form>
             </div>
 
@@ -172,66 +439,114 @@ const ProjectContent = () => {
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Project Overview <span className="lang-badge">EN</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Project Overview" dir="ltr"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="ltr"
+                    value={formData.Overview?.en || ''}
+                    onChange={(e) => handleChange('Overview', 'en', e.target.value)}
+                  />
                 </div>
                 <div className="pc-form-group">
                   <label>Project Overview <span className="lang-badge">AR</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="نظرة عامة على المشروع" dir="rtl"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="rtl"
+                    value={formData.Overview?.ar || ''}
+                    onChange={(e) => handleChange('Overview', 'ar', e.target.value)}
+                  />
                 </div>
               </div>
 
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>My Role <span className="lang-badge">EN</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Add Role" dir="ltr"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="ltr"
+                    value={formData.Role?.en || ''}
+                    onChange={(e) => handleChange('Role', 'en', e.target.value)}
+                  />
                 </div>
                 <div className="pc-form-group">
                   <label>My Role <span className="lang-badge">AR</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="دوري في المشروع" dir="rtl"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="rtl"
+                    value={formData.Role?.ar || ''}
+                    onChange={(e) => handleChange('Role', 'ar', e.target.value)}
+                  />
                 </div>
               </div>
 
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Challenges <span className="lang-badge">EN</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Challenges" dir="ltr"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="ltr"
+                    value={formData.Challenges?.en || ''}
+                    onChange={(e) => handleChange('Challenges', 'en', e.target.value)}
+                  />
                 </div>
                 <div className="pc-form-group">
                   <label>Challenges <span className="lang-badge">AR</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="التحديات" dir="rtl"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="rtl"
+                    value={formData.Challenges?.ar || ''}
+                    onChange={(e) => handleChange('Challenges', 'ar', e.target.value)}
+                  />
                 </div>
               </div>
 
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Technologies <span className="lang-badge">EN</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter technologies" dir="ltr"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="ltr"
+                    value={formData.Technologies?.en || ''}
+                    onChange={(e) => handleChange('Technologies', 'en', e.target.value)}
+                  />
                 </div>
                 <div className="pc-form-group">
                   <label>Technologies <span className="lang-badge">AR</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="التقنيات المستخدمة" dir="rtl"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="rtl"
+                    value={formData.Technologies?.ar || ''}
+                    onChange={(e) => handleChange('Technologies', 'ar', e.target.value)}
+                  />
                 </div>
               </div>
 
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Solution <span className="lang-badge">EN</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Solution" dir="ltr"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="ltr"
+                    value={formData.Solution?.en || ''}
+                    onChange={(e) => handleChange('Solution', 'en', e.target.value)}
+                  />
                 </div>
                 <div className="pc-form-group">
                   <label>Solution <span className="lang-badge">AR</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="الحل المقترح" dir="rtl"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="rtl"
+                    value={formData.Solution?.ar || ''}
+                    onChange={(e) => handleChange('Solution', 'ar', e.target.value)}
+                  />
                 </div>
               </div>
 
               <div className="pc-dual-section">
                 <div className="pc-form-group">
                   <label>Key Achievements <span className="lang-badge">EN</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="Enter Key Achievements" dir="ltr"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="ltr"
+                    value={formData.Achievements?.en || ''}
+                    onChange={(e) => handleChange('Achievements', 'en', e.target.value)}
+                  />
                 </div>
                 <div className="pc-form-group">
                   <label>Key Achievements <span className="lang-badge">AR</span></label>
-                  <textarea className="pc-input pc-textarea-small" placeholder="أهم الإنجازات" dir="rtl"></textarea>
+                  <textarea 
+                    className="pc-input pc-textarea-small" dir="rtl"
+                    value={formData.Achievements?.ar || ''}
+                    onChange={(e) => handleChange('Achievements', 'ar', e.target.value)}
+                  />
                 </div>
               </div>
             </div>
@@ -241,55 +556,81 @@ const ProjectContent = () => {
               
               <div className="pc-subheader-row">
                 <h3>Key Features</h3>
-                <button className="pc-action-btn">Add Feature +</button>
+                <button className="pc-action-btn" onClick={addFeature} type="button">Add Feature +</button>
               </div>
 
               <div className="pc-grid-two">
-                <div className="pc-feature-block">
-                  <label className="pc-sub-label">Feature 1 <span className="lang-badge">EN</span></label>
-                  <input type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" />
-                  <textarea className="pc-input pc-textarea-small" placeholder="Description EN" dir="ltr"></textarea>
-                  
-                  <div className="pc-mt-20"></div>
-                  
-                  <label className="pc-sub-label">Feature 1 <span className="lang-badge">AR</span></label>
-                  <input type="text" className="pc-input pc-mb-10" placeholder="العنوان بالعربية" dir="rtl" />
-                  <textarea className="pc-input pc-textarea-small" placeholder="الوصف بالعربية" dir="rtl"></textarea>
-                </div>
-
-                <div className="pc-feature-block">
-                  <label className="pc-sub-label">Feature 2 <span className="lang-badge">EN</span></label>
-                  <input type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" />
-                  <textarea className="pc-input pc-textarea-small" placeholder="Description EN" dir="ltr"></textarea>
-
-                   <div className="pc-mt-20"></div>
-
-                  <label className="pc-sub-label">Feature 2 <span className="lang-badge">AR</span></label>
-                  <input type="text" className="pc-input pc-mb-10" placeholder="العنوان بالعربية" dir="rtl" />
-                  <textarea className="pc-input pc-textarea-small" placeholder="الوصف بالعربية" dir="rtl"></textarea>
-                </div>
+                {formData.KeyFeatures.map((feature, idx) => (
+                    <div key={idx} className="pc-feature-block">
+                        <label className="pc-sub-label">Feature {idx+1} <span className="lang-badge">EN</span></label>
+                        <input 
+                            type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" 
+                            value={feature.title?.en || ''}
+                            onChange={(e) => updateFeature(idx, 'title', 'en', e.target.value)}
+                        />
+                        <textarea 
+                            className="pc-input pc-textarea-small" placeholder="Description EN" dir="ltr"
+                            value={feature.desc?.en || ''}
+                            onChange={(e) => updateFeature(idx, 'desc', 'en', e.target.value)}
+                        />
+                        
+                        <div className="pc-mt-20"></div>
+                        
+                        <label className="pc-sub-label">Feature {idx+1} <span className="lang-badge">AR</span></label>
+                        <input 
+                            type="text" className="pc-input pc-mb-10" placeholder="العنوان بالعربية" dir="rtl" 
+                            value={feature.title?.ar || ''}
+                            onChange={(e) => updateFeature(idx, 'title', 'ar', e.target.value)}
+                        />
+                        <textarea 
+                            className="pc-input pc-textarea-small" placeholder="الوصف بالعربية" dir="rtl"
+                            value={feature.desc?.ar || ''}
+                            onChange={(e) => updateFeature(idx, 'desc', 'ar', e.target.value)}
+                        />
+                    </div>
+                ))}
               </div>
 
               <div className="pc-subheader-row pc-mt-40">
                 <h3>Design Process</h3>
-                <button className="pc-action-btn">Add Process +</button>
+                <button className="pc-action-btn" onClick={addProcess} type="button">Add Process +</button>
               </div>
 
               <div className="pc-process-container">
-                <div className="pc-process-item">
-                  <div className="pc-grid-two">
-                    <div>
-                        <label className="pc-sub-label">Process 1 <span className="lang-badge">EN</span></label>
-                        <input type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" />
-                        <div dir="ltr"><RichTextEditor /></div>
+                {formData.Process.map((proc, idx) => (
+                    <div key={idx} className="pc-process-item">
+                        <div className="pc-grid-two">
+                            <div>
+                                <label className="pc-sub-label">Process {idx+1} <span className="lang-badge">EN</span></label>
+                                <input 
+                                    type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" 
+                                    value={proc.title?.en || ''}
+                                    onChange={(e) => updateProcess(idx, 'title', 'en', e.target.value)}
+                                />
+                                <div dir="ltr">
+                                    <RichTextEditor 
+                                        value={proc.content?.en || ''}
+                                        onChange={(val) => updateProcess(idx, 'content', 'en', val)}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="pc-sub-label">Process {idx+1} <span className="lang-badge">AR</span></label>
+                                <input 
+                                    type="text" className="pc-input pc-mb-10" placeholder="العنوان بالعربية" dir="rtl" 
+                                    value={proc.title?.ar || ''}
+                                    onChange={(e) => updateProcess(idx, 'title', 'ar', e.target.value)}
+                                />
+                                <div dir="rtl">
+                                    <RichTextEditor 
+                                        value={proc.content?.ar || ''}
+                                        onChange={(val) => updateProcess(idx, 'content', 'ar', val)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label className="pc-sub-label">Process 1 <span className="lang-badge">AR</span></label>
-                        <input type="text" className="pc-input pc-mb-10" placeholder="العنوان بالعربية" dir="rtl" />
-                        <div dir="rtl"><RichTextEditor /></div>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
@@ -298,39 +639,32 @@ const ProjectContent = () => {
               
               <div className="pc-subheader-row">
                 <h3>Project Images</h3>
-                <button className="pc-add-image-btn">
-                    Add Image <span>+</span>
-                </button>
-              </div>
-
-              <div className="pc-upload-box">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="17 8 12 3 7 8"></polyline>
-                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                </svg>
-                <span className="pc-upload-text">Upload Image</span>
               </div>
 
               <div className="pc-grid-two pc-mt-20">
                 <div className="pc-form-group">
-                    <label>Alt Text <span className="lang-badge">EN</span></label>
-                    <input type="text" className="pc-input" placeholder="Image Description" dir="ltr" />
-                </div>
-                <div className="pc-form-group">
-                    <label>Alt Text <span className="lang-badge">AR</span></label>
-                    <input type="text" className="pc-input" placeholder="وصف الصورة" dir="rtl" />
+                    <label>Main Image URL</label>
+                    <input 
+                        type="text" 
+                        className="pc-input" 
+                        placeholder="https://..." 
+                        dir="ltr" 
+                        value={formData.HeroImage}
+                        onChange={(e) => setFormData(prev => ({...prev, HeroImage: e.target.value}))}
+                    />
                 </div>
               </div>
             </div>
 
-  <div className="pc-footer-actions">
+            <div className="pc-footer-actions">
                 <Link to="/PageList" className="pc-link-no-style">
                     <button type="button" className="pc-btn-cancel">Cancel</button>
                 </Link>
                 <div className="pc-action-group">
-                    <button type="button" className="pc-btn-save-draft">Save as Draft</button>
-                    <button type="submit" className="pc-btn-submit">Publish Project</button>
+                    <button type="button" className="pc-btn-save-draft" disabled={saving}>Save as Draft</button>
+                    <button type="submit" className="pc-btn-submit" onClick={handleSubmit} disabled={saving}>
+                        {saving ? 'Saving...' : 'Publish Project'}
+                    </button>
                 </div>
             </div>
             
