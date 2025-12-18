@@ -134,6 +134,13 @@ const ProjectContent = () => {
     }));
   };
 
+  const removeFeature = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      KeyFeatures: prev.KeyFeatures.filter((_, i) => i !== index)
+    }));
+  };
+
   const updateFeature = (index, part, lang, value) => {
     const updated = [...formData.KeyFeatures];
     if (!updated[index][part]) updated[index][part] = { en: '', ar: '' };
@@ -145,6 +152,13 @@ const ProjectContent = () => {
     setFormData(prev => ({
       ...prev,
       Process: [...prev.Process, { title: { en: '', ar: '' }, content: { en: '', ar: '' } }]
+    }));
+  };
+
+  const removeProcess = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      Process: prev.Process.filter((_, i) => i !== index)
     }));
   };
 
@@ -562,7 +576,10 @@ const ProjectContent = () => {
               <div className="pc-grid-two">
                 {formData.KeyFeatures.map((feature, idx) => (
                     <div key={idx} className="pc-feature-block">
-                        <label className="pc-sub-label">Feature {idx+1} <span className="lang-badge">EN</span></label>
+                        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: '8px'}}>
+                            <label className="pc-sub-label" style={{marginBottom:0}}>Feature {idx+1} <span className="lang-badge">EN</span></label>
+                            <button type="button" onClick={() => removeFeature(idx)} style={{color:'#ff6b6b', background:'none', border:'none', cursor:'pointer', fontSize:'0.9rem', fontWeight:'600'}}>Remove ×</button>
+                        </div>
                         <input 
                             type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" 
                             value={feature.title?.en || ''}
@@ -599,6 +616,9 @@ const ProjectContent = () => {
               <div className="pc-process-container">
                 {formData.Process.map((proc, idx) => (
                     <div key={idx} className="pc-process-item">
+                        <div style={{display:'flex', justifyContent:'flex-end', marginBottom:'10px'}}>
+                             <button type="button" onClick={() => removeProcess(idx)} style={{color:'#ff6b6b', background:'none', border:'none', cursor:'pointer', fontSize:'0.9rem', fontWeight:'600'}}>Remove Process ×</button>
+                        </div>
                         <div className="pc-grid-two">
                             <div>
                                 <label className="pc-sub-label">Process {idx+1} <span className="lang-badge">EN</span></label>
