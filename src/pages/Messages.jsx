@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SideBar from '../common/SideBar';
 import NavButtons from '../common/NavButtons';
 import RichTextEditor from '../components/RichTextEditor';
 import './Messages.css';
+import { supabase } from '../SupaBase';
 
 const Icons = {
   Eye: () => (
@@ -38,7 +39,29 @@ const Icons = {
 
 const Messages = () => {
   const [isComposeVisible, setIsComposeVisible] = useState(false);
-  const navigate = useNavigate(); 
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const fetchMessages = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('ContactForm')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setMessages(data || []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleCompose = () => {
     setIsComposeVisible(!isComposeVisible);
@@ -48,9 +71,20 @@ const Messages = () => {
     setIsComposeVisible(true);
   };
 
-  const handleRowClick = () => {
-    navigate('/EmailContent'); 
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
   };
+
+  const filteredMessages = messages.filter(msg => 
+    (msg.FullName && msg.FullName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (msg.Email && msg.Email.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (msg.Subject && msg.Subject.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
   return (
     <div className="app-container">
@@ -82,7 +116,7 @@ const Messages = () => {
               </div>
               <div className="stat-content">
                 <h3>Total Messages</h3>
-                <p>5,500</p>
+                <p>{messages.length}</p>
               </div>
             </div>
             <div className="stat-card">
@@ -91,7 +125,7 @@ const Messages = () => {
               </div>
               <div className="stat-content">
                 <h3>Unread</h3>
-                <p>1,200</p>
+                <p>{messages.length}</p>
               </div>
             </div>
             <div className="stat-card">
@@ -100,7 +134,7 @@ const Messages = () => {
               </div>
               <div className="stat-content">
                 <h3>Emails</h3>
-                <p>200</p>
+                <p>0</p>
               </div>
             </div>
             <div className="stat-card">
@@ -109,7 +143,7 @@ const Messages = () => {
               </div>
               <div className="stat-content">
                 <h3>Contact Forms</h3>
-                <p>500</p>
+                <p>{messages.length}</p>
               </div>
             </div>
           </div>
@@ -124,7 +158,13 @@ const Messages = () => {
 
             <div className="search-bar">
               <span className="search-icon"><Icons.Search /></span>
-              <input type="text" className="search-input" placeholder="Search..." />
+              <input 
+                type="text" 
+                className="search-input" 
+                placeholder="Search..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
 
             <div className="table-responsive">
@@ -139,55 +179,47 @@ const Messages = () => {
                     <th className="text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody style={{ cursor: 'pointer' }}> 
-                  <tr onClick={handleRowClick} className="clickable-row">
-                    <td><span className="badge badge-read">Read</span></td>
-                    <td>Sarah Johnson</td>
-                    <td className="text-muted">sarah.johnson@email.com</td>
-                    <td>Website Design Project Inquiry</td>
-                    <td>Nov 22, 2025</td>
-                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
-                  </tr>
-                  <tr onClick={handleRowClick} className="clickable-row">
-                    <td><span className="badge badge-new">New</span></td>
-                    <td>Michael Chen</td>
-                    <td className="text-muted">m.chen@techcorp.com</td>
-                    <td className="fw-bold">Collaboration Opportunity</td>
-                    <td className="fw-bold">Nov 21, 2025</td>
-                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
-                  </tr>
-                  <tr onClick={handleRowClick} className="clickable-row">
-                    <td><span className="badge badge-read">Read</span></td>
-                    <td>Emma Rodriguez</td>
-                    <td className="text-muted">emma.r@designstudio.com</td>
-                    <td>Speaking Engagement Request</td>
-                    <td>Nov 20, 2025</td>
-                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
-                  </tr>
-                  <tr onClick={handleRowClick} className="clickable-row">
-                    <td><span className="badge badge-read">Read</span></td>
-                    <td>David Park</td>
-                    <td className="text-muted">david.park@startup.io</td>
-                    <td>Portfolio Review Request</td>
-                    <td>Nov 19, 2025</td>
-                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
-                  </tr>
-                  <tr onClick={handleRowClick} className="clickable-row">
-                    <td><span className="badge badge-read">Read</span></td>
-                    <td>Lisa Thompson</td>
-                    <td className="text-muted">lisa.thompson@agency.com</td>
-                    <td>Job Opportunity - Senior Designer</td>
-                    <td>Nov 18, 2025</td>
-                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
-                  </tr>
-                  <tr onClick={handleRowClick} className="clickable-row">
-                    <td><span className="badge badge-new">New</span></td>
-                    <td>James Wilson</td>
-                    <td className="text-muted">james.w@freelance.com</td>
-                    <td className="fw-bold">Question About Your Services</td>
-                    <td className="fw-bold">Nov 17, 2025</td>
-                    <td className="text-right"><button className="actionn-btn" onClick={(e) => e.stopPropagation()}><Icons.Dots /></button></td>
-                  </tr>
+                <tbody>
+                  {loading ? (
+                    <tr>
+                      <td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>Loading messages...</td>
+                    </tr>
+                  ) : filteredMessages.length === 0 ? (
+                    <tr>
+                      <td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>No messages found.</td>
+                    </tr>
+                  ) : (
+                    filteredMessages.map((msg) => (
+                      <tr key={msg.id} className="clickable-row">
+                        <td><span className="badge badge-new">New</span></td>
+                        <td>
+                          <Link 
+                            to="/EmailContent" 
+                            state={{ message: msg }} 
+                            style={{ color: 'inherit', textDecoration: 'none', fontWeight: 'bold' }}
+                          >
+                            {msg.FullName || 'Unknown'}
+                          </Link>
+                        </td>
+                        <td className="text-muted">{msg.Email || 'No Email'}</td>
+                        <td className="fw-bold">
+                          <Link 
+                            to="/EmailContent" 
+                            state={{ message: msg }} 
+                            style={{ color: 'inherit', textDecoration: 'none', display: 'block' }}
+                          >
+                            {msg.Subject || 'No Subject'}
+                          </Link>
+                        </td>
+                        <td>{formatDate(msg.created_at)}</td>
+                        <td className="text-right">
+                          <button className="actionn-btn">
+                            <Icons.Dots />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
