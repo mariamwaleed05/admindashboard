@@ -324,6 +324,16 @@ const ProjectContent = () => {
               </div>
             </div>
 
+  <div className="pc-footer-actions">
+                <Link to="/PageList" className="pc-link-no-style">
+                    <button type="button" className="pc-btn-cancel">Cancel</button>
+                </Link>
+                <div className="pc-action-group">
+                    <button type="button" className="pc-btn-save-draft">Save as Draft</button>
+                    <button type="submit" className="pc-btn-submit">Publish Project</button>
+                </div>
+            </div>
+            
           </div>
         </div>
       </div>
