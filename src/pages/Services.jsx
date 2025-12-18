@@ -109,7 +109,7 @@ const Services = () => {
 
   const handleEditRedirect = (pageName, lang) => {
     console.log(`Editing ${pageName} in ${lang}`);
-    navigate('/project-content'); 
+    navigate('/ProjectContent'); 
   };
 
   return (
