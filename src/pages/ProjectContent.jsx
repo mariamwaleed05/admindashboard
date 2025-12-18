@@ -45,6 +45,16 @@ const ProjectContent = () => {
     }
   }, [idToEdit]);
 
+  const parseJSON = (input, fallback) => {
+    if (input === null || input === undefined) return fallback;
+    if (typeof input === 'object') return input;
+    try {
+      return JSON.parse(input) || fallback;
+    } catch (e) {
+      return fallback;
+    }
+  };
+
   const fetchProjectData = async (id) => {
     setLoading(true);
     try {
@@ -57,36 +67,82 @@ const ProjectContent = () => {
       if (error) throw error;
 
       if (data) {
-        const parseField = (field) => {
-          if (!field) return { en: '', ar: '' };
-          if (typeof field === 'object') return field;
-          try { 
-            const parsed = JSON.parse(field); 
-            return parsed || { en: '', ar: '' };
-          } catch { 
-            return { en: field, ar: '' }; 
-          }
+        
+        const parseDualLang = (field) => {
+            const parsed = parseJSON(field, null);
+            if (parsed && (parsed.en !== undefined || parsed.ar !== undefined)) {
+                return { en: parsed.en || '', ar: parsed.ar || '' };
+            }
+            return { en: field || '', ar: '' };
         };
 
+        // Custom parser for Tags (Text: "UX/UI, App")
+        let parsedTags = [];
+        if (typeof data.Tags === 'string' && data.Tags.includes(',')) {
+            parsedTags = data.Tags.split(',').map(t => ({ en: t.trim(), ar: '' }));
+        } else {
+            const rawTags = parseJSON(data.Tags, []);
+            parsedTags = Array.isArray(rawTags) 
+                ? rawTags.map(t => typeof t === 'string' ? {en: t, ar: ''} : t) 
+                : [];
+        }
+
+        // Custom parser for KeyFeatures (JSONB: [{title: "...", description: "..."}])
+        let parsedFeatures = [];
+        const rawFeatures = typeof data.KeyFeatures === 'string' ? parseJSON(data.KeyFeatures, []) : data.KeyFeatures;
+        if (Array.isArray(rawFeatures)) {
+            parsedFeatures = rawFeatures.map(f => ({
+                title: typeof f.title === 'object' ? f.title : { en: f.title || '', ar: '' },
+                desc: typeof f.description === 'object' ? f.description : { en: f.description || '', ar: '' }
+            }));
+        }
+
+        // Custom parser for Process (Text: "Step1 -> Step2")
+        let parsedProcess = [];
+        if (typeof data.Process === 'string' && data.Process.includes('->')) {
+            parsedProcess = data.Process.split('->').map(p => ({
+                title: { en: p.trim(), ar: '' },
+                content: { en: '', ar: '' }
+            }));
+        } else {
+            const rawProcess = parseJSON(data.Process, []);
+            if (Array.isArray(rawProcess)) {
+                parsedProcess = rawProcess.map(p => ({
+                    title: typeof p.title === 'object' ? p.title : { en: p.title || '', ar: '' },
+                    content: typeof p.content === 'object' ? p.content : { en: p.content || '', ar: '' }
+                }));
+            }
+        }
+
+        // Custom parser for Gallery (Text or JSON)
+        let parsedGallery = [];
+        if (typeof data.Gallery === 'string' && data.Gallery.startsWith('http')) {
+             parsedGallery = [data.Gallery]; 
+        } else {
+             parsedGallery = parseJSON(data.Gallery, []);
+        }
+
         setFormData({
-            Title: parseField(data.Title),
-            ServiceCategory: parseField(data.ServiceCategory || data.Type), 
-            Description: parseField(data.Info), 
-            ShortDescription: parseField(data.Overview), 
-            Date: parseField(data.Date),
-            Type: parseField(data.Type),
-            Duration: parseField(data.Duration),
-            Overview: parseField(data.Overview),
-            Role: parseField(data.Role),
-            Challenges: parseField(data.Challenge),
-            Technologies: parseField(data.Technologies),
-            Solution: parseField(data.Solution),
-            Achievements: parseField(data.Achievements),
-            Tags: Array.isArray(data.Tags) ? data.Tags : [],
-            KeyFeatures: Array.isArray(data.KeyFeatures) ? data.KeyFeatures : [],
-            Process: Array.isArray(data.Process) ? data.Process : [],
-            HeroImage: data.HeroImage || '',
-            Gallery: Array.isArray(data.Gallery) ? data.Gallery : []
+            Title: parseDualLang(data.Title),
+            ServiceCategory: parseDualLang(data.ServiceCategory || data.Type), 
+            Description: parseDualLang(data.Info), 
+            ShortDescription: parseDualLang(data.Overview), 
+            Date: parseDualLang(data.Date),
+            Type: parseDualLang(data.Type),
+            Duration: parseDualLang(data.Duration),
+            Overview: parseDualLang(data.Overview),
+            Role: parseDualLang(data.Role),
+            Challenges: parseDualLang(data.Challenge),
+            Technologies: parseDualLang(data.Technologies),
+            Solution: parseDualLang(data.Solution),
+            Achievements: parseDualLang(data.Achievements),
+            
+            Tags: parsedTags,
+            KeyFeatures: parsedFeatures,
+            Process: parsedProcess,
+            Gallery: parsedGallery,
+            
+            HeroImage: data.HeroImage || ''
         });
       }
     } catch (error) {
@@ -146,7 +202,9 @@ const ProjectContent = () => {
 
   const updateFeature = (index, part, lang, value) => {
     const updated = [...formData.KeyFeatures];
+    if (!updated[index]) updated[index] = { title: { en: '', ar: '' }, desc: { en: '', ar: '' } };
     if (!updated[index][part]) updated[index][part] = { en: '', ar: '' };
+    
     updated[index][part][lang] = value;
     setFormData(prev => ({ ...prev, KeyFeatures: updated }));
   };
@@ -167,7 +225,9 @@ const ProjectContent = () => {
 
   const updateProcess = (index, part, lang, value) => {
     const updated = [...formData.Process];
+    if (!updated[index]) updated[index] = { title: { en: '', ar: '' }, content: { en: '', ar: '' } };
     if (!updated[index][part]) updated[index][part] = { en: '', ar: '' };
+
     updated[index][part][lang] = value;
     setFormData(prev => ({ ...prev, Process: updated }));
   };
@@ -206,12 +266,12 @@ const ProjectContent = () => {
             Solution: formData.Solution,
             Technologies: formData.Technologies,
             Achievements: formData.Achievements,
-            Tags: formData.Tags,
-            KeyFeatures: formData.KeyFeatures,
-            Process: formData.Process,
+            Tags: formData.Tags, 
+            KeyFeatures: formData.KeyFeatures, 
+            Process: formData.Process, 
             HeroImage: formData.HeroImage,
             ServiceCategory: formData.ServiceCategory,
-            Gallery: formData.Gallery
+            Gallery: formData.Gallery 
         };
 
         let error;
@@ -277,36 +337,44 @@ const ProjectContent = () => {
             <div className="pc-card">
               <div className="pc-pink-header">Tags</div>
               <div className="pc-tags-container">
-                {formData.Tags.map((tag, idx) => (
-                    <div key={idx} className="pc-tag pc-tag-dark">
-                        {tag.en} / {tag.ar}
-                        <div className="pc-close-badge" onClick={() => removeTag(idx)}>×</div>
-                    </div>
-                ))}
-                <button className="pc-add-btn" onClick={handleAddTag} type="button">+</button>
+                {formData.Tags && formData.Tags.length > 0 ? (
+                    formData.Tags.map((tag, idx) => (
+                        <div key={idx} className="pc-tag pc-tag-dark">
+                            {tag.en} / {tag.ar}
+                            <div className="pc-close-badge" onClick={() => removeTag(idx)}>×</div>
+                        </div>
+                    ))
+                ) : (
+                    <p style={{color:'#666', fontSize:'14px'}}>No tags added yet.</p>
+                )}
               </div>
               <div className="pc-grid-two pc-mt-20">
                  <div className="pc-form-group">
                     <label>Add Tag <span className="lang-badge">EN</span></label>
-                    <input 
-                        type="text" 
-                        placeholder="New Tag" 
-                        className="pc-input" 
-                        dir="ltr"
-                        value={tagInput.en}
-                        onChange={(e) => setTagInput(prev => ({...prev, en: e.target.value}))}
-                    />
+                    <div style={{display:'flex', gap:'10px'}}>
+                        <input 
+                            type="text" 
+                            placeholder="New Tag" 
+                            className="pc-input" 
+                            dir="ltr"
+                            value={tagInput.en}
+                            onChange={(e) => setTagInput(prev => ({...prev, en: e.target.value}))}
+                        />
+                    </div>
                  </div>
                  <div className="pc-form-group">
                     <label>Add Tag <span className="lang-badge">AR</span></label>
-                    <input 
-                        type="text" 
-                        placeholder="وسم جديد" 
-                        className="pc-input" 
-                        dir="rtl"
-                        value={tagInput.ar}
-                        onChange={(e) => setTagInput(prev => ({...prev, ar: e.target.value}))}
-                    />
+                    <div style={{display:'flex', gap:'10px'}}>
+                        <input 
+                            type="text" 
+                            placeholder="وسم جديد" 
+                            className="pc-input" 
+                            dir="rtl"
+                            value={tagInput.ar}
+                            onChange={(e) => setTagInput(prev => ({...prev, ar: e.target.value}))}
+                        />
+                        <button className="pc-add-btn" onClick={handleAddTag} type="button" style={{height:'46px', width:'46px'}}>+</button>
+                    </div>
                  </div>
               </div>
             </div>
