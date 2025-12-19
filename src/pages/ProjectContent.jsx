@@ -615,16 +615,7 @@ const ProjectContent = () => {
                   <input type="text" placeholder="وسم الصفحة" dir="rtl" />
                 </div>
               </div>
-              <div className="editor-section-wrapper">
-                <div className="editor-group mb-4">
-                  <label className="editor-label">Content Body <span className="lang-badge">EN</span></label>
-                  <div dir="ltr"><RichTextEditor /></div>
-                </div>
-                <div className="editor-group mb-4">
-                  <label className="editor-label">Content Body <span className="lang-badge">AR</span></label>
-                  <div dir="rtl"><RichTextEditor /></div>
-                </div>
-              </div>
+            
               <div className="seo-row">
                 <div className="seo-field-group">
                   <label>{t.home?.metaDescription} <span className="lang-badge">EN</span></label>
