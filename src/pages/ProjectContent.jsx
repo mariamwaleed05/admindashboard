@@ -31,6 +31,9 @@ const ProjectContent = () => {
     Technologies: { en: '', ar: '' },
     Solution: { en: '', ar: '' },
     Achievements: { en: '', ar: '' },
+    SlugName: { en: '', ar: '' },
+    PageTag: { en: '', ar: '' },
+    MetaDescription: { en: '', ar: '' },
     Tags: [], 
     KeyFeatures: [],
     Process: [],
@@ -97,27 +100,15 @@ const ProjectContent = () => {
         }
 
         let parsedProcess = [];
-        if (typeof data.Process === 'string' && data.Process.includes('->')) {
-            parsedProcess = data.Process.split('->').map(p => ({
-                title: { en: p.trim(), ar: '' },
-                content: { en: '', ar: '' }
+        const rawProcess = parseJSON(data.Process, []);
+        if (Array.isArray(rawProcess)) {
+            parsedProcess = rawProcess.map(p => ({
+                title: typeof p.title === 'object' ? p.title : { en: p.title || '', ar: '' },
+                content: typeof p.content === 'object' ? p.content : { en: p.content || '', ar: '' }
             }));
-        } else {
-            const rawProcess = parseJSON(data.Process, []);
-            if (Array.isArray(rawProcess)) {
-                parsedProcess = rawProcess.map(p => ({
-                    title: typeof p.title === 'object' ? p.title : { en: p.title || '', ar: '' },
-                    content: typeof p.content === 'object' ? p.content : { en: p.content || '', ar: '' }
-                }));
-            }
         }
 
-        let parsedGallery = [];
-        if (typeof data.Gallery === 'string' && data.Gallery.startsWith('http')) {
-             parsedGallery = [data.Gallery]; 
-        } else {
-             parsedGallery = parseJSON(data.Gallery, []);
-        }
+        let parsedGallery = parseJSON(data.Gallery, []);
 
         setFormData({
             Title: parseDualLang(data.Title),
@@ -133,6 +124,9 @@ const ProjectContent = () => {
             Technologies: parseDualLang(data.Technologies),
             Solution: parseDualLang(data.Solution),
             Achievements: parseDualLang(data.Achievements),
+            SlugName: parseDualLang(data.SlugName),
+            PageTag: parseDualLang(data.PageTag),
+            MetaDescription: parseDualLang(data.MetaDescription),
             Tags: parsedTags,
             KeyFeatures: parsedFeatures,
             Process: parsedProcess,
@@ -258,6 +252,9 @@ const ProjectContent = () => {
             Solution: formData.Solution,
             Technologies: formData.Technologies,
             Achievements: formData.Achievements,
+            SlugName: formData.SlugName,
+            PageTag: formData.PageTag,
+            MetaDescription: formData.MetaDescription,
             Tags: formData.Tags, 
             KeyFeatures: formData.KeyFeatures, 
             Process: formData.Process, 
@@ -598,32 +595,32 @@ const ProjectContent = () => {
               <div className="seo-row">
                 <div className="seo-field-group">
                   <label>{t.home?.slugName} <span className="lang-badge">EN</span></label>
-                  <input type="text" placeholder={t.home?.enterSlug} dir="ltr" />
+                  <input type="text" value={formData.SlugName.en} onChange={(e) => handleChange('SlugName', 'en', e.target.value)} placeholder={t.home?.enterSlug} dir="ltr" />
                 </div>
                 <div className="seo-field-group">
                   <label>{t.home?.slugName} <span className="lang-badge">AR</span></label>
-                  <input type="text" placeholder="رابط-الصفحة" dir="rtl" />
+                  <input type="text" value={formData.SlugName.ar} onChange={(e) => handleChange('SlugName', 'ar', e.target.value)} placeholder="رابط-الصفحة" dir="rtl" />
                 </div>
               </div>
               <div className="seo-row">
                 <div className="seo-field-group">
                   <label>{t.home?.pageTag} <span className="lang-badge">EN</span></label>
-                  <input type="text" placeholder={t.home?.enterTag} dir="ltr" />
+                  <input type="text" value={formData.PageTag.en} onChange={(e) => handleChange('PageTag', 'en', e.target.value)} placeholder={t.home?.enterTag} dir="ltr" />
                 </div>
                 <div className="seo-field-group">
                   <label>{t.home?.pageTag} <span className="lang-badge">AR</span></label>
-                  <input type="text" placeholder="وسم الصفحة" dir="rtl" />
+                  <input type="text" value={formData.PageTag.ar} onChange={(e) => handleChange('PageTag', 'ar', e.target.value)} placeholder="وسم الصفحة" dir="rtl" />
                 </div>
               </div>
             
               <div className="seo-row">
                 <div className="seo-field-group">
                   <label>{t.home?.metaDescription} <span className="lang-badge">EN</span></label>
-                  <textarea placeholder={t.home?.enterMetaDesc} rows={6} dir="ltr"></textarea>
+                  <textarea value={formData.MetaDescription.en} onChange={(e) => handleChange('MetaDescription', 'en', e.target.value)} placeholder={t.home?.enterMetaDesc} rows={6} dir="ltr"></textarea>
                 </div>
                 <div className="seo-field-group">
                   <label>{t.home?.metaDescription} <span className="lang-badge">AR</span></label>
-                  <textarea placeholder="أدخل وصف الميتا بالعربية" rows={6} dir="rtl"></textarea>
+                  <textarea value={formData.MetaDescription.ar} onChange={(e) => handleChange('MetaDescription', 'ar', e.target.value)} placeholder="أدخل وصف الميتا بالعربية" rows={6} dir="rtl"></textarea>
                 </div>
               </div>
             </div>
