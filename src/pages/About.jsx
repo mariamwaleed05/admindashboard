@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from "react-helmet";
 import SideBar from '../common/SideBar';
+import { Link } from 'react-router-dom'; 
 import NavButtons from '../common/NavButtons';
 import { 
   User, Pencil, Mail, Phone, MapPin, Plus, Trash2, Upload, Heart,
@@ -16,23 +17,16 @@ const About = () => {
   const isRtl = language === 'ar';
   const directionStyle = { direction: isRtl ? 'rtl' : 'ltr' };
 
-  const [aboutData, setAboutData] = useState(null);
-  const [contactData, setContactData] = useState(null);
+  const [aboutData, setAboutData] = useState({});
+  const [contactData, setContactData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: about } = await supabase
-          .from('About')
-          .select('*')
-          .single();
-
-        const { data: contact } = await supabase
-          .from('ContactMe')
-          .select('*')
-          .single();
-
+        const { data: about } = await supabase.from('About').select('*').single();
+        const { data: contact } = await supabase.from('ContactMe').select('*').single();
         if (about) setAboutData(about);
         if (contact) setContactData(contact);
       } catch (error) {
@@ -41,9 +35,28 @@ const About = () => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
+
+  const handleAboutChange = (e) => {
+    setAboutData({ ...aboutData, [e.target.name]: e.target.value });
+  };
+
+  const handleContactChange = (e) => {
+    setContactData({ ...contactData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    setSaving(true);
+    try {
+      await supabase.from('About').update(aboutData).eq('id', aboutData.id);
+      await supabase.from('ContactMe').update(contactData).eq('Email', contactData.Email);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const skills = [
     { id: 1, name: t.aboutPage.skill1 },
@@ -70,7 +83,6 @@ const About = () => {
           <NavButtons />
 
           <div className="about-container">
-            
             <div className="ps-header">
               <h1>{t.aboutPage.title}</h1>
               <p>{t.aboutPage.subTitle}</p>
@@ -92,9 +104,7 @@ const About = () => {
                 <div className="ps-text-info">
                   <h2>{contactData?.Title || "Mariam Waleed"}</h2>
                   <h3>{contactData?.Bio || "UX/UI Designer & Graphic Designer"}</h3>
-                  <p className="ps-bio">
-                    {t.aboutPage.bio}
-                  </p>
+                  <p className="ps-bio">{t.aboutPage.bio}</p>
                 </div>
               </div>
 
@@ -123,23 +133,21 @@ const About = () => {
                     {t.aboutPage.edit}
                   </button>
                 </div>
-                
                 <div className="p-form-group">
                   <label>{t.aboutPage.vision} <span className="lang-badge">EN</span></label>
-                  <input type="text" defaultValue={aboutData?.VissionEN} placeholder={t.aboutPage.visionPlace} className="p-input white-bg" dir="ltr" />
+                  <input type="text" name="VissionEN" value={aboutData?.VissionEN || ""} onChange={handleAboutChange} placeholder={t.aboutPage.visionPlace} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.vision} <span className="lang-badge">AR</span></label>
-                  <input type="text" defaultValue={aboutData?.VissionAR} placeholder="رؤيتك..." className="p-input white-bg" dir="rtl" />
+                  <input type="text" name="VissionAR" value={aboutData?.VissionAR || ""} onChange={handleAboutChange} placeholder="رؤيتك..." className="p-input white-bg" dir="rtl" />
                 </div>
-
                 <div className="p-form-group">
                   <label>{t.aboutPage.mission} <span className="lang-badge">EN</span></label>
-                  <input type="text" defaultValue={aboutData?.MissionEN} placeholder={t.aboutPage.missionPlace} className="p-input white-bg" dir="ltr" />
+                  <input type="text" name="MissionEN" value={aboutData?.MissionEN || ""} onChange={handleAboutChange} placeholder={t.aboutPage.missionPlace} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.mission} <span className="lang-badge">AR</span></label>
-                  <input type="text" defaultValue={aboutData?.MissonAR} placeholder="مهمتك..." className="p-input white-bg" dir="rtl" />
+                  <input type="text" name="MissonAR" value={aboutData?.MissonAR || ""} onChange={handleAboutChange} placeholder="مهمتك..." className="p-input white-bg" dir="rtl" />
                 </div>
               </div>
 
@@ -172,7 +180,6 @@ const About = () => {
                   {t.aboutPage.addEdu}
                 </button>
               </div>
-
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.uniName} <span className="lang-badge">EN</span></label>
@@ -183,7 +190,6 @@ const About = () => {
                   <input type="text" placeholder="اسم الجامعة" className="p-input white-bg" dir="rtl" />
                 </div>
               </div>
-
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.uniLogo}</label>
@@ -203,7 +209,6 @@ const About = () => {
                    </div>
                 </div>
               </div>
-
               <div className="p-row-3-col">
                 <div className="p-form-group wide-col">
                   <label>{t.aboutPage.degree} <span className="lang-badge">EN</span></label>
@@ -230,7 +235,6 @@ const About = () => {
                   {t.aboutPage.addWork}
                 </button>
               </div>
-
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.compName} <span className="lang-badge">EN</span></label>
@@ -241,7 +245,6 @@ const About = () => {
                   <input type="text" placeholder="اسم الشركة" className="p-input white-bg" dir="rtl" />
                 </div>
               </div>
-
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.compLogo}</label>
@@ -261,7 +264,6 @@ const About = () => {
                     </div>
                 </div>
               </div>
-
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.posTitle} <span className="lang-badge">EN</span></label>
@@ -282,7 +284,6 @@ const About = () => {
                   {t.aboutPage.addCert}
                 </button>
               </div>
-
               <div className="p-form-group">
                 <label>{t.aboutPage.certLabel}</label>
                 <div className="p-upload-box white-bg p-upload-large">
@@ -290,7 +291,6 @@ const About = () => {
                   <span>{t.aboutPage.uploadCert}</span>
                 </div>
               </div>
-
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.altText} <span className="lang-badge">EN</span></label>
@@ -311,7 +311,6 @@ const About = () => {
                   {t.aboutPage.addHobby}
                 </button>
               </div>
-
               <div className="p-empty-state">
                 <Heart size={48} className="p-heart-icon" />
                 <p>{t.aboutPage.noHobby}</p>
@@ -326,49 +325,44 @@ const About = () => {
                   {t.aboutPage.addLink}
                 </button>
               </div>
-
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.linkedin}</label>
-                  <input type="text" defaultValue={contactData?.Linkedin || "https://www.linkedin.com/in/mariammwaleed/"} className="p-input white-bg" dir="ltr" />
+                  <input type="text" name="Linkedin" value={contactData?.Linkedin || ""} onChange={handleContactChange} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.behance}</label>
-                  <input type="text" defaultValue={contactData?.Behance || "https://www.behance.net/mariamwaleed7"} className="p-input white-bg" dir="ltr" />
+                  <input type="text" name="Behance" value={contactData?.Behance || ""} onChange={handleContactChange} className="p-input white-bg" dir="ltr" />
                 </div>
               </div>
-
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.instagram}</label>
-                  <input type="text" defaultValue={contactData?.Instagram || "https://www.instagram.com/mariammwaleedd/"} className="p-input white-bg" dir="ltr" />
+                  <input type="text" name="Instagram" value={contactData?.Instagram || ""} onChange={handleContactChange} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.availability}</label>
-                  <input type="text" defaultValue={contactData?.Availability || "Available"} className="p-input white-bg" dir="ltr" />
+                  <input type="text" name="Availability" value={contactData?.Availability || ""} onChange={handleContactChange} className="p-input white-bg" dir="ltr" />
                 </div>
               </div>
-
               <div className="p-form-group">
                 <label>{t.aboutPage.email}</label>
-                <input type="text" defaultValue={contactData?.Email || "mariamwaleed2005@gmail.com"} className="p-input white-bg" dir="ltr" />
+                <input type="text" name="Email" value={contactData?.Email || ""} onChange={handleContactChange} className="p-input white-bg" dir="ltr" />
               </div>
             </div>
 
             <div className="ps-card">
               <div className="ps-section-label mb-4">{t.aboutPage.seo}</div>
-              
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.slug} <span className="lang-badge">EN</span></label>
-                  <input type="text" defaultValue={contactData?.Path} placeholder={t.aboutPage.slugPlace} className="p-input white-bg" dir="ltr" />
+                  <input type="text" name="Path" value={contactData?.Path || ""} onChange={handleContactChange} placeholder={t.aboutPage.slugPlace} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.slug} <span className="lang-badge">AR</span></label>
                   <input type="text" placeholder="رابط-الصفحة" className="p-input white-bg" dir="rtl" />
                 </div>
               </div>
-
               <div className="p-row-2-col">
                  <div className="p-form-group">
                   <label>{t.aboutPage.tag} <span className="lang-badge">EN</span></label>
@@ -379,7 +373,6 @@ const About = () => {
                   <input type="text" placeholder="وسم" className="p-input white-bg" dir="rtl" />
                 </div>
               </div>
-
               <div className="seo-toolbar" style={{ direction: 'ltr' }}>
                 <button title="Bold"><Bold size={18} /></button>
                 <button title="Italic"><Italic size={18} /></button>
@@ -395,25 +388,25 @@ const About = () => {
                 <button title="Comment"><MessageSquare size={18} /></button>
                 <button title="Add Image"><ImagePlus size={18} /></button>
               </div>
-
               <div className="p-form-group">
                 <label>{t.aboutPage.meta} <span className="lang-badge">EN</span></label>
-                <textarea 
-                  placeholder={t.aboutPage.metaPlace} 
-                  className="p-input white-bg p-input-textarea" 
-                  rows={4}
-                  dir="ltr"
-                ></textarea>
+                <textarea placeholder={t.aboutPage.metaPlace} className="p-input white-bg p-input-textarea" rows={4} dir="ltr"></textarea>
               </div>
-              
               <div className="p-form-group">
                 <label>{t.aboutPage.meta} <span className="lang-badge">AR</span></label>
-                <textarea 
-                  placeholder="وصف الميتا بالعربية..." 
-                  className="p-input white-bg p-input-textarea" 
-                  rows={4}
-                  dir="rtl"
-                ></textarea>
+                <textarea placeholder="وصف الميتا بالعربية..." className="p-input white-bg p-input-textarea" rows={4} dir="rtl"></textarea>
+              </div>
+            </div>
+
+            <div className="pc-footer-actions">
+              <Link to="/PageList" className="pc-link-no-style">
+                <button type="button" className="pc-btn-cancel">Cancel</button>
+              </Link>
+              <div className="pc-action-group">
+                <button type="button" className="pc-btn-save-draft" disabled={saving}>Save as Draft</button>
+                <button type="submit" className="pc-btn-submit" onClick={handleSubmit} disabled={saving}>
+                  {saving ? 'Saving...' : 'Publish Project'}
+                </button>
               </div>
             </div>
 
