@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import SideBar from '../common/SideBar';
 import { Link } from 'react-router-dom'; 
 import NavButtons from '../common/NavButtons';
-import './ProjectContent.css';
+import './CreateProject.css';
 import RichTextEditor from '../components/RichTextEditor';
 
 
@@ -305,20 +305,15 @@ const CreateProject = () => {
             <div className="pc-card">
               <div className="pc-pink-header">Gallery</div>
               
-              <div className="pc-subheader-row">
-                <h3>Project Images</h3>
-                <button type="button" className="pc-add-image-btn">
-                    Add Image <span>+</span>
-                </button>
-              </div>
-
-              <div className="pc-upload-box">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="17 8 12 3 7 8"></polyline>
-                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                </svg>
-                <span className="pc-upload-text">Upload Image</span>
+                <div className="pc-upload-area">
+                <div className="pc-upload-box">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  <span className="pc-upload-text">Upload Image</span>
+                </div>
               </div>
 
               <div className="pc-grid-two pc-mt-20">

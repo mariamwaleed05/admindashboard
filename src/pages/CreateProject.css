@@ -1,0 +1,122 @@
+.pc-container {
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pc-card {
+    background-color: #121212;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid #222;
+}
+
+.pc-pink-header {
+    background-color: #f5c2c7;
+    color: #58151c;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+.pc-subheader-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.pc-subheader-row h3 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.pc-add-image-btn {
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pc-upload-area {
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 15px 10px;   
+     background-color: #fff;
+    margin-bottom: 30px;
+}
+
+.pc-upload-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+        color: #8a8a8a;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.pc-upload-box:hover {
+    opacity: 0.8;
+}
+
+.pc-upload-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.pc-grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.pc-form-group label {
+    display: block;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+.pc-gallery-input {
+    width: 100%;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 18px;
+    color: #333;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.pc-gallery-input::placeholder {
+    color: #a0a0a0;
+}
+
+.lang-badge {
+    background-color: #333;
+    color: #aaa;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.pc-mt-20 {
+    margin-top: 20px;
+}
