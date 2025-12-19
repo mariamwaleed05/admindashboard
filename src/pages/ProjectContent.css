@@ -41,6 +41,15 @@ body {
   gap: 10px;
 }
 
+.pc-status-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 1px solid #333;
+}
+
 .pc-status-label {
   color: #888;
   font-size: 14px;
@@ -339,11 +348,11 @@ select.pc-input {
 }
 
 .pc-remove-gallery-btn {
-  color: #700000;
+  background-color: #333;
+  color: #ff6b6b;
   border: 1px solid #444;
   padding: 0 20px;
   border-radius: 6px;
-    font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   font-weight: 600;
 }
@@ -366,10 +375,9 @@ select.pc-input {
 }
 
 .pc-btn-remove-text {
-  color: #700000;
+  color: #ff6b6b;
   background: none;
   border: none;
-    font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 600;

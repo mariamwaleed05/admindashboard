@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from "react-helmet";
 import SideBar from '../common/SideBar';
 import NavButtons from '../common/NavButtons';
@@ -9,12 +9,41 @@ import {
 } from 'lucide-react';
 import './About.css';
 import { useLanguage } from '../language/LanguageContext';
+import { supabase } from '../SupaBase';
 
 const About = () => {
   const { t, language } = useLanguage();
   const isRtl = language === 'ar';
-  
   const directionStyle = { direction: isRtl ? 'rtl' : 'ltr' };
+
+  const [aboutData, setAboutData] = useState(null);
+  const [contactData, setContactData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: about } = await supabase
+          .from('About')
+          .select('*')
+          .single();
+
+        const { data: contact } = await supabase
+          .from('ContactMe')
+          .select('*')
+          .single();
+
+        if (about) setAboutData(about);
+        if (contact) setContactData(contact);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const skills = [
     { id: 1, name: t.aboutPage.skill1 },
@@ -22,6 +51,8 @@ const About = () => {
     { id: 3, name: t.aboutPage.skill3 },
     { id: 4, name: t.aboutPage.skill4 }
   ];
+
+  if (loading) return null;
 
   return (
     <>
@@ -56,11 +87,11 @@ const About = () => {
 
               <div className="ps-main-info">
                 <div className="ps-avatar">
-                  <User size={48} />
+                   {contactData?.Path ? <img src={contactData.Path} alt="Avatar" className="ps-avatar-img" /> : <User size={48} />}
                 </div>
                 <div className="ps-text-info">
-                  <h2>Mariam Waleed</h2>
-                  <h3>UX/UI Designer & Graphic Designer</h3>
+                  <h2>{contactData?.Title || "Mariam Waleed"}</h2>
+                  <h3>{contactData?.Bio || "UX/UI Designer & Graphic Designer"}</h3>
                   <p className="ps-bio">
                     {t.aboutPage.bio}
                   </p>
@@ -70,15 +101,15 @@ const About = () => {
               <div className="ps-contact-row">
                 <div className="ps-contact-item">
                   <Mail size={18} />
-                  <span>mariamwaleed2005@gmail.com</span>
+                  <span>{contactData?.Email || "mariamwaleed2005@gmail.com"}</span>
                 </div>
                 <div className="ps-contact-item">
                   <Phone size={18} />
-                  <span>012 758 43440</span>
+                  <span>{contactData?.Contact || "012 758 43440"}</span>
                 </div>
                 <div className="ps-contact-item">
                   <MapPin size={18} />
-                  <span>Cairo , Egypt</span>
+                  <span>{contactData?.Location || "Cairo , Egypt"}</span>
                 </div>
               </div>
             </div>
@@ -95,20 +126,20 @@ const About = () => {
                 
                 <div className="p-form-group">
                   <label>{t.aboutPage.vision} <span className="lang-badge">EN</span></label>
-                  <input type="text" placeholder={t.aboutPage.visionPlace} className="p-input white-bg" dir="ltr" />
+                  <input type="text" defaultValue={aboutData?.VissionEN} placeholder={t.aboutPage.visionPlace} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.vision} <span className="lang-badge">AR</span></label>
-                  <input type="text" placeholder="رؤيتك..." className="p-input white-bg" dir="rtl" />
+                  <input type="text" defaultValue={aboutData?.VissionAR} placeholder="رؤيتك..." className="p-input white-bg" dir="rtl" />
                 </div>
 
                 <div className="p-form-group">
                   <label>{t.aboutPage.mission} <span className="lang-badge">EN</span></label>
-                  <input type="text" placeholder={t.aboutPage.missionPlace} className="p-input white-bg" dir="ltr" />
+                  <input type="text" defaultValue={aboutData?.MissionEN} placeholder={t.aboutPage.missionPlace} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.mission} <span className="lang-badge">AR</span></label>
-                  <input type="text" placeholder="مهمتك..." className="p-input white-bg" dir="rtl" />
+                  <input type="text" defaultValue={aboutData?.MissonAR} placeholder="مهمتك..." className="p-input white-bg" dir="rtl" />
                 </div>
               </div>
 
@@ -299,28 +330,28 @@ const About = () => {
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.linkedin}</label>
-                  <input type="text" defaultValue="https://www.linkedin.com/in/mariammwaleed/" className="p-input white-bg" dir="ltr" />
+                  <input type="text" defaultValue={contactData?.Linkedin || "https://www.linkedin.com/in/mariammwaleed/"} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.behance}</label>
-                  <input type="text" defaultValue="https://www.behance.net/mariamwaleed7" className="p-input white-bg" dir="ltr" />
+                  <input type="text" defaultValue={contactData?.Behance || "https://www.behance.net/mariamwaleed7"} className="p-input white-bg" dir="ltr" />
                 </div>
               </div>
 
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.instagram}</label>
-                  <input type="text" defaultValue="https://www.instagram.com/mariammwaleedd/" className="p-input white-bg" dir="ltr" />
+                  <input type="text" defaultValue={contactData?.Instagram || "https://www.instagram.com/mariammwaleedd/"} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
-                  <label>{t.aboutPage.whatsapp}</label>
-                  <input type="text" defaultValue="01275843440" className="p-input white-bg" dir="ltr" />
+                  <label>{t.aboutPage.availability}</label>
+                  <input type="text" defaultValue={contactData?.Availability || "Available"} className="p-input white-bg" dir="ltr" />
                 </div>
               </div>
 
               <div className="p-form-group">
                 <label>{t.aboutPage.email}</label>
-                <input type="text" defaultValue="mariamwaleed2005@gmail.com" className="p-input white-bg" dir="ltr" />
+                <input type="text" defaultValue={contactData?.Email || "mariamwaleed2005@gmail.com"} className="p-input white-bg" dir="ltr" />
               </div>
             </div>
 
@@ -330,7 +361,7 @@ const About = () => {
               <div className="p-row-2-col">
                 <div className="p-form-group">
                   <label>{t.aboutPage.slug} <span className="lang-badge">EN</span></label>
-                  <input type="text" placeholder={t.aboutPage.slugPlace} className="p-input white-bg" dir="ltr" />
+                  <input type="text" defaultValue={contactData?.Path} placeholder={t.aboutPage.slugPlace} className="p-input white-bg" dir="ltr" />
                 </div>
                 <div className="p-form-group">
                   <label>{t.aboutPage.slug} <span className="lang-badge">AR</span></label>

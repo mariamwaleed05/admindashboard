@@ -67,6 +67,7 @@ const ProjectContent = () => {
       if (error) throw error;
 
       if (data) {
+        
         const parseDualLang = (field) => {
             const parsed = parseJSON(field, null);
             if (parsed && (parsed.en !== undefined || parsed.ar !== undefined)) {
@@ -76,12 +77,8 @@ const ProjectContent = () => {
         };
 
         let parsedTags = [];
-        if (typeof data.Tags === 'string') {
-            if (data.Tags.includes(',')) {
-                parsedTags = data.Tags.split(',').map(t => ({ en: t.trim(), ar: '' }));
-            } else if (data.Tags.trim().length > 0) {
-                parsedTags = [{ en: data.Tags.trim(), ar: '' }];
-            }
+        if (typeof data.Tags === 'string' && data.Tags.includes(',')) {
+            parsedTags = data.Tags.split(',').map(t => ({ en: t.trim(), ar: '' }));
         } else {
             const rawTags = parseJSON(data.Tags, []);
             parsedTags = Array.isArray(rawTags) 
@@ -91,46 +88,34 @@ const ProjectContent = () => {
 
         let parsedFeatures = [];
         const rawFeatures = typeof data.KeyFeatures === 'string' ? parseJSON(data.KeyFeatures, []) : data.KeyFeatures;
-        
         if (Array.isArray(rawFeatures)) {
             parsedFeatures = rawFeatures.map(f => ({
-                title: (f.title && typeof f.title === 'object') ? f.title : { en: f.title || '', ar: '' },
-                desc: (f.description && typeof f.description === 'object') ? f.description : { en: f.description || '', ar: '' }
+                title: typeof f.title === 'object' ? f.title : { en: f.title || '', ar: '' },
+                desc: typeof f.description === 'object' ? f.description : { en: f.description || '', ar: '' }
             }));
         }
 
         let parsedProcess = [];
-        if (typeof data.Process === 'string') {
-            if (data.Process.includes('->')) {
-                parsedProcess = data.Process.split('->').map(p => ({
-                    title: { en: p.trim(), ar: '' },
-                    content: { en: '', ar: '' }
-                }));
-            } else if (data.Process.trim().length > 0) {
-                parsedProcess = [{
-                    title: { en: data.Process.trim(), ar: '' },
-                    content: { en: '', ar: '' }
-                }];
-            }
+        if (typeof data.Process === 'string' && data.Process.includes('->')) {
+            parsedProcess = data.Process.split('->').map(p => ({
+                title: { en: p.trim(), ar: '' },
+                content: { en: '', ar: '' }
+            }));
         } else {
             const rawProcess = parseJSON(data.Process, []);
             if (Array.isArray(rawProcess)) {
                 parsedProcess = rawProcess.map(p => ({
-                    title: (p.title && typeof p.title === 'object') ? p.title : { en: p.title || '', ar: '' },
-                    content: (p.content && typeof p.content === 'object') ? p.content : { en: p.content || '', ar: '' }
+                    title: typeof p.title === 'object' ? p.title : { en: p.title || '', ar: '' },
+                    content: typeof p.content === 'object' ? p.content : { en: p.content || '', ar: '' }
                 }));
             }
         }
 
         let parsedGallery = [];
-        if (typeof data.Gallery === 'string') {
-             if (data.Gallery.startsWith('http')) {
-                 parsedGallery = [data.Gallery]; 
-             } else {
-                 parsedGallery = parseJSON(data.Gallery, []);
-             }
-        } else if (Array.isArray(data.Gallery)) {
-            parsedGallery = data.Gallery;
+        if (typeof data.Gallery === 'string' && data.Gallery.startsWith('http')) {
+             parsedGallery = [data.Gallery]; 
+        } else {
+             parsedGallery = parseJSON(data.Gallery, []);
         }
 
         setFormData({
@@ -277,12 +262,12 @@ const ProjectContent = () => {
             Solution: formData.Solution,
             Technologies: formData.Technologies,
             Achievements: formData.Achievements,
-            Tags: formData.Tags,
-            KeyFeatures: formData.KeyFeatures,
-            Process: formData.Process,
+            Tags: formData.Tags, 
+            KeyFeatures: formData.KeyFeatures, 
+            Process: formData.Process, 
             HeroImage: formData.HeroImage,
             ServiceCategory: formData.ServiceCategory,
-            Gallery: formData.Gallery
+            Gallery: formData.Gallery 
         };
 
         let error;
@@ -330,10 +315,15 @@ const ProjectContent = () => {
           <div className="pc-container">
             
             <div className="pc-status-bar">
-                <span className="pc-status-label">Current Workspace:</span>
-                <span className="pc-status-value">
-                    {idToEdit ? (formData.Title.en || 'Untitled Project') : 'Creating New Project'}
-                </span>
+                {formData.HeroImage && (
+                    <img src={formData.HeroImage} alt="Project Hero" className="pc-status-img" />
+                )}
+                <div>
+                    <span className="pc-status-label">Current Workspace: </span>
+                    <span className="pc-status-value">
+                        {idToEdit ? (formData.Title.en || 'Untitled Project') : 'Creating New Project'}
+                    </span>
+                </div>
             </div>
 
             <div className="pc-header-row">
@@ -356,13 +346,13 @@ const ProjectContent = () => {
                         </div>
                     ))
                 ) : (
-                    <p className="pc-no-tags">No tags added yet.</p>
+                    <p style={{color:'#666', fontSize:'14px'}}>No tags added yet.</p>
                 )}
               </div>
               <div className="pc-grid-two pc-mt-20">
                  <div className="pc-form-group">
                     <label>Add Tag <span className="lang-badge">EN</span></label>
-                    <div className="pc-flex-gap">
+                    <div style={{display:'flex', gap:'10px'}}>
                         <input 
                             type="text" 
                             placeholder="New Tag" 
@@ -375,7 +365,7 @@ const ProjectContent = () => {
                  </div>
                  <div className="pc-form-group">
                     <label>Add Tag <span className="lang-badge">AR</span></label>
-                    <div className="pc-flex-gap">
+                    <div style={{display:'flex', gap:'10px'}}>
                         <input 
                             type="text" 
                             placeholder="وسم جديد" 
@@ -384,7 +374,7 @@ const ProjectContent = () => {
                             value={tagInput.ar}
                             onChange={(e) => setTagInput(prev => ({...prev, ar: e.target.value}))}
                         />
-                        <button className="pc-add-btn pc-btn-square" onClick={handleAddTag} type="button">+</button>
+                        <button className="pc-add-btn" onClick={handleAddTag} type="button" style={{height:'46px', width:'46px'}}>+</button>
                     </div>
                  </div>
               </div>
@@ -684,9 +674,9 @@ const ProjectContent = () => {
               <div className="pc-grid-two">
                 {formData.KeyFeatures.map((feature, idx) => (
                     <div key={idx} className="pc-feature-block">
-                        <div className="pc-feature-header">
-                            <label className="pc-sub-label pc-label-no-margin">Feature {idx+1} <span className="lang-badge">EN</span></label>
-                            <button type="button" onClick={() => removeFeature(idx)} className="pc-btn-remove-text">Remove ×</button>
+                        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: '8px'}}>
+                            <label className="pc-sub-label" style={{marginBottom:0}}>Feature {idx+1} <span className="lang-badge">EN</span></label>
+                            <button type="button" onClick={() => removeFeature(idx)} style={{color:'#ff6b6b', background:'none', border:'none', cursor:'pointer', fontSize:'0.9rem', fontWeight:'600'}}>Remove ×</button>
                         </div>
                         <input 
                             type="text" className="pc-input pc-mb-10" placeholder="Title EN" dir="ltr" 
@@ -724,8 +714,8 @@ const ProjectContent = () => {
               <div className="pc-process-container">
                 {formData.Process.map((proc, idx) => (
                     <div key={idx} className="pc-process-item">
-                        <div className="pc-process-remove-row">
-                             <button type="button" onClick={() => removeProcess(idx)} className="pc-btn-remove-text">Remove Process ×</button>
+                        <div style={{display:'flex', justifyContent:'flex-end', marginBottom:'10px'}}>
+                             <button type="button" onClick={() => removeProcess(idx)} style={{color:'#ff6b6b', background:'none', border:'none', cursor:'pointer', fontSize:'0.9rem', fontWeight:'600'}}>Remove Process ×</button>
                         </div>
                         <div className="pc-grid-two">
                             <div>
