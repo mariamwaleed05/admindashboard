@@ -407,11 +407,13 @@ select.pc-input {
 input[dir="rtl"], textarea[dir="rtl"], select[dir="rtl"] {
   text-align: right;
   direction: rtl;
+      font-family: 'Montserrat', sans-serif;
 }
 
 input[dir="ltr"], textarea[dir="ltr"], select[dir="ltr"] {
   text-align: left;
   direction: ltr;
+      font-family: 'Montserrat', sans-serif;
 }
 
 @media (max-width: 900px) {
