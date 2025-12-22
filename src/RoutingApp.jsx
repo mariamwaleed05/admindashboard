@@ -19,6 +19,9 @@ import ProjectContent from './pages/ProjectContent';
 import EmailContent from './pages/EmailContent';
 import UiElements from './pages/UiElements';
 import CreateProject from './pages/CreateProject';
+import DashboardMsg from './pages/DashboardMsg';
+import EditMsg from './pages/EditMsg';
+import CreateMsg from './pages/CreateMsg';
 
    const RoutingApp = () => {
     return ( 
@@ -46,7 +49,9 @@ import CreateProject from './pages/CreateProject';
                         <Route path='/ProjectContent' element={<ProjectContent />} />
                         <Route path='/CreateProject' element={<CreateProject />} />
 
-                 
+                        <Route path="/DashboardMsg" element={<DashboardMsg />} />
+                        <Route path="/msg-details/:id" element={<EditMsg/>} />
+                        <Route path="/CreateMsg" element={<CreateMsg/>} />
                         
                         <Route path='*' element={<Error />} />
                     </Routes>
