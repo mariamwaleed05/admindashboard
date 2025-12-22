@@ -17,13 +17,16 @@ import {
   Trash2, 
   Edit2, 
   Plus,
-  Image as ImageIcon 
+  Image as ImageIcon,
+  AlertTriangle
 } from 'lucide-react';
 import { useLanguage } from '../language/LanguageContext';
 
 const PageList = () => {
   const [projects, setProjects] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [targetId, setTargetId] = useState(null);
 
   const { t, language } = useLanguage();
   const navigate = useNavigate();
@@ -56,12 +59,19 @@ const PageList = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this project?")) return;
+  const openDeleteModal = (id) => {
+    setTargetId(id);
+    setShowConfirm(true);
+  };
+
+  const handleDelete = async () => {
+    if (!targetId) return;
     try {
-      const { error } = await supabase.from("ProjectDetails").delete().eq('id', id);
+      const { error } = await supabase.from("ProjectDetails").delete().eq('id', targetId);
       if (error) throw error;
-      setProjects(prev => prev.filter(p => p.id !== id));
+      setProjects(prev => prev.filter(p => p.id !== targetId));
+      setShowConfirm(false);
+      setTargetId(null);
     } catch (error) {
       console.error(error);
     }
@@ -98,7 +108,7 @@ const PageList = () => {
     : projects.filter(p => cleanText(getProjectType(p)) === cleanText(activeFilter));
 
   const isRtl = language === 'ar';
-  const directionStyle = { direction: isRtl ? 'rtl' : 'ltr' };
+  const appDirectionClass = isRtl ? 'rtl' : 'ltr';
 
   return (
     <>
@@ -106,7 +116,29 @@ const PageList = () => {
         <title>{t.pageList.title}</title>
       </Helmet>
 
-      <div className="app-layout" style={directionStyle}>
+      {showConfirm && (
+        <div className="modal-overlay">
+          <div className="modal-container">
+            <div className="modal-icon-box">
+              <AlertTriangle size={32} color="#ff4d4d" />
+            </div>
+            <h2>Are you sure?</h2>
+            <p>
+              This action cannot be undone. This project will be permanently removed from your portfolio.
+            </p>
+            <div className="modal-actions">
+              <button onClick={() => setShowConfirm(false)} className="btn-modal-cancel">
+                Cancel
+              </button>
+              <button onClick={handleDelete} className="btn-modal-delete">
+                Delete Project
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className={`app-layout ${appDirectionClass}`}>
         <div className="sidebar-container">
           <SideBar />
         </div>
@@ -117,9 +149,9 @@ const PageList = () => {
           <div className="project-list-container">
             <div className="project-list-header">
               <h1>{t.pageList.title}</h1>
-              <div style={{ display: 'flex', gap: '12px' }}>
+              <div className="header-action-gap">
                 <Link to="/Messages">
-                  <button className="add-project-btn" style={{ background: '#3d0d00ff' }}>
+                  <button className="add-project-btn btn-messages">
                     Messages <FileText size={18} />
                   </button>
                 </Link>
@@ -150,8 +182,8 @@ const PageList = () => {
 
             <div className="projects-grid">
               {filteredProjects.length === 0 ? (
-                <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "60px", color: "#666" }}>
-                  <p style={{fontSize: "1.2rem"}}>No projects found.</p>
+                <div className="no-projects-found">
+                  <p>No projects found.</p>
                 </div>
               ) : (
                 filteredProjects.map((project, index) => {
@@ -192,7 +224,7 @@ const PageList = () => {
                         </div>
 
                         <div className="project-actions-bottom">
-                          <button className="action-btnn delete-btn" onClick={() => handleDelete(project.id)}>
+                          <button className="action-btnn delete-btn" onClick={() => openDeleteModal(project.id)}>
                             <Trash2 size={20} />
                           </button>
                           <button className="action-btnn edit-btn" onClick={() => handleEditClick(project.id)}>

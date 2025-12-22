@@ -39,6 +39,11 @@
   margin-bottom: 2.5rem;
 }
 
+.header-action-gap {
+  display: flex;
+  gap: 12px;
+}
+
 .project-list-header h1 {
   font-size: 2rem;
   font-weight: 700;
@@ -56,9 +61,13 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-      font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   gap: 0.5rem;
   transition: all 0.3s;
+}
+
+.btn-messages {
+  background-color: #3d0d00;
 }
 
 .add-project-btn:hover {
@@ -81,7 +90,7 @@
   border: 1px solid #27272a;
   padding: 0.6rem 1rem;
   border-radius: 8px;
-    font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   cursor: pointer;
   display: flex;
@@ -196,6 +205,17 @@
   flex-grow: 1;
 }
 
+.no-projects-found {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px;
+  color: #666;
+}
+
+.no-projects-found p {
+  font-size: 1.2rem;
+}
+
 .project-meta-tags {
   display: flex;
   align-items: center;
@@ -245,12 +265,82 @@
   transform: scale(1.05);
 }
 
-.loading-center {
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 80vh;
-  color: #555;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-container {
+  background-color: #1a1a1a;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+}
+
+.modal-icon-box {
+  width: 60px;
+  height: 60px;
+  background-color: #3d0d00;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.modal-container h2 {
+  color: #fff;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.modal-container p {
+  color: #aaa;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-modal-cancel {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.btn-modal-delete {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #3d0d00;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
 }
 
 @media (max-width: 768px) {
