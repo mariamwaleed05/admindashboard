@@ -26,8 +26,8 @@ const Icons = {
   Search: () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
   ),
-  Dots: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+  Trash: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
   ),
   Close: () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -42,6 +42,8 @@ const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  
+  const [newMsg, setNewMsg] = useState({ FullName: '', Email: '', Subject: '', Message: '' });
 
   useEffect(() => {
     fetchMessages();
@@ -63,12 +65,19 @@ const Messages = () => {
     }
   };
 
-  const toggleCompose = () => {
-    setIsComposeVisible(!isComposeVisible);
+  const handleDelete = async (id) => {
+    if(!window.confirm("Delete this message?")) return;
+    const { error } = await supabase.from('ContactForm').delete().eq('id', id);
+    if (!error) setMessages(messages.filter(m => m.id !== id));
   };
 
-  const openCompose = () => {
-    setIsComposeVisible(true);
+  const handleCreate = async () => {
+    const { error } = await supabase.from('ContactForm').insert([newMsg]);
+    if (!error) {
+      fetchMessages();
+      setIsComposeVisible(false);
+      setNewMsg({ FullName: '', Email: '', Subject: '', Message: '' });
+    }
   };
 
   const formatDate = (dateString) => {
@@ -88,21 +97,10 @@ const Messages = () => {
 
   return (
     <div className="app-container">
-      <Helmet>
-        <title>Messages</title>
-        <meta name="description" content="This is the Messages page" />
-        <meta property="og:title" content="Messages" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/png" href="/icon.png" sizes="16x16" /> 
-      </Helmet>
-
+      <Helmet><title>Messages</title></Helmet>
       <SideBar />
-
       <div className="main-content">
-        <div className="top-nav-container">
-            <NavButtons />
-        </div>
-
+        <div className="top-nav-container"><NavButtons /></div>
         <div className="dashboard-wrapper">
           <header className="main-header">
             <h1 className="page-title">Messages Inbox</h1>
@@ -111,59 +109,28 @@ const Messages = () => {
 
           <div className="stats-row">
             <div className="stat-card">
-              <div className="stat-icon-box red-icon">
-                <Icons.Eye />
-              </div>
-              <div className="stat-content">
-                <h3>Total Messages</h3>
-                <p>{messages.length}</p>
-              </div>
+              <div className="stat-icon-box red-icon"><Icons.Eye /></div>
+              <div className="stat-content"><h3>Total</h3><p>{messages.length}</p></div>
             </div>
             <div className="stat-card">
-              <div className="stat-icon-box red-icon">
-                <Icons.User />
-              </div>
-              <div className="stat-content">
-                <h3>Unread</h3>
-                <p>{messages.length}</p>
-              </div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon-box red-icon">
-                <Icons.Chart />
-              </div>
-              <div className="stat-content">
-                <h3>Emails</h3>
-                <p>0</p>
-              </div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon-box red-icon">
-                <Icons.Lightning />
-              </div>
-              <div className="stat-content">
-                <h3>Contact Forms</h3>
-                <p>{messages.length}</p>
-              </div>
+              <div className="stat-icon-box red-icon"><Icons.User /></div>
+              <div className="stat-content"><h3>Unread</h3><p>{messages.length}</p></div>
             </div>
           </div>
 
           <div className="inbox-panel">
             <div className="inbox-header">
               <h2>Inbox</h2>
-              <button className="btn-compose" onClick={openCompose}>
-                Compose Email <span className="icon-spacer"><Icons.Plus /></span>
+              <button className="btn-compose" onClick={() => setIsComposeVisible(true)}>
+                Compose <span className="icon-spacer"><Icons.Plus /></span>
               </button>
             </div>
 
             <div className="search-bar">
               <span className="search-icon"><Icons.Search /></span>
               <input 
-                type="text" 
-                className="search-input" 
-                placeholder="Search..." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                type="text" className="search-input" placeholder="Search..." 
+                value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
 
@@ -181,45 +148,21 @@ const Messages = () => {
                 </thead>
                 <tbody>
                   {loading ? (
-                    <tr>
-                      <td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>Loading messages...</td>
+                    <tr><td colSpan="6" style={{textAlign: 'center'}}>Loading...</td></tr>
+                  ) : filteredMessages.map((msg) => (
+                    <tr key={msg.id} className="clickable-row">
+                      <td><span className="badge badge-new">New</span></td>
+                      <td><b>{msg.FullName || 'Unknown'}</b></td>
+                      <td className="text-muted">{msg.Email}</td>
+                      <td>{msg.Subject}</td>
+                      <td>{formatDate(msg.created_at)}</td>
+                      <td className="text-right">
+                        <button onClick={() => handleDelete(msg.id)} className="actionn-btn" style={{color: 'red', border:'none', background:'none', cursor:'pointer'}}>
+                          <Icons.Trash />
+                        </button>
+                      </td>
                     </tr>
-                  ) : filteredMessages.length === 0 ? (
-                    <tr>
-                      <td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>No messages found.</td>
-                    </tr>
-                  ) : (
-                    filteredMessages.map((msg) => (
-                      <tr key={msg.id} className="clickable-row">
-                        <td><span className="badge badge-new">New</span></td>
-                        <td>
-                          <Link 
-                            to="/EmailContent" 
-                            state={{ message: msg }} 
-                            style={{ color: 'inherit', textDecoration: 'none', fontWeight: 'bold' }}
-                          >
-                            {msg.FullName || 'Unknown'}
-                          </Link>
-                        </td>
-                        <td className="text-muted">{msg.Email || 'No Email'}</td>
-                        <td className="fw-bold">
-                          <Link 
-                            to="/EmailContent" 
-                            state={{ message: msg }} 
-                            style={{ color: 'inherit', textDecoration: 'none', display: 'block' }}
-                          >
-                            {msg.Subject || 'No Subject'}
-                          </Link>
-                        </td>
-                        <td>{formatDate(msg.created_at)}</td>
-                        <td className="text-right">
-                          <button className="actionn-btn">
-                            <Icons.Dots />
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -228,27 +171,24 @@ const Messages = () => {
           {isComposeVisible && (
             <div className="compose-panel">
               <div className="compose-header">
-                <h2>Compose Email</h2>
-                <button className="close-btn" onClick={toggleCompose}>
-                  <Icons.Close />
-                </button>
+                <h2>New Message</h2>
+                <button className="close-btn" onClick={() => setIsComposeVisible(false)}><Icons.Close /></button>
               </div>
-              
               <div className="form-group">
-                <label>To</label>
-                <input type="text" className="form-input" placeholder="youremail@gmail.com" />
+                <label>Name</label>
+                <input type="text" className="form-input" value={newMsg.FullName} onChange={(e) => setNewMsg({...newMsg, FullName: e.target.value})} />
               </div>
-
+              <div className="form-group">
+                <label>Email</label>
+                <input type="text" className="form-input" value={newMsg.Email} onChange={(e) => setNewMsg({...newMsg, Email: e.target.value})} />
+              </div>
               <div className="form-group">
                 <label>Subject</label>
-                <input type="text" className="form-input" placeholder="Write Subject" />
+                <input type="text" className="form-input" value={newMsg.Subject} onChange={(e) => setNewMsg({...newMsg, Subject: e.target.value})} />
               </div>
-
-              <RichTextEditor />
-
               <div className="form-actions">
-                <button className="btn-send">
-                  Send Email <span className="icon-spacer"><Icons.Send /></span>
+                <button className="btn-send" onClick={handleCreate}>
+                  Save to DB <span className="icon-spacer"><Icons.Send /></span>
                 </button>
               </div>
             </div>

@@ -117,11 +117,18 @@ const PageList = () => {
           <div className="project-list-container">
             <div className="project-list-header">
               <h1>{t.pageList.title}</h1>
-              <Link to="/CreateProject">
-                <button className="add-project-btn">
-                  {t.pageList.addProject} <Plus size={18} />
-                </button>
-              </Link>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <Link to="/DashboardMsg">
+                  <button className="add-project-btn" style={{ background: '#3d0d00ff' }}>
+                    Messages <FileText size={18} />
+                  </button>
+                </Link>
+                <Link to="/CreateProject">
+                  <button className="add-project-btn">
+                    {t.pageList.addProject} <Plus size={18} />
+                  </button>
+                </Link>
+              </div>
             </div>
 
             <div className="services-filter">
@@ -159,7 +166,6 @@ const PageList = () => {
 
                   return (
                     <div key={project.id} className="project-card">
-                      
                       <div className="project-image-container">
                         {displayImage ? (
                           <img 
@@ -199,7 +205,6 @@ const PageList = () => {
                 })
               )}
             </div>
-
           </div>
         </div>
       </div>
