@@ -118,7 +118,7 @@ const PageList = () => {
             <div className="project-list-header">
               <h1>{t.pageList.title}</h1>
               <div style={{ display: 'flex', gap: '12px' }}>
-                <Link to="/DashboardMsg">
+                <Link to="/Messages">
                   <button className="add-project-btn" style={{ background: '#3d0d00ff' }}>
                     Messages <FileText size={18} />
                   </button>
