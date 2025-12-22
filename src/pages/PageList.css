@@ -349,3 +349,25 @@
   .project-list-container { padding: 2rem 1rem; }
   .projects-grid { grid-template-columns: 1fr; }
 }
+.alert-toast {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #10b981;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  z-index: 10005;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  animation: slideDownAlert 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideDownAlert {
+  from { top: -100px; opacity: 0; }
+  to { top: 30px; opacity: 1; }
+}

@@ -81,17 +81,13 @@ const ProjectContent = () => {
         };
 
         let parsedTags = [];
-        if (typeof data.Tags === 'string' && data.Tags.includes(',')) {
-            parsedTags = data.Tags.split(',').map(t => ({ en: t.trim(), ar: '' }));
-        } else {
-            const rawTags = parseJSON(data.Tags, []);
-            parsedTags = Array.isArray(rawTags) 
-                ? rawTags.map(t => typeof t === 'string' ? {en: t, ar: ''} : t) 
-                : [];
-        }
+        const rawTags = parseJSON(data.Tags, []);
+        parsedTags = Array.isArray(rawTags) 
+            ? rawTags.map(t => typeof t === 'string' ? {en: t, ar: ''} : t) 
+            : [];
 
         let parsedFeatures = [];
-        const rawFeatures = typeof data.KeyFeatures === 'string' ? parseJSON(data.KeyFeatures, []) : data.KeyFeatures;
+        const rawFeatures = parseJSON(data.KeyFeatures, []);
         if (Array.isArray(rawFeatures)) {
             parsedFeatures = rawFeatures.map(f => ({
                 title: typeof f.title === 'object' ? f.title : { en: f.title || '', ar: '' },
@@ -112,7 +108,7 @@ const ProjectContent = () => {
 
         setFormData({
             Title: parseDualLang(data.Title),
-            ServiceCategory: parseDualLang(data.ServiceCategory || data.Type), 
+            ServiceCategory: parseDualLang(data.Type), 
             Description: parseDualLang(data.Info), 
             ShortDescription: parseDualLang(data.Overview), 
             Date: parseDualLang(data.Date),
@@ -242,7 +238,7 @@ const ProjectContent = () => {
     try {
         const payload = {
             Title: formData.Title,
-            Type: formData.Type, 
+            Type: formData.ServiceCategory, 
             Date: formData.Date,
             Duration: formData.Duration,
             Info: formData.Description, 
@@ -259,7 +255,6 @@ const ProjectContent = () => {
             KeyFeatures: formData.KeyFeatures, 
             Process: formData.Process, 
             HeroImage: formData.HeroImage,
-            ServiceCategory: formData.ServiceCategory,
             Gallery: formData.Gallery 
         };
 
@@ -272,7 +267,7 @@ const ProjectContent = () => {
             error = res.error;
         }
         if (error) throw error;
-        navigate('/PageList');
+        navigate('/PageList', { state: { alert: idToEdit ? 'Project updated successfully' : 'Project published successfully' } });
     } catch (error) {
         console.error(error);
         alert('Error saving project: ' + error.message);
