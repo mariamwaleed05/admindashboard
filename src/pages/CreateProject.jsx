@@ -9,32 +9,27 @@ import { supabase } from '../SupaBase';
 
 const CreateProject = () => {
   const navigate = useNavigate();
+  const [tags, setTags] = useState([]);
+  const [newTag, setNewTag] = useState("");
+  
   const [formData, setFormData] = useState({
     Title: '',
-    Title_AR: '',
-    Type: '',
-    Type_AR: '',
-    Date: '',
-    Date_AR: '',
-    Overview: '',
-    Overview_AR: '',
-    Service: '',
-    Service_AR: '',
+    Info: '',
     HeroImage: '',
-    ShortDescription: '',
-    ShortDescription_AR: '',
+    Date: '',
+    Type: '',
     Duration: '',
-    Duration_AR: '',
-    Role: '',
-    Role_AR: '',
-    Challenges: '',
-    Challenges_AR: '',
-    Technologies: '',
-    Technologies_AR: '',
+    Overview: '',
+    Challenge: '',
     Solution: '',
-    Solution_AR: '',
+    Role: '',
+    Technologies: '',
     Achievements: '',
-    Achievements_AR: ''
+    SlugName: '',
+    PageTag: '',
+    MetaDescription: '',
+    Gallery: '',
+    Process: ''
   });
 
   const handleChange = (e) => {
@@ -42,12 +37,32 @@ const CreateProject = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleEditorChange = (columnName, content) => {
+    setFormData(prev => ({ ...prev, [columnName]: content }));
+  };
+
+  const addTag = () => {
+    if (newTag.trim()) {
+      setTags([...tags, newTag.trim()]);
+      setNewTag("");
+    }
+  };
+
+  const removeTag = (indexToRemove) => {
+    setTags(tags.filter((_, index) => index !== indexToRemove));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { error } = await supabase
         .from("ProjectDetails")
-        .insert([formData]);
+        .insert([{
+          ...formData,
+          Tags: tags.join(", "),
+          KeyFeatures: {}, 
+          created_at: new Date()
+        }]);
 
       if (error) throw error;
       navigate('/PageList');
@@ -85,125 +100,152 @@ const CreateProject = () => {
             </div>
 
             <div className="pc-card">
+              <div className="pc-pink-header">Tags</div>
+              
+              <div className="pc-form-group pc-mt-20">
+                <label>Add Tag</label>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <input 
+                    type="text" 
+                    value={newTag} 
+                    onChange={(e) => setNewTag(e.target.value)} 
+                    placeholder="Type a tag and press +" 
+                    className="pc-input" 
+                  />
+                  <button type="button" className="pc-add-btn" onClick={addTag}>+</button>
+                </div>
+              </div>
+
+              {tags.length > 0 && (
+                <div className="pc-tags-container pc-mt-20">
+                  {tags.map((tag, index) => (
+                    <div key={index} className="pc-tag pc-tag-dark">
+                      {tag}
+                      <div className="pc-close-badge" onClick={() => removeTag(index)}>×</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="pc-card">
               <div className="pc-pink-header">Header Info</div>
               <div className="pc-form">
-                
                 <div className="pc-grid-two">
                     <div className="pc-form-group">
-                    <label>Project Title <span className="lang-badge">EN</span></label>
-                    <input type="text" name="Title" value={formData.Title} onChange={handleChange} placeholder="Enter Title" className="pc-input" dir="ltr" required />
+                      <label>Project Title</label>
+                      <input type="text" name="Title" value={formData.Title} onChange={handleChange} placeholder="Enter Title" className="pc-input" required />
                     </div>
                     <div className="pc-form-group">
-                    <label>Project Title <span className="lang-badge">AR</span></label>
-                    <input type="text" name="Title_AR" value={formData.Title_AR} onChange={handleChange} placeholder="عنوان المشروع" className="pc-input" dir="rtl" />
+                      <label>Slug Name</label>
+                      <input type="text" name="SlugName" value={formData.SlugName} onChange={handleChange} placeholder="project-url-slug" className="pc-input" />
                     </div>
                 </div>
 
                 <div className="pc-grid-two">
                     <div className="pc-form-group">
-                        <label>Service Category <span className="lang-badge">EN</span></label>
+                        <label>Service Category (Type)</label>
                         <div className="pc-select-wrapper">
-                            <select name="Service" value={formData.Service} onChange={handleChange} className="pc-input" dir="ltr">
+                            <select name="Type" value={formData.Type} onChange={handleChange} className="pc-input">
                                 <option value="" disabled>Select Service</option>
                                 <option value="UX/UI">UX/UI Design</option>
-                                <option value="GRAPHIC DESIGN">Graphic Design</option>
-                                <option value="CONTENT CREATION">Content Creation</option>
-                                <option value="3D MODELING">3D Modeling</option>
-                                <option value="MOTION GRAPHICS">Motion Graphics</option>
-                                <option value="CODING">Coding</option>
-                                <option value="PHOTOGRAPHY">Photography</option>
+                                <option value="Graphic Design">Graphic Design</option>
+                                <option value="Content Creation">Content Creation</option>
+                                <option value="3D Modeling">3D Modeling</option>
+                                <option value="Motion Graphics">Motion Graphics</option>
+                                <option value="Coding">Coding</option>
+                                <option value="Photography">Photography</option>
                             </select>
                         </div>
                     </div>
                     <div className="pc-form-group">
-                        <label>Service Category <span className="lang-badge">AR</span></label>
-                        <div className="pc-select-wrapper">
-                            <select name="Service_AR" value={formData.Service_AR} onChange={handleChange} className="pc-input" dir="rtl">
-                                <option value="" disabled>اختر الخدمة</option>
-                                <option value="UX/UI">تصميم تجربة وواجهة المستخدم</option>
-                                <option value="GRAPHIC DESIGN">التصميم الجرافيكي</option>
-                                <option value="CONTENT CREATION">صناعة المحتوى</option>
-                                <option value="3D MODELING">النمذجة ثلاثية الأبعاد</option>
-                                <option value="MOTION GRAPHICS">موشن جرافيك</option>
-                                <option value="CODING">البرمجة</option>
-                                <option value="PHOTOGRAPHY">التصوير الفوتوغرافي</option>
-                            </select>
-                        </div>
+                      <label>Hero Image URL</label>
+                      <input type="text" name="HeroImage" value={formData.HeroImage} onChange={handleChange} placeholder="https://..." className="pc-input" />
                     </div>
-                </div>
-
-                <div className="pc-grid-two pc-mt-20">
-                     <div className="pc-form-group">
-                        <label>Short Description <span className="lang-badge">EN</span></label>
-                        <textarea name="ShortDescription" value={formData.ShortDescription} onChange={handleChange} className="pc-input pc-textarea-small" rows="4" placeholder="Brief summary..." dir="ltr"></textarea>
-                     </div>
-                     <div className="pc-form-group">
-                        <label>Short Description <span className="lang-badge">AR</span></label>
-                        <textarea name="ShortDescription_AR" value={formData.ShortDescription_AR} onChange={handleChange} className="pc-input pc-textarea-small" rows="4" placeholder="ملخص سريع..." dir="rtl"></textarea>
-                     </div>
-                </div>
-
-                <div className="pc-row-three">
-                  <div className="pc-form-group">
-                    <label>Date <span className="lang-badge">EN</span></label>
-                    <input type="text" name="Date" value={formData.Date} onChange={handleChange} placeholder="Oct 2023" className="pc-input" dir="ltr" />
-                  </div>
-                  <div className="pc-form-group">
-                    <label>Type <span className="lang-badge">EN</span></label>
-                    <input type="text" name="Type" value={formData.Type} onChange={handleChange} placeholder="Freelance" className="pc-input" dir="ltr" />
-                  </div>
-                  <div className="pc-form-group">
-                    <label>Duration <span className="lang-badge">EN</span></label>
-                    <input type="text" name="Duration" value={formData.Duration} onChange={handleChange} placeholder="2 Weeks" className="pc-input" dir="ltr" />
-                  </div>
-                </div>
-
-                <div className="pc-row-three">
-                  <div className="pc-form-group">
-                    <label>Date <span className="lang-badge">AR</span></label>
-                    <input type="text" name="Date_AR" value={formData.Date_AR} onChange={handleChange} placeholder="أكتوبر ٢٠٢٣" className="pc-input" dir="rtl" />
-                  </div>
-                  <div className="pc-form-group">
-                    <label>Type <span className="lang-badge">AR</span></label>
-                    <input type="text" name="Type_AR" value={formData.Type_AR} onChange={handleChange} placeholder="عمل حر" className="pc-input" dir="rtl" />
-                  </div>
-                  <div className="pc-form-group">
-                    <label>Duration <span className="lang-badge">AR</span></label>
-                    <input type="text" name="Duration_AR" value={formData.Duration_AR} onChange={handleChange} placeholder="أسبوعين" className="pc-input" dir="rtl" />
-                  </div>
                 </div>
 
                 <div className="pc-form-group">
-                    <label>Hero Image URL</label>
-                    <input type="text" name="HeroImage" value={formData.HeroImage} onChange={handleChange} placeholder="https://supabase.co/..." className="pc-input" dir="ltr" />
+                    <label className="pc-desc-label">Info / Short Description</label>
+                    <RichTextEditor 
+                        value={formData.Info} 
+                        onChange={(content) => handleEditorChange('Info', content)} 
+                    />
                 </div>
 
+                <div className="pc-row-three">
+                  <div className="pc-form-group">
+                    <label>Date</label>
+                    <input type="text" name="Date" value={formData.Date} onChange={handleChange} placeholder="Oct 2023" className="pc-input" />
+                  </div>
+                  <div className="pc-form-group">
+                    <label>Duration</label>
+                    <input type="text" name="Duration" value={formData.Duration} onChange={handleChange} placeholder="2 Weeks" className="pc-input" />
+                  </div>
+                  <div className="pc-form-group">
+                    <label>Page Tag</label>
+                    <input type="text" name="PageTag" value={formData.PageTag} onChange={handleChange} placeholder="Featured" className="pc-input" />
+                  </div>
+                </div>
               </div>
             </div>
 
             <div className="pc-card">
-              <div className="pc-pink-header">Overview & Details</div>
-              
+              <div className="pc-pink-header">Overview & Process</div>
+              <div className="pc-form-group">
+                <label>Project Overview</label>
+                <RichTextEditor 
+                    value={formData.Overview} 
+                    onChange={(content) => handleEditorChange('Overview', content)} 
+                />
+              </div>
+              <div className="pc-form-group pc-mt-20">
+                <label>Design Process</label>
+                <RichTextEditor 
+                    value={formData.Process} 
+                    onChange={(content) => handleEditorChange('Process', content)} 
+                />
+              </div>
+            </div>
+
+            <div className="pc-card">
+              <div className="pc-pink-header">Details</div>
               <div className="pc-dual-section">
                 <div className="pc-form-group">
-                  <label>Project Overview <span className="lang-badge">EN</span></label>
-                  <textarea name="Overview" value={formData.Overview} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="Enter Project Overview" dir="ltr"></textarea>
+                  <label>My Role</label>
+                  <textarea name="Role" value={formData.Role} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="Add Role"></textarea>
                 </div>
                 <div className="pc-form-group">
-                  <label>Project Overview <span className="lang-badge">AR</span></label>
-                  <textarea name="Overview_AR" value={formData.Overview_AR} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="نظرة عامة على المشروع" dir="rtl"></textarea>
+                  <label>Challenge</label>
+                  <textarea name="Challenge" value={formData.Challenge} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="Enter Challenges"></textarea>
                 </div>
               </div>
 
               <div className="pc-dual-section">
                 <div className="pc-form-group">
-                  <label>My Role <span className="lang-badge">EN</span></label>
-                  <textarea name="Role" value={formData.Role} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="Add Role" dir="ltr"></textarea>
+                  <label>Solution</label>
+                  <textarea name="Solution" value={formData.Solution} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="Enter Solution"></textarea>
                 </div>
                 <div className="pc-form-group">
-                  <label>My Role <span className="lang-badge">AR</span></label>
-                  <textarea name="Role_AR" value={formData.Role_AR} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="دوري في المشروع" dir="rtl"></textarea>
+                  <label>Technologies</label>
+                  <textarea name="Technologies" value={formData.Technologies} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="Enter technologies"></textarea>
                 </div>
+              </div>
+
+              <div className="pc-form-group">
+                <label>Key Achievements</label>
+                <textarea name="Achievements" value={formData.Achievements} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="Enter Key Achievements"></textarea>
+              </div>
+            </div>
+
+            <div className="pc-card">
+              <div className="pc-pink-header">Gallery & Meta</div>
+              <div className="pc-form-group">
+                <label>Gallery URL</label>
+                <input type="text" name="Gallery" value={formData.Gallery} onChange={handleChange} className="pc-input" placeholder="Image URL" />
+              </div>
+              <div className="pc-form-group pc-mt-20">
+                <label>Meta Description</label>
+                <textarea name="MetaDescription" value={formData.MetaDescription} onChange={handleChange} className="pc-input pc-textarea-small" placeholder="SEO Description"></textarea>
               </div>
             </div>
 
@@ -215,7 +257,6 @@ const CreateProject = () => {
                     <button type="submit" className="pc-btn-submit">Publish Project</button>
                 </div>
             </div>
-
           </form> 
         </div>
       </div>
