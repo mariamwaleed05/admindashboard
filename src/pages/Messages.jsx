@@ -6,6 +6,7 @@ import NavButtons from '../common/NavButtons';
 import RichTextEditor from '../components/RichTextEditor';
 import './Messages.css';
 import { supabase } from '../SupaBase';
+import { AlertTriangle } from 'lucide-react';
 
 const Icons = {
   Eye: () => (
@@ -42,6 +43,8 @@ const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [targetId, setTargetId] = useState(null);
   
   const [newMsg, setNewMsg] = useState({ FullName: '', Email: '', Subject: '', Message: '' });
 
@@ -65,10 +68,31 @@ const Messages = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    if(!window.confirm("Delete this message?")) return;
-    const { error } = await supabase.from('ContactForm').delete().eq('id', id);
-    if (!error) setMessages(messages.filter(m => m.id !== id));
+  const openDeleteModal = (id) => {
+    setTargetId(id);
+    setShowConfirm(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!targetId) return;
+    
+    try {
+      const { error } = await supabase
+        .from('ContactForm')
+        .delete()
+        .eq('id', targetId);
+
+      if (error) {
+        alert("Error: " + error.message);
+        return;
+      }
+
+      setMessages(prev => prev.filter(m => m.id !== targetId));
+      setShowConfirm(false);
+      setTargetId(null);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleCreate = async () => {
@@ -98,6 +122,29 @@ const Messages = () => {
   return (
     <div className="app-container">
       <Helmet><title>Messages</title></Helmet>
+
+      {showConfirm && (
+        <div className="modal-overlay">
+          <div className="modal-container">
+            <div className="modal-icon-box">
+              <AlertTriangle size={32} color="#ff4d4d" />
+            </div>
+            <h2>Are you sure?</h2>
+            <p>
+              Are you sure you want to delete this message? This action cannot be undone.
+            </p>
+            <div className="modal-actions">
+              <button onClick={() => setShowConfirm(false)} className="btn-modal-cancel">
+                Cancel
+              </button>
+              <button onClick={confirmDelete} className="btn-modal-delete">
+                Delete Message
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <SideBar />
       <div className="main-content">
         <div className="top-nav-container"><NavButtons /></div>
@@ -149,6 +196,8 @@ const Messages = () => {
                 <tbody>
                   {loading ? (
                     <tr><td colSpan="6" style={{textAlign: 'center'}}>Loading...</td></tr>
+                  ) : filteredMessages.length === 0 ? (
+                    <tr><td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>No messages found.</td></tr>
                   ) : filteredMessages.map((msg) => (
                     <tr key={msg.id} className="clickable-row">
                       <td><span className="badge badge-new">New</span></td>
@@ -157,7 +206,7 @@ const Messages = () => {
                       <td>{msg.Subject}</td>
                       <td>{formatDate(msg.created_at)}</td>
                       <td className="text-right">
-                        <button onClick={() => handleDelete(msg.id)} className="actionn-btn" style={{color: 'red', border:'none', background:'none', cursor:'pointer'}}>
+                        <button onClick={() => openDeleteModal(msg.id)} className="actionn-btn delete-icon-btn">
                           <Icons.Trash />
                         </button>
                       </td>
