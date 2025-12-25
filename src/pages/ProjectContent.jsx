@@ -21,7 +21,6 @@ const ProjectContent = () => {
     Title: { en: '', ar: '' },
     ServiceCategory: { en: '', ar: '' },
     Description: { en: '', ar: '' },
-    ShortDescription: { en: '', ar: '' },
     Date: { en: '', ar: '' },
     Type: { en: '', ar: '' },
     Duration: { en: '', ar: '' },
@@ -72,61 +71,41 @@ const ProjectContent = () => {
       if (error) throw error;
 
       if (data) {
-        const parseDualLang = (field) => {
+        const handleIncoming = (field) => {
             const parsed = parseJSON(field, null);
-            if (parsed && (parsed.en !== undefined || parsed.ar !== undefined)) {
+            if (parsed && typeof parsed === 'object' && (parsed.en || parsed.ar)) {
                 return { en: parsed.en || '', ar: parsed.ar || '' };
             }
             return { en: field || '', ar: '' };
         };
 
         let parsedTags = [];
-        const rawTags = parseJSON(data.Tags, []);
-        parsedTags = Array.isArray(rawTags) 
-            ? rawTags.map(t => typeof t === 'string' ? {en: t, ar: ''} : t) 
-            : [];
-
-        let parsedFeatures = [];
-        const rawFeatures = parseJSON(data.KeyFeatures, []);
-        if (Array.isArray(rawFeatures)) {
-            parsedFeatures = rawFeatures.map(f => ({
-                title: typeof f.title === 'object' ? f.title : { en: f.title || '', ar: '' },
-                desc: typeof f.description === 'object' ? f.description : { en: f.description || '', ar: '' }
-            }));
+        if (typeof data.Tags === 'string') {
+            parsedTags = data.Tags.split(',').map(s => ({ en: s.trim(), ar: '' }));
+        } else {
+            parsedTags = parseJSON(data.Tags, []);
         }
-
-        let parsedProcess = [];
-        const rawProcess = parseJSON(data.Process, []);
-        if (Array.isArray(rawProcess)) {
-            parsedProcess = rawProcess.map(p => ({
-                title: typeof p.title === 'object' ? p.title : { en: p.title || '', ar: '' },
-                content: typeof p.content === 'object' ? p.content : { en: p.content || '', ar: '' }
-            }));
-        }
-
-        let parsedGallery = parseJSON(data.Gallery, []);
 
         setFormData({
-            Title: parseDualLang(data.Title),
-            ServiceCategory: parseDualLang(data.Type), 
-            Description: parseDualLang(data.Info), 
-            ShortDescription: parseDualLang(data.Overview), 
-            Date: parseDualLang(data.Date),
-            Type: parseDualLang(data.Type),
-            Duration: parseDualLang(data.Duration),
-            Overview: parseDualLang(data.Overview),
-            Role: parseDualLang(data.Role),
-            Challenges: parseDualLang(data.Challenge),
-            Technologies: parseDualLang(data.Technologies),
-            Solution: parseDualLang(data.Solution),
-            Achievements: parseDualLang(data.Achievements),
-            SlugName: parseDualLang(data.SlugName),
-            PageTag: parseDualLang(data.PageTag),
-            MetaDescription: parseDualLang(data.MetaDescription),
+            Title: handleIncoming(data.Title),
+            ServiceCategory: handleIncoming(data.Type), 
+            Description: handleIncoming(data.Info), 
+            Date: handleIncoming(data.Date),
+            Type: handleIncoming(data.Type),
+            Duration: handleIncoming(data.Duration),
+            Overview: handleIncoming(data.Overview),
+            Role: handleIncoming(data.Role),
+            Challenges: handleIncoming(data.Challenge),
+            Technologies: handleIncoming(data.Technologies),
+            Solution: handleIncoming(data.Solution),
+            Achievements: handleIncoming(data.Achievements),
+            SlugName: handleIncoming(data.SlugName),
+            PageTag: handleIncoming(data.PageTag),
+            MetaDescription: handleIncoming(data.MetaDescription),
             Tags: parsedTags,
-            KeyFeatures: parsedFeatures,
-            Process: parsedProcess,
-            Gallery: parsedGallery,
+            KeyFeatures: parseJSON(data.KeyFeatures, []),
+            Process: parseJSON(data.Process, []),
+            Gallery: parseJSON(data.Gallery, []),
             HeroImage: data.HeroImage || ''
         });
       }
@@ -140,10 +119,7 @@ const ProjectContent = () => {
   const handleChange = (field, lang, value) => {
     setFormData(prev => ({
       ...prev,
-      [field]: {
-        ...(prev[field] || { en: '', ar: '' }),
-        [lang]: value
-      }
+      [field]: { ...(prev[field] || { en: '', ar: '' }), [lang]: value }
     }));
   };
 
@@ -165,10 +141,7 @@ const ProjectContent = () => {
   };
 
   const removeTag = (index) => {
-    setFormData(prev => ({
-      ...prev,
-      Tags: prev.Tags.filter((_, i) => i !== index)
-    }));
+    setFormData(prev => ({ ...prev, Tags: prev.Tags.filter((_, i) => i !== index) }));
   };
 
   const addFeature = () => {
@@ -179,10 +152,7 @@ const ProjectContent = () => {
   };
 
   const removeFeature = (index) => {
-    setFormData(prev => ({
-      ...prev,
-      KeyFeatures: prev.KeyFeatures.filter((_, i) => i !== index)
-    }));
+    setFormData(prev => ({ ...prev, KeyFeatures: prev.KeyFeatures.filter((_, i) => i !== index) }));
   };
 
   const updateFeature = (index, part, lang, value) => {
@@ -201,10 +171,7 @@ const ProjectContent = () => {
   };
 
   const removeProcess = (index) => {
-    setFormData(prev => ({
-      ...prev,
-      Process: prev.Process.filter((_, i) => i !== index)
-    }));
+    setFormData(prev => ({ ...prev, Process: prev.Process.filter((_, i) => i !== index) }));
   };
 
   const updateProcess = (index, part, lang, value) => {
@@ -217,19 +184,13 @@ const ProjectContent = () => {
 
   const addGalleryImage = () => {
     if (galleryInput.trim()) {
-      setFormData(prev => ({
-        ...prev,
-        Gallery: [...prev.Gallery, galleryInput.trim()]
-      }));
+      setFormData(prev => ({ ...prev, Gallery: [...prev.Gallery, galleryInput.trim()] }));
       setGalleryInput('');
     }
   };
 
   const removeGalleryImage = (index) => {
-    setFormData(prev => ({
-      ...prev,
-      Gallery: prev.Gallery.filter((_, i) => i !== index)
-    }));
+    setFormData(prev => ({ ...prev, Gallery: prev.Gallery.filter((_, i) => i !== index) }));
   };
 
   const handleSubmit = async (e) => {
@@ -237,25 +198,25 @@ const ProjectContent = () => {
     setSaving(true);
     try {
         const payload = {
-            Title: formData.Title,
-            Type: formData.ServiceCategory, 
-            Date: formData.Date,
-            Duration: formData.Duration,
-            Info: formData.Description, 
-            Overview: formData.Overview,
-            Role: formData.Role,
-            Challenge: formData.Challenges,
-            Solution: formData.Solution,
-            Technologies: formData.Technologies,
-            Achievements: formData.Achievements,
-            SlugName: formData.SlugName,
-            PageTag: formData.PageTag,
-            MetaDescription: formData.MetaDescription,
-            Tags: formData.Tags, 
+            Title: formData.Title.en,
+            Type: formData.ServiceCategory.en, 
+            Date: formData.Date.en,
+            Duration: formData.Duration.en,
+            Info: formData.Description.en, 
+            Overview: formData.Overview.en,
+            Role: formData.Role.en,
+            Challenge: formData.Challenges.en,
+            Solution: formData.Solution.en,
+            Technologies: formData.Technologies.en,
+            Achievements: formData.Achievements.en,
+            SlugName: formData.SlugName.en,
+            PageTag: formData.PageTag.en,
+            MetaDescription: formData.MetaDescription.en,
+            Tags: formData.Tags.map(t => t.en).join(' , '), 
             KeyFeatures: formData.KeyFeatures, 
-            Process: formData.Process, 
+            Process: JSON.stringify(formData.Process), 
             HeroImage: formData.HeroImage,
-            Gallery: formData.Gallery 
+            Gallery: JSON.stringify(formData.Gallery) 
         };
 
         let error;
@@ -326,26 +287,12 @@ const ProjectContent = () => {
               <div className="pc-grid-two pc-mt-20">
                  <div className="pc-form-group">
                     <label>Add Tag <span className="lang-badge">EN</span></label>
-                    <input 
-                        type="text" 
-                        placeholder="New Tag" 
-                        className="pc-input" 
-                        dir="ltr"
-                        value={tagInput.en}
-                        onChange={(e) => setTagInput(prev => ({...prev, en: e.target.value}))}
-                    />
+                    <input type="text" placeholder="New Tag" className="pc-input" dir="ltr" value={tagInput.en} onChange={(e) => setTagInput(prev => ({...prev, en: e.target.value}))} />
                  </div>
                  <div className="pc-form-group">
                     <label>Add Tag <span className="lang-badge">AR</span></label>
                     <div style={{display:'flex', gap:'10px'}}>
-                        <input 
-                            type="text" 
-                            placeholder="وسم جديد" 
-                            className="pc-input" 
-                            dir="rtl"
-                            value={tagInput.ar}
-                            onChange={(e) => setTagInput(prev => ({...prev, ar: e.target.value}))}
-                        />
+                        <input type="text" placeholder="وسم جديد" className="pc-input" dir="rtl" value={tagInput.ar} onChange={(e) => setTagInput(prev => ({...prev, ar: e.target.value}))} />
                         <button className="pc-add-btn" onClick={handleAddTag} type="button" style={{height:'46px', width:'46px'}}>+</button>
                     </div>
                  </div>
@@ -399,25 +346,16 @@ const ProjectContent = () => {
                     </div>
                 </div>
 
-                <div className="pc-form-group">
-                    <label className="pc-desc-label">Description <span className="lang-badge">EN</span></label>
-                    <div dir="ltr" className="pc-mb-20">
-                        <RichTextEditor value={formData.Description?.en || ''} onChange={(val) => handleRichTextChange('Description', 'en', val)} />
-                    </div>
-                    <label className="pc-desc-label">Description <span className="lang-badge">AR</span></label>
-                    <div dir="rtl">
-                        <RichTextEditor value={formData.Description?.ar || ''} onChange={(val) => handleRichTextChange('Description', 'ar', val)} />
-                    </div>
-                </div>
-
                 <div className="pc-grid-two pc-mt-20">
                      <div className="pc-form-group">
-                        <label>Short Description <span className="lang-badge">EN</span></label>
-                        <textarea className="pc-input pc-textarea-small" rows="4" dir="ltr" value={formData.ShortDescription?.en || ''} onChange={(e) => handleChange('ShortDescription', 'en', e.target.value)} />
+                      <RichTextEditor/>
+                        <label>Description <span className="lang-badge">EN</span></label>
+                        <textarea className="pc-input" rows="6" dir="ltr" value={formData.Description?.en || ''} onChange={(e) => handleChange('Description', 'en', e.target.value)} />
                      </div>
                      <div className="pc-form-group">
-                        <label>Short Description <span className="lang-badge">AR</span></label>
-                        <textarea className="pc-input pc-textarea-small" rows="4" dir="rtl" value={formData.ShortDescription?.ar || ''} onChange={(e) => handleChange('ShortDescription', 'ar', e.target.value)} />
+                     <RichTextEditor/>
+                        <label>Description <span className="lang-badge">AR</span></label>
+                        <textarea className="pc-input" rows="6" dir="rtl" value={formData.Description?.ar || ''} onChange={(e) => handleChange('Description', 'ar', e.target.value)} />
                      </div>
                 </div>
 
@@ -590,32 +528,31 @@ const ProjectContent = () => {
               <div className="seo-row">
                 <div className="seo-field-group">
                   <label>{t.home?.slugName} <span className="lang-badge">EN</span></label>
-                  <input type="text" value={formData.SlugName.en} onChange={(e) => handleChange('SlugName', 'en', e.target.value)} placeholder={t.home?.enterSlug} dir="ltr" />
+                  <input type="text" value={formData.SlugName.en} onChange={(e) => handleChange('SlugName', 'en', e.target.value)} dir="ltr" />
                 </div>
                 <div className="seo-field-group">
                   <label>{t.home?.slugName} <span className="lang-badge">AR</span></label>
-                  <input type="text" value={formData.SlugName.ar} onChange={(e) => handleChange('SlugName', 'ar', e.target.value)} placeholder="رابط-الصفحة" dir="rtl" />
+                  <input type="text" value={formData.SlugName.ar} onChange={(e) => handleChange('SlugName', 'ar', e.target.value)} dir="rtl" />
                 </div>
               </div>
               <div className="seo-row">
                 <div className="seo-field-group">
                   <label>{t.home?.pageTag} <span className="lang-badge">EN</span></label>
-                  <input type="text" value={formData.PageTag.en} onChange={(e) => handleChange('PageTag', 'en', e.target.value)} placeholder={t.home?.enterTag} dir="ltr" />
+                  <input type="text" value={formData.PageTag.en} onChange={(e) => handleChange('PageTag', 'en', e.target.value)} dir="ltr" />
                 </div>
                 <div className="seo-field-group">
                   <label>{t.home?.pageTag} <span className="lang-badge">AR</span></label>
-                  <input type="text" value={formData.PageTag.ar} onChange={(e) => handleChange('PageTag', 'ar', e.target.value)} placeholder="وسم الصفحة" dir="rtl" />
+                  <input type="text" value={formData.PageTag.ar} onChange={(e) => handleChange('PageTag', 'ar', e.target.value)} dir="rtl" />
                 </div>
               </div>
-            
               <div className="seo-row">
                 <div className="seo-field-group">
                   <label>{t.home?.metaDescription} <span className="lang-badge">EN</span></label>
-                  <textarea value={formData.MetaDescription.en} onChange={(e) => handleChange('MetaDescription', 'en', e.target.value)} placeholder={t.home?.enterMetaDesc} rows={6} dir="ltr"></textarea>
+                  <textarea value={formData.MetaDescription.en} onChange={(e) => handleChange('MetaDescription', 'en', e.target.value)} rows={6} dir="ltr"></textarea>
                 </div>
                 <div className="seo-field-group">
                   <label>{t.home?.metaDescription} <span className="lang-badge">AR</span></label>
-                  <textarea value={formData.MetaDescription.ar} onChange={(e) => handleChange('MetaDescription', 'ar', e.target.value)} placeholder="أدخل وصف الميتا بالعربية" rows={6} dir="rtl"></textarea>
+                  <textarea value={formData.MetaDescription.ar} onChange={(e) => handleChange('MetaDescription', 'ar', e.target.value)} rows={6} dir="rtl"></textarea>
                 </div>
               </div>
             </div>
